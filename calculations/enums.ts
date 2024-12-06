@@ -42,15 +42,6 @@ export enum FactoriesEnum {
   SporePress = "SporePress",
   SurgeSmelter = "SurgeSmelter",
 
-  // Surpulo Unit Factory and Reconstructor
-  AdditiveReconstructor = "AdditiveReconstructor",
-  AirFactory = "AirFactory",
-  ExponentialReconstructor = "ExponentialReconstructor",
-  GroundFactory = "GroundFactory",
-  MultiplicativeReconstructor = "MultiplicativeReconstructor",
-  NavalFactory = "NavalFactory",
-  TetrativeReconstructor = "TetrativeReconstructor",
-
   // Erekir
   AtmosphericConcentrator = "AtmosphericConcentrator",
   CarbideCrucible = "CarbideCrucible",
@@ -68,18 +59,6 @@ export enum FactoriesEnum {
   HeatRouter = "HeatRouter",
   PhaseHeater = "PhaseHeater",
   SlagHeater = "SlagHeater",
-
-  // Erekir Unit Factory and Reconstructor
-  MechAssembler = "MechAssembler",
-  MechFabricator = "MechFabricator",
-  MechRefabricator = "MechRefabricator",
-  PrimeRefabricator = "PrimeRefabricator",
-  ShipAssembler = "ShipAssembler",
-  ShipFabricator = "ShipFabricator",
-  ShipRefabricator = "ShipRefabricator",
-  TankAssembler = "TankAssembler",
-  TankFabricator = "TankFabricator",
-  TankRefabricator = "TankRefabricator"
 }
 
 export enum ResourcesEnum {
@@ -118,6 +97,29 @@ export enum ResourcesEnum {
   Oxide = "Oxide",
   Ozone = "Ozone",
   Tungsten = "Tungsten"
+}
+
+export enum UnitFactoriesEnum {
+  // Surpulo
+  AdditiveReconstructor = "AdditiveReconstructor",
+  AirFactory = "AirFactory",
+  ExponentialReconstructor = "ExponentialReconstructor",
+  GroundFactory = "GroundFactory",
+  MultiplicativeReconstructor = "MultiplicativeReconstructor",
+  NavalFactory = "NavalFactory",
+  TetrativeReconstructor = "TetrativeReconstructor",
+
+  // Erekir
+  MechAssembler = "MechAssembler",
+  MechFabricator = "MechFabricator",
+  MechRefabricator = "MechRefabricator",
+  PrimeRefabricator = "PrimeRefabricator",
+  ShipAssembler = "ShipAssembler",
+  ShipFabricator = "ShipFabricator",
+  ShipRefabricator = "ShipRefabricator",
+  TankAssembler = "TankAssembler",
+  TankFabricator = "TankFabricator",
+  TankRefabricator = "TankRefabricator"
 }
 
 export enum UnitsEnum {

@@ -1,7 +1,8 @@
-import { ExtractorsEnum, FactoriesEnum, ResourcesEnum } from "@/calculations/enums"
+import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitFactoriesEnum, UnitsEnum } from "@/calculations/enums"
 
 type Data = {
   resources: Resources
+  units: Units
   factories: Factories
 }
 
@@ -9,8 +10,14 @@ type Resources = {
   [key in ResourcesEnum]: { key: (FactoriesEnum | ExtractorsEnum)[] }
 }
 
+type Units = {
+  [key in UnitsEnum]: {
+    key: UnitFactoriesEnum[]
+  }
+}
+
 type Factories = {
-  [key in FactoriesEnum]: {
+  [key in FactoriesEnum | ExtractorsEnum | UnitFactoriesEnum]: {
     input: {
       resources: ResourceInput[]
     },
@@ -272,62 +279,6 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.AdditiveReconstructor]: {
-      input: {
-        resources: []
-      },
-      output: {
-        resources: []
-      }
-    },
-    [FactoriesEnum.AirFactory]: {
-      input: {
-        resources: []
-      },
-      output: {
-        resources: []
-      }
-    },
-    [FactoriesEnum.ExponentialReconstructor]: {
-      input: {
-        resources: []
-      },
-      output: {
-        resources: []
-      }
-    },
-    [FactoriesEnum.GroundFactory]: {
-      input: {
-        resources: []
-      },
-      output: {
-        resources: []
-      }
-    },
-    [FactoriesEnum.MultiplicativeReconstructor]: {
-      input: {
-        resources: []
-      },
-      output: {
-        resources: []
-      }
-    },
-    [FactoriesEnum.NavalFactory]: {
-      input: {
-        resources: []
-      },
-      output: {
-        resources: []
-      }
-    },
-    [FactoriesEnum.TetrativeReconstructor]: {
-      input: {
-        resources: []
-      },
-      output: {
-        resources: []
-      }
-    },
     [FactoriesEnum.AtmosphericConcentrator]: {
       input: {
         resources: []
@@ -440,7 +391,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.MechAssembler]: {
+    [ExtractorsEnum.AirblastDrill]: {
       input: {
         resources: []
       },
@@ -448,7 +399,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.MechFabricator]: {
+    [ExtractorsEnum.CliffCrusher]: {
       input: {
         resources: []
       },
@@ -456,7 +407,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.MechRefabricator]: {
+    [ExtractorsEnum.ImpulsePump]: {
       input: {
         resources: []
       },
@@ -464,7 +415,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.PrimeRefabricator]: {
+    [ExtractorsEnum.LaserDrill]: {
       input: {
         resources: []
       },
@@ -472,7 +423,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.ShipAssembler]: {
+    [ExtractorsEnum.MechanicalDrill]: {
       input: {
         resources: []
       },
@@ -480,7 +431,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.ShipFabricator]: {
+    [ExtractorsEnum.MechanicalPump]: {
       input: {
         resources: []
       },
@@ -488,7 +439,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.ShipRefabricator]: {
+    [ExtractorsEnum.OilExtractor]: {
       input: {
         resources: []
       },
@@ -496,7 +447,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.TankAssembler]: {
+    [ExtractorsEnum.PneumaticDrill]: {
       input: {
         resources: []
       },
@@ -504,7 +455,7 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.TankFabricator]: {
+    [ExtractorsEnum.RotaryPump]: {
       input: {
         resources: []
       },
@@ -512,13 +463,371 @@ export const data: Data = {
         resources: []
       }
     },
-    [FactoriesEnum.TankRefabricator]: {
+    [ExtractorsEnum.TurbineCondenser]: {
       input: {
         resources: []
       },
       output: {
         resources: []
       }
+    },
+    [ExtractorsEnum.WaterExtractor]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [ExtractorsEnum.Cultivator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [ExtractorsEnum.EruptionDrill]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [ExtractorsEnum.ImpactDrill]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [ExtractorsEnum.LargePlasmaBore]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [ExtractorsEnum.PlasmaBore]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [ExtractorsEnum.ReinforcedPump]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [ExtractorsEnum.VentCondenser]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.AdditiveReconstructor]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.AirFactory]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.ExponentialReconstructor]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.GroundFactory]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.MultiplicativeReconstructor]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.NavalFactory]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.TetrativeReconstructor]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.MechAssembler]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.MechFabricator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.MechRefabricator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.PrimeRefabricator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.ShipAssembler]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.ShipFabricator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.ShipRefabricator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.TankAssembler]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.TankFabricator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    },
+    [UnitFactoriesEnum.TankRefabricator]: {
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      }
+    }
+  },
+  units: {
+    [UnitsEnum.Aegires]: {
+      key: []
+    },
+    [UnitsEnum.Antumbra]: {
+      key: []
+    },
+    [UnitsEnum.Arkyid]: {
+      key: []
+    },
+    [UnitsEnum.Atrax]: {
+      key: []
+    },
+    [UnitsEnum.Bryde]: {
+      key: []
+    },
+    [UnitsEnum.Corvus]: {
+      key: []
+    },
+    [UnitsEnum.Crawler]: {
+      key: []
+    },
+    [UnitsEnum.Cyerce]: {
+      key: []
+    },
+    [UnitsEnum.Dagger]: {
+      key: []
+    },
+    [UnitsEnum.Eclipse]: {
+      key: []
+    },
+    [UnitsEnum.Flare]: {
+      key: []
+    },
+    [UnitsEnum.Fortress]: {
+      key: []
+    },
+    [UnitsEnum.Horizon]: {
+      key: []
+    },
+    [UnitsEnum.Mace]: {
+      key: []
+    },
+    [UnitsEnum.Mega]: {
+      key: []
+    },
+    [UnitsEnum.Minke]: {
+      key: []
+    },
+    [UnitsEnum.Mono]: {
+      key: []
+    },
+    [UnitsEnum.Navanax]: {
+      key: []
+    },
+    [UnitsEnum.Nova]: {
+      key: []
+    },
+    [UnitsEnum.Oct]: {
+      key: []
+    },
+    [UnitsEnum.Omura]: {
+      key: []
+    },
+    [UnitsEnum.Poly]: {
+      key: []
+    },
+    [UnitsEnum.Pulsar]: {
+      key: []
+    },
+    [UnitsEnum.Quad]: {
+      key: []
+    },
+    [UnitsEnum.Quasar]: {
+      key: []
+    },
+    [UnitsEnum.Reign]: {
+      key: []
+    },
+    [UnitsEnum.Retusa]: {
+      key: []
+    },
+    [UnitsEnum.Risso]: {
+      key: []
+    },
+    [UnitsEnum.Scepter]: {
+      key: []
+    },
+    [UnitsEnum.Sei]: {
+      key: []
+    },
+    [UnitsEnum.Spiroct]: {
+      key: []
+    },
+    [UnitsEnum.Toxopid]: {
+      key: []
+    },
+    [UnitsEnum.Vela]: {
+      key: []
+    },
+    [UnitsEnum.Zenith]: {
+      key: []
+    },
+    [UnitsEnum.Anthicus]: {
+      key: []
+    },
+    [UnitsEnum.Avert]: {
+      key: []
+    },
+    [UnitsEnum.Cleroi]: {
+      key: []
+    },
+    [UnitsEnum.Collaris]: {
+      key: []
+    },
+    [UnitsEnum.Conquer]: {
+      key: []
+    },
+    [UnitsEnum.Disrupt]: {
+      key: []
+    },
+    [UnitsEnum.Elude]: {
+      key: []
+    },
+    [UnitsEnum.Emanate]: {
+      key: []
+    },
+    [UnitsEnum.Evoke]: {
+      key: []
+    },
+    [UnitsEnum.Incite]: {
+      key: []
+    },
+    [UnitsEnum.Locus]: {
+      key: []
+    },
+    [UnitsEnum.Merui]: {
+      key: []
+    },
+    [UnitsEnum.Obviate]: {
+      key: []
+    },
+    [UnitsEnum.Precept]: {
+      key: []
+    },
+    [UnitsEnum.Quell]: {
+      key: []
+    },
+    [UnitsEnum.Stell]: {
+      key: []
+    },
+    [UnitsEnum.Tecta]: {
+      key: []
+    },
+    [UnitsEnum.Vanquish]: {
+      key: []
     }
   }
 }

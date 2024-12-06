@@ -1,3 +1,3 @@
-export function FactoryCalculation(resourcesAndProduction: string, numberOfFactories: number) {
+export function FactoryCalculation(target: string, numberOfFactories: number) {
   //
 }
