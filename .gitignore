@@ -1,9 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/app
-/components
-/node_modules
+app
+components
+calculations/calculations.ts
+node_modules
 /.pnp
 .pnp.*
 .yarn/*
