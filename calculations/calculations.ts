@@ -1,3 +1,1 @@
-export function FactoryCalculation(resourcesAndProduction: string, numberOfFactories: number) {
-  //
-}
+// Coming soon
