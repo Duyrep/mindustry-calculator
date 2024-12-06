@@ -2,7 +2,7 @@
 
 # dependencies
 /app
-/calculations
+
 /components
 /node_modules
 /.pnp
