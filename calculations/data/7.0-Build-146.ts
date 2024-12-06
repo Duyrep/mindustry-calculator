@@ -18,6 +18,7 @@ type Units = {
 
 type Factories = {
   [key in FactoriesEnum | ExtractorsEnum | UnitFactoriesEnum]: {
+    power: number
     input: {
       resources: ResourceInput[]
     },
@@ -130,6 +131,7 @@ export const data: Data = {
 
   factories: {
     [FactoriesEnum.BlastMixer]: {
+      power: 24,
       input: {
         resources: [
           {
@@ -152,6 +154,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.CoalCentrifuge]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -160,6 +163,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.CryofluidMixer]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -168,6 +172,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Disassembler]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -176,6 +181,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.GraphitePress]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -184,6 +190,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Kiln]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -192,6 +199,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Melter]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -200,6 +208,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.MultiPress]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -208,6 +217,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.PhaseWeaver]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -216,6 +226,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.PlastaniumCompressor]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -224,6 +235,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Pulverizer]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -232,6 +244,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.PyratiteMixer]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -240,6 +253,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Separator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -248,6 +262,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SiliconCrucible]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -256,6 +271,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SiliconSmelter]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -264,6 +280,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SporePress]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -272,6 +289,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SurgeSmelter]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -280,6 +298,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.AtmosphericConcentrator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -288,6 +307,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.CarbideCrucible]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -296,6 +316,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.CyanogenSynthesizer]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -304,6 +325,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Electrolyzer]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -312,6 +334,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.OxidationChamber]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -320,6 +343,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.PhaseSynthesizer]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -328,6 +352,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SiliconArcFurnace]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -336,6 +361,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SlagIncinerator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -344,6 +370,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SurgeCrucible]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -352,6 +379,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.ElectricHeater]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -360,6 +388,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.HeatRedirector]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -368,6 +397,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.HeatRouter]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -376,6 +406,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.PhaseHeater]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -384,6 +415,7 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SlagHeater]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -392,6 +424,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.AirblastDrill]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -400,6 +433,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.CliffCrusher]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -408,6 +442,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.ImpulsePump]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -416,6 +451,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.LaserDrill]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -424,6 +460,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.MechanicalDrill]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -432,6 +469,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.MechanicalPump]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -440,6 +478,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.OilExtractor]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -448,6 +487,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.PneumaticDrill]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -456,6 +496,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.RotaryPump]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -464,6 +505,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.TurbineCondenser]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -472,6 +514,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.WaterExtractor]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -480,6 +523,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.Cultivator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -488,6 +532,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.EruptionDrill]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -496,6 +541,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.ImpactDrill]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -504,6 +550,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.LargePlasmaBore]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -512,6 +559,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.PlasmaBore]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -520,6 +568,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.ReinforcedPump]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -528,6 +577,7 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.VentCondenser]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -536,6 +586,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.AdditiveReconstructor]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -544,6 +595,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.AirFactory]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -552,6 +604,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.ExponentialReconstructor]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -560,6 +613,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.GroundFactory]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -568,6 +622,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.MultiplicativeReconstructor]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -576,6 +631,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.NavalFactory]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -584,6 +640,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.TetrativeReconstructor]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -592,6 +649,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.MechAssembler]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -600,6 +658,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.MechFabricator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -608,6 +667,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.MechRefabricator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -616,6 +676,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.PrimeRefabricator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -624,6 +685,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.ShipAssembler]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -632,6 +694,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.ShipFabricator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -640,6 +703,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.ShipRefabricator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -648,6 +712,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.TankAssembler]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -656,6 +721,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.TankFabricator]: {
+      power: 0,
       input: {
         resources: []
       },
@@ -664,6 +730,7 @@ export const data: Data = {
       }
     },
     [UnitFactoriesEnum.TankRefabricator]: {
+      power: 0,
       input: {
         resources: []
       },
