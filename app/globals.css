@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: 0 0% 0%;
+  --background: 240 10% 100%;
+  --border: 0 0% 85%;
+  --brand: 240 50% 60%;
+  --secondary: 222 0% 85%;
+}
+
+.dark {
+  --foreground: 0 0% 100%;
+  --background: 240 10% 4%;
+  --border: 12 6.5% 25.1%;
+  --brand: 160 84.1% 39.4%;
+  --secondary: 222 0% 15%;
+}
+
+@layer utilities {
+  .bg-brand {
+    background-color: hsl(var(--brand));
+  }
+
+  .border-border {
+    border-color: hsl(var(--border));
+  }
+
+  .bg-background {
+    background-color: hsl(var(--background));
+  }
+
+  .bg-secondary {
+    background-color: hsl(var(--secondary));
+  }
+
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
+}
+
+hr {
+  margin: 0 0.5rem 0 0.5rem;
+  border-width: 2px;
+  border-color: rgb(75, 85, 99);
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-white bg-opacity-20 bg-clip-padding;
+}
+
+*::-webkit-scrollbar {
+  @apply size-2;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-white bg-clip-padding;
+}
+
+*::-webkit-scrollbar-button {
+  @apply hidden;
+}
