@@ -2,7 +2,6 @@
 
 # dependencies
 /calculations/calculations.ts
-/components
 /node_modules
 /.pnp
 .pnp.*
