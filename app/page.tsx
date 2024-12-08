@@ -9,7 +9,6 @@ import {
   ExtractorsEnum,
   FactoriesEnum,
   ResourcesEnum,
-  UnitFactoriesEnum,
   UnitsEnum,
 } from "@/calculations/enums";
 import Target from "@/components/Target";
@@ -61,7 +60,7 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(ResourcesEnum).map((valuei, indexi) => (
+                {Object.keys(ResourcesEnum).map((valuei) => (
                   <tr key={valuei} className="border border-border">
                     <td>
                       <img
@@ -72,7 +71,7 @@ export default function Home() {
                     </td>
                     {(getFactoriesByProduct(
                       valuei as ResourcesEnum
-                    ) as (FactoriesEnum | ExtractorsEnum)[]).map((valuej, indexj) => (
+                    ) as (FactoriesEnum | ExtractorsEnum)[]).map((valuej) => (
                       <td key={valuej}>
                         <img
                           className={`w-12 h-12 p-1 rounded-md ${
