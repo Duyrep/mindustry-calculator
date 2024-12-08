@@ -1,4 +1,4 @@
-import { ResourcesEnum, UnitsEnum } from "@/enums";
+import { ResourcesEnum, UnitsEnum } from "@/calculations/enums";
 import React, {
   Dispatch,
   SetStateAction,

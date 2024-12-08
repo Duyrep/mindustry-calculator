@@ -1,6 +1,6 @@
 "use client";
 
-import { ResourcesEnum, UnitsEnum } from "@/enums";
+import { ResourcesEnum, UnitsEnum } from "@/calculations/enums";
 import Target from "@/components/Target";
 import { useState } from "react";
 
