@@ -53,7 +53,7 @@ export default function Target({
   };
 
   const renderItems = (
-    enumObject: any,
+    enumObject: { [key: string]: string | number },
     sliceStart: number,
     sliceEnd: number
   ) => {
