@@ -1,6 +1,6 @@
 "use client";
 
-import { ResourcesEnum, UnitsEnum } from "@/calculations/enums";
+import { ResourcesEnum, UnitsEnum } from "@/enums";
 import Target from "@/components/Target";
 import { useState } from "react";
 
@@ -9,7 +9,7 @@ export default function Home() {
     ResourcesEnum.Silicon,
   ]);
 
-  
+
 
   return (
     <div>
