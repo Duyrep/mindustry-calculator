@@ -62,41 +62,40 @@ export enum FactoriesEnum {
 }
 
 export enum ResourcesEnum {
-  // All
+  // Items
   Graphite = "Graphite",
   Sand = "Sand",
   Silicon = "Silicon",
   PhaseFabric = "PhaseFabric",
   SurgeAlloy = "SurgeAlloy",
   Thorium = "Thorium",
-  Slag = "Slag",
-
-  // Surpulo
   BlastCompound = "BlastCompound",
   Coal = "Coal",
   Copper = "Copper",
-  Cryofluid = "Cryofluid",
   Lead = "Lead",
   Metaglass = "Metaglass",
-  Oil = "Oil",
   Plastanium = "Plastanium",
   Pyratite = "Pyratite",
   Scrap = "Scrap",
   SporePod = "SporePod",
   Titanium = "Titanium",
-  Water = "Water",
 
-  // Erekir
-  Arkycite = "Arkycite",
   Beryllium = "Beryllium",
   Carbide = "Carbide",
+  Oxide = "Oxide",
+  Tungsten = "Tungsten",
+
+  // Liquids
+  Arkycite = "Arkycite",
+  Cryofluid = "Cryofluid",
   Cyanogen = "Cyanogen",
   Hydrogen = "Hydrogen",
   Neoplasm = "Neoplasm",
   Nitrogen = "Nitrogen",
-  Oxide = "Oxide",
+  Oil = "Oil",
   Ozone = "Ozone",
-  Tungsten = "Tungsten"
+  Slag = "Slag",
+  Water = "Water"
 }
 
 export enum UnitFactoriesEnum {

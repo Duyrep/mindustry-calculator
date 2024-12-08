@@ -63,7 +63,7 @@ export default function Target({
         <img
           className={`${
             (value as ResourcesEnum | UnitsEnum) == product && "bg-brand"
-          } cursor-pointer  rounded-md p-1 w-12 h-12 transition hover:bg-brand duration-300`}
+          } cursor-pointer rounded-md p-1 w-12 h-12 transition hover:bg-brand duration-300`}
           key={idx}
           src={`/assets/sprites/${value}.webp`}
           alt={value}
@@ -127,15 +127,15 @@ export default function Target({
               width="2rem"
               height="2rem"
               viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide"
               transform="rotate(45 0 0)"
             >
-              <path
-                d="M4 12H20M12 4V20"
-                stroke="#fff"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path d="M4 12H20M12 4V20" />
             </svg>
           </button>
         </div>
@@ -166,7 +166,7 @@ export default function Target({
       {showDropdown && (
         <div
           ref={dropdown}
-          className={`absolute ml-10 h-80 bg-background border-2 border-border rounded-md overflow-auto transition-all duration-150 ease-in-out transform ${
+          className={`absolute ml-10 p-2 h-80 bg-background border-2 border-border rounded-md overflow-auto transition-all duration-150 ease-in-out transform ${
             exiting
               ? "opacity-0 scale-95"
               : mounted
@@ -175,12 +175,22 @@ export default function Target({
           }`}
         >
           <div className="w-72">
-            {[30].map((start, idx) => (
+            <span className="mx-2 text-lg">Items</span>
+            <hr className="border-2 bg-border mx-2"/>
+            {[0, 20].map((start, idx) => (
               <div className="flex flex-wrap" key={idx}>
                 {renderItems(ResourcesEnum, 0, start)}
               </div>
             ))}
-            <hr />
+            <span className="mx-2 text-lg">Liquids</span>
+            <hr className="border-2 bg-border mx-2"/>
+            {[30].map((start, idx) => (
+              <div className="flex flex-wrap" key={idx}>
+                {renderItems(ResourcesEnum, 20, start)}
+              </div>
+            ))}
+            <span className="mx-2 text-lg">Units</span>
+            <hr className="border-2 bg-border mx-2"/>
             {[0, 5, 10, 15, 20, 25, 30, 35].map((start, idx) => (
               <div className="flex flex-wrap" key={idx}>
                 {renderItems(UnitsEnum, start, start + 5)}

@@ -12,7 +12,7 @@ type Resources = {
 
 type Units = {
   [key in UnitsEnum]: {
-    key: UnitFactoriesEnum[]
+    key: UnitFactoriesEnum
   }
 }
 
@@ -42,7 +42,11 @@ export const data: Data = {
       key: []
     },
     [ResourcesEnum.Silicon]: {
-      key: []
+      key: [
+        FactoriesEnum.SiliconSmelter,
+        FactoriesEnum.SiliconCrucible,
+        FactoriesEnum.SiliconArcFurnace
+      ]
     },
     [ResourcesEnum.PhaseFabric]: {
       key: []
@@ -126,6 +130,159 @@ export const data: Data = {
     },
     [ResourcesEnum.Tungsten]: {
       key: []
+    }
+  },
+
+  units: {
+    [UnitsEnum.Dagger]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Mace]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Fortress]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Scepter]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Reign]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Nova]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Pulsar]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Quasar]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Vela]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Corvus]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Crawler]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Atrax]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Spiroct]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Arkyid]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Toxopid]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Flare]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Horizon]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Zenith]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Antumbra]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Eclipse]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Mono]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Poly]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Mega]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Quad]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Oct]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Risso]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Minke]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Bryde]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Sei]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Omura]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Retusa]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Oxynoe]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Aegires]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Cyerce]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Navanax]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Stell]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Locus]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Precept]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Vanquish]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Conquer]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Merui]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Cleroi]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Anthicus]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Tecta]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Collaris]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Elude]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Avert]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Obviate]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Quell]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
+    },
+    [UnitsEnum.Disrupt]: {
+      key: UnitFactoriesEnum.AdditiveReconstructor
     }
   },
 
@@ -271,12 +428,26 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SiliconSmelter]: {
-      power: 0,
+      power: 30,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 3
+          },
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 1.5
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Silicon,
+            perSecond: 1.5
+          }
+        ]
       }
     },
     [FactoriesEnum.SporePress]: {
@@ -739,156 +910,4 @@ export const data: Data = {
       }
     }
   },
-  units: {
-    [UnitsEnum.Aegires]: {
-      key: []
-    },
-    [UnitsEnum.Antumbra]: {
-      key: []
-    },
-    [UnitsEnum.Arkyid]: {
-      key: []
-    },
-    [UnitsEnum.Atrax]: {
-      key: []
-    },
-    [UnitsEnum.Bryde]: {
-      key: []
-    },
-    [UnitsEnum.Corvus]: {
-      key: []
-    },
-    [UnitsEnum.Crawler]: {
-      key: []
-    },
-    [UnitsEnum.Cyerce]: {
-      key: []
-    },
-    [UnitsEnum.Dagger]: {
-      key: []
-    },
-    [UnitsEnum.Eclipse]: {
-      key: []
-    },
-    [UnitsEnum.Flare]: {
-      key: []
-    },
-    [UnitsEnum.Fortress]: {
-      key: []
-    },
-    [UnitsEnum.Horizon]: {
-      key: []
-    },
-    [UnitsEnum.Mace]: {
-      key: []
-    },
-    [UnitsEnum.Mega]: {
-      key: []
-    },
-    [UnitsEnum.Minke]: {
-      key: []
-    },
-    [UnitsEnum.Mono]: {
-      key: []
-    },
-    [UnitsEnum.Navanax]: {
-      key: []
-    },
-    [UnitsEnum.Nova]: {
-      key: []
-    },
-    [UnitsEnum.Oct]: {
-      key: []
-    },
-    [UnitsEnum.Omura]: {
-      key: []
-    },
-    [UnitsEnum.Poly]: {
-      key: []
-    },
-    [UnitsEnum.Pulsar]: {
-      key: []
-    },
-    [UnitsEnum.Quad]: {
-      key: []
-    },
-    [UnitsEnum.Quasar]: {
-      key: []
-    },
-    [UnitsEnum.Reign]: {
-      key: []
-    },
-    [UnitsEnum.Retusa]: {
-      key: []
-    },
-    [UnitsEnum.Risso]: {
-      key: []
-    },
-    [UnitsEnum.Scepter]: {
-      key: []
-    },
-    [UnitsEnum.Sei]: {
-      key: []
-    },
-    [UnitsEnum.Spiroct]: {
-      key: []
-    },
-    [UnitsEnum.Toxopid]: {
-      key: []
-    },
-    [UnitsEnum.Vela]: {
-      key: []
-    },
-    [UnitsEnum.Zenith]: {
-      key: []
-    },
-    [UnitsEnum.Anthicus]: {
-      key: []
-    },
-    [UnitsEnum.Avert]: {
-      key: []
-    },
-    [UnitsEnum.Cleroi]: {
-      key: []
-    },
-    [UnitsEnum.Collaris]: {
-      key: []
-    },
-    [UnitsEnum.Conquer]: {
-      key: []
-    },
-    [UnitsEnum.Disrupt]: {
-      key: []
-    },
-    [UnitsEnum.Elude]: {
-      key: []
-    },
-    [UnitsEnum.Locus]: {
-      key: []
-    },
-    [UnitsEnum.Merui]: {
-      key: []
-    },
-    [UnitsEnum.Obviate]: {
-      key: []
-    },
-    [UnitsEnum.Precept]: {
-      key: []
-    },
-    [UnitsEnum.Quell]: {
-      key: []
-    },
-    [UnitsEnum.Stell]: {
-      key: []
-    },
-    [UnitsEnum.Tecta]: {
-      key: []
-    },
-    [UnitsEnum.Vanquish]: {
-      key: []
-    },
-    [UnitsEnum.Oxynoe]: {
-      key: []
-    }
-  }
 }

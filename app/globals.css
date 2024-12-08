@@ -8,6 +8,7 @@
   --border: 0 0% 85%;
   --brand: 240 50% 60%;
   --secondary: 222 0% 85%;
+  --border: 0 0% 85%;
 }
 
 .dark {
@@ -16,6 +17,7 @@
   --border: 12 6.5% 25.1%;
   --brand: 160 84.1% 39.4%;
   --secondary: 222 0% 15%;
+  --border: 12 6.5% 25.1%;
 }
 
 @layer utilities {
@@ -35,15 +37,13 @@
     background-color: hsl(var(--secondary));
   }
 
+  .bg-border {
+    border-color: hsl(var(--border));
+  }
+
   .text-foreground {
     color: hsl(var(--foreground));
   }
-}
-
-hr {
-  margin: 0 0.5rem 0 0.5rem;
-  border-width: 2px;
-  border-color: rgb(75, 85, 99);
 }
 
 *::-webkit-scrollbar-track {
