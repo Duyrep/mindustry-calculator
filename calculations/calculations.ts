@@ -38,7 +38,6 @@ export function getDefaultSettings() {
   return settings;
 }
 
-
 export default function renderChart(options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
   const div = select("#graph-container");
