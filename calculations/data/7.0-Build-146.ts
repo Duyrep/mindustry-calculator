@@ -39,7 +39,14 @@ export const data: Data = {
       key: []
     },
     [ResourcesEnum.Sand]: {
-      key: []
+      key: [
+        ExtractorsEnum.MechanicalDrill,
+        ExtractorsEnum.PneumaticDrill,
+        ExtractorsEnum.LaserDrill,
+        ExtractorsEnum.AirblastDrill,
+        FactoriesEnum.Pulverizer,
+        FactoriesEnum.Disassembler
+      ]
     },
     [ResourcesEnum.Silicon]: {
       key: [
@@ -66,10 +73,22 @@ export const data: Data = {
       ]
     },
     [ResourcesEnum.Coal]: {
-      key: []
+      key: [
+        ExtractorsEnum.MechanicalDrill,
+        ExtractorsEnum.PneumaticDrill,
+        ExtractorsEnum.LaserDrill,
+        ExtractorsEnum.AirblastDrill,
+        FactoriesEnum.CoalCentrifuge
+      ]
     },
     [ResourcesEnum.Copper]: {
-      key: []
+      key: [
+        ExtractorsEnum.MechanicalDrill,
+        ExtractorsEnum.PneumaticDrill,
+        ExtractorsEnum.LaserDrill,
+        ExtractorsEnum.AirblastDrill,
+        FactoriesEnum.Separator
+      ]
     },
     [ResourcesEnum.Cryofluid]: {
       key: []

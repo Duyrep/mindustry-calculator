@@ -1,4 +1,5 @@
 import { ResourcesEnum, UnitsEnum } from "@/calculations/enums";
+import Image from "next/image";
 import React, {
   Dispatch,
   SetStateAction,
@@ -60,7 +61,9 @@ export default function Target({
     return Object.keys(enumObject)
       .slice(sliceStart, sliceEnd)
       .map((value, idx) => (
-        <img
+        <Image
+          width={48}
+          height={48}
           className={`${
             (value as ResourcesEnum | UnitsEnum) == product && "bg-brand"
           } cursor-pointer rounded-md p-1 w-12 h-12 transition hover:bg-brand duration-300`}
@@ -139,7 +142,9 @@ export default function Target({
             </svg>
           </button>
         </div>
-        <img
+        <Image
+          width={48}
+          height={48}
           className={`cursor-pointer border-2 border-border rounded-md p-1 h-12 w-12 ${
             showDropdown && "bg-brand"
           } duration-150`}
@@ -176,21 +181,21 @@ export default function Target({
         >
           <div className="w-72">
             <span className="mx-2 text-lg">Items</span>
-            <hr className="border-2 bg-border mx-2"/>
+            <hr className="border-2 bg-border mx-2" />
             {[0, 20].map((start, idx) => (
               <div className="flex flex-wrap" key={idx}>
                 {renderItems(ResourcesEnum, 0, start)}
               </div>
             ))}
             <span className="mx-2 text-lg">Liquids</span>
-            <hr className="border-2 bg-border mx-2"/>
+            <hr className="border-2 bg-border mx-2" />
             {[30].map((start, idx) => (
               <div className="flex flex-wrap" key={idx}>
                 {renderItems(ResourcesEnum, 20, start)}
               </div>
             ))}
             <span className="mx-2 text-lg">Units</span>
-            <hr className="border-2 bg-border mx-2"/>
+            <hr className="border-2 bg-border mx-2" />
             {[0, 5, 10, 15, 20, 25, 30, 35].map((start, idx) => (
               <div className="flex flex-wrap" key={idx}>
                 {renderItems(UnitsEnum, start, start + 5)}

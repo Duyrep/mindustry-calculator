@@ -12,7 +12,8 @@ import {
   UnitsEnum,
 } from "@/calculations/enums";
 import Target from "@/components/Target";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const [targets, setTargets] = useState<(ResourcesEnum | UnitsEnum)[]>([
@@ -20,15 +21,37 @@ export default function Home() {
   ]);
   const [showSettings, setShowSettings] = useState(false);
   const [settings, setSettings] = useState(getDefaultSettings());
+  const settingTable = useRef<HTMLDivElement | null>(null);
+  const settingToggleButton = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     factoryCalculation(ResourcesEnum.Silicon, 1, settings);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseDown = (event: MouseEvent) => {
+      if (settingTable.current && settingToggleButton.current) {
+        if (
+          !settingTable.current.contains(event.target as Node) &&
+          !settingToggleButton.current.contains(event.target as Node)
+        ) {
+          setShowSettings(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleMouseDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+    };
   }, []);
 
   return (
     <div>
       <div className="flex flex-warp content-center mb-2">
         <button
+          ref={settingToggleButton}
           className={`my-2 rounded-md ${
             showSettings ? "bg-brand" : "bg-secondary"
           }`}
@@ -36,8 +59,8 @@ export default function Home() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="1.75rem"
-            height="1.75rem"
+            width="2rem"
+            height="2rem"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -51,30 +74,87 @@ export default function Home() {
           </svg>
         </button>
         {showSettings && (
-          <div className="absolute p-2 overflow-auto ml-10 border border-border rounded-md bg-background h-80">
+          <div
+            ref={settingTable}
+            className="absolute p-2 overflow-auto ml-10 border border-border rounded-md bg-background w-72 h-80"
+          >
             <table>
               <thead>
-                <tr className="border border-border py-1">
+                <tr className="border border-border rounded-t-md py-1">
                   <th>Product</th>
-                  <th colSpan={10}>Factory</th>
+                  <th colSpan={1}>Factory</th>
                 </tr>
               </thead>
               <tbody>
+                <tr className="border border-border">
+                  <td className="text-center">All</td>
+                  <td className="flex flex-wrap">
+                    {[
+                      "MechanicalDrill",
+                      "PneumaticDrill",
+                      "LaserDrill",
+                      "AirblastDrill",
+                    ].map((value) => (
+                      <Image
+                        className="p-1"
+                        key={value}
+                        src={`/assets/sprites/${value}.webp`}
+                        width={48}
+                        height={48}
+                        alt=""
+                        // onClick={() =>
+                        //   setSettings((prev) => {
+                        //     for (const key in prev) {
+                        //       if (
+                        //         ([
+                        //           "MechanicalDrill",
+                        //           "PneumaticDrill",
+                        //           "LaserDrill",
+                        //           "AirblastDrill",
+                        //         ] as ExtractorsEnum[]).includes(
+                        //           prev[key as ResourcesEnum]
+                        //             .key as ExtractorsEnum
+                        //         )
+                        //       ) {
+                        //         prev[key as ResourcesEnum].key = value as ExtractorsEnum
+                        //         console.log(key, prev[key as ResourcesEnum])
+                        //         console.log(settings)
+                        //       }
+                        //     }
+                        //     return prev;
+                        //   })
+                        // }
+                      />
+                    ))}
+                  </td>
+                </tr>
                 {Object.keys(ResourcesEnum).map((valuei) => (
-                  <tr key={valuei} className="border border-border">
+                  <tr
+                    key={valuei}
+                    className="border border-border overflow-x-scroll"
+                  >
                     <td>
-                      <img
+                      <Image
+                        width={48}
+                        height={48}
                         className="w-12 h-12 p-1"
                         src={`/assets/sprites/${valuei}.webp`}
                         alt={valuei}
+                        title={valuei}
                       />
                     </td>
-                    {(getFactoriesByProduct(
-                      valuei as ResourcesEnum
-                    ) as (FactoriesEnum | ExtractorsEnum)[]).map((valuej) => (
-                      <td key={valuej}>
-                        <img
-                          className={`w-12 h-12 p-1 rounded-md ${
+                    <td className="flex flex-wrap my-2">
+                      {(
+                        getFactoriesByProduct(valuei as ResourcesEnum) as (
+                          | FactoriesEnum
+                          | ExtractorsEnum
+                        )[]
+                      ).map((valuej) => (
+                        <Image
+                          key={valuej}
+                          width={48}
+                          height={48}
+                          className={`p-1 rounded-md ${
                             valuej == settings[valuei as ResourcesEnum].key
                               ? "bg-brand"
                               : "cursor-pointer"
@@ -84,12 +164,13 @@ export default function Home() {
                           onClick={() =>
                             setSettings((prev) => ({
                               ...prev,
-                              [valuei as ResourcesEnum]: {key: valuej},
+                              [valuei as ResourcesEnum]: { key: valuej },
                             }))
                           }
+                          title={valuej}
                         />
-                      </td>
-                    ))}
+                      ))}
+                    </td>
                   </tr>
                 ))}
               </tbody>
