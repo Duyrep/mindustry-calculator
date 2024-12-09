@@ -29,7 +29,7 @@ export default function Home() {
 
   useEffect(() => {
     factoryCalculation(ResourcesEnum.Silicon, 1, settings);
-    let option: GraphvizOptions = {"zoom": !/mobile|android|touch|webos/i.test(navigator.userAgent.toLowerCase())}
+    const option: GraphvizOptions = {"zoom": !/mobile|android|touch|webos/i.test(navigator.userAgent.toLowerCase())}
     console.log(option)
 
     const handleMouseDown = (event: MouseEvent) => {
@@ -51,7 +51,7 @@ export default function Home() {
       document.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("resize", resizeChart);
     };
-  }, []);
+  }, [settings]);
 
   return (
     <div>
