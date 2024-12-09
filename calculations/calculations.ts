@@ -1,7 +1,7 @@
 import { BaseType, select, Selection } from "d3";
 import { data } from "./data/7.0-Build-146";
-import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitFactoriesEnum, UnitsEnum } from "./enums";
-import { graphviz } from "d3-graphviz";
+import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitsEnum } from "./enums";
+import { graphviz, GraphvizOptions } from "d3-graphviz";
 
 type Settings = {
   [key in ResourcesEnum]: { key: FactoriesEnum | ExtractorsEnum }
@@ -122,7 +122,7 @@ export function getDefaultSettings() {
   return settings;
 }
 
-export default function renderChart(settings: Settings) {
+export default function renderChart(options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
   const div = select("#graph-container");
 
@@ -131,8 +131,7 @@ export default function renderChart(settings: Settings) {
       const node = select(this);
       const polygon = node.select("polygon");
       const points = getPolygonPoints(polygon);
-      
-      console.log(color)
+
       node.append("rect")
         .attr("x", points[1][0])
         .attr("y", points[1][1])
@@ -169,7 +168,7 @@ export default function renderChart(settings: Settings) {
     return Math.max(...points.map(point => point[1])) - Math.min(...points.map(point => point[1]));
   };
 
-  graphviz(div.node()).renderDot(`digraph {node [shape=rect]; a->b}`, () => {
+  graphviz(div.node(), options).renderDot(`digraph {node [shape=rect]; a->b}`, () => {
     let svg = div.select("svg");
 
     svg.select("polygon").remove();

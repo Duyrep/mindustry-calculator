@@ -16,6 +16,7 @@ import renderChart from "@/calculations/calculations";
 import Target from "@/components/Target";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { GraphvizOptions } from "d3-graphviz";
 
 export default function Home() {
   const [targets, setTargets] = useState<(ResourcesEnum | UnitsEnum)[]>([
@@ -28,6 +29,8 @@ export default function Home() {
 
   useEffect(() => {
     factoryCalculation(ResourcesEnum.Silicon, 1, settings);
+    let option: GraphvizOptions = {"zoom": !/mobile|android|touch|webos/i.test(navigator.userAgent.toLowerCase())}
+    console.log(option)
 
     const handleMouseDown = (event: MouseEvent) => {
       if (settingTable.current && settingToggleButton.current) {
@@ -40,7 +43,7 @@ export default function Home() {
       }
     };
 
-    renderChart(settings)
+    renderChart(option, settings)
     document.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("resize", resizeChart);
 
