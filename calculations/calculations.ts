@@ -26,101 +26,18 @@ export function getFactoriesByProduct(product: ResourcesEnum | UnitsEnum) {
 
 
 export function getDefaultSettings() {
-  let settings: Settings = {
-    [ResourcesEnum.Graphite]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Sand]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Silicon]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.PhaseFabric]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.SurgeAlloy]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Thorium]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.BlastCompound]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Coal]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Copper]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Lead]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Metaglass]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Plastanium]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Pyratite]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Scrap]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.SporePod]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Titanium]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Beryllium]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Carbide]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Oxide]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Tungsten]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Arkycite]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Cryofluid]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Cyanogen]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Hydrogen]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Neoplasm]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Nitrogen]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Oil]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Ozone]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Slag]: {
-      key: FactoriesEnum.BlastMixer
-    },
-    [ResourcesEnum.Water]: {
-      key: FactoriesEnum.BlastMixer
-    }
-  }
-  Object.keys(data.resources).map((value) => settings[value as ResourcesEnum].key = data.resources[value as ResourcesEnum].key[0]);
+  let settings: Settings = Object.values(ResourcesEnum).reduce((acc, resource) => {
+    acc[resource] = { key: FactoriesEnum.BlastMixer };
+    return acc;
+  }, {} as Settings);
+
+  Object.keys(data.resources).forEach((value) => {
+    settings[value as ResourcesEnum].key = data.resources[value as ResourcesEnum].key[0];
+  });
+
   return settings;
 }
+
 
 export default function renderChart(options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
