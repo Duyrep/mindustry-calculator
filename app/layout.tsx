@@ -14,6 +14,7 @@ export default function RootLayout({
     </head>
     <body className="w-full h-full p-2">
       {children}
+      Website made by Duyrep
     </body>
     </html>
   );
