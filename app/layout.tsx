@@ -15,6 +15,10 @@ export default function RootLayout({
     <body className="w-full h-full p-2">
       {children}
       Website made by Duyrep
+      <br />
+      The site is in development
+      <br />
+      Latest Updates: 12/9/2024
     </body>
     </html>
   );

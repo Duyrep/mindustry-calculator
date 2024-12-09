@@ -4,6 +4,7 @@ import {
   factoryCalculation,
   getDefaultSettings,
   getFactoriesByProduct,
+  resizeChart,
 } from "@/calculations/calculations";
 import {
   ExtractorsEnum,
@@ -11,6 +12,7 @@ import {
   ResourcesEnum,
   UnitsEnum,
 } from "@/calculations/enums";
+import renderChart from "@/calculations/calculations";
 import Target from "@/components/Target";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -26,9 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     factoryCalculation(ResourcesEnum.Silicon, 1, settings);
-  }, []);
 
-  useEffect(() => {
     const handleMouseDown = (event: MouseEvent) => {
       if (settingTable.current && settingToggleButton.current) {
         if (
@@ -40,10 +40,13 @@ export default function Home() {
       }
     };
 
+    renderChart(settings)
     document.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("resize", resizeChart);
 
     return () => {
       document.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("resize", resizeChart);
     };
   }, []);
 
@@ -86,7 +89,7 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="border border-border">
+                {/* <tr className="border border-border">
                   <td className="text-center">All</td>
                   <td className="flex flex-wrap">
                     {[
@@ -127,7 +130,7 @@ export default function Home() {
                       />
                     ))}
                   </td>
-                </tr>
+                </tr> */}
                 {Object.keys(ResourcesEnum).map((valuei) => (
                   <tr
                     key={valuei}
