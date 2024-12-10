@@ -1,4 +1,4 @@
-import { BaseType, select, Selection, text } from "d3";
+import { BaseType, select, Selection, text, zoom } from "d3";
 import { data } from "./data/7.0-Build-146";
 import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitsEnum } from "./enums";
 import { graphviz, GraphvizOptions } from "d3-graphviz";
@@ -33,8 +33,6 @@ export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFact
     return { "Output": ["Error"] }
   }
 
-
-  console.log(result)
   return result
 }
 
@@ -66,8 +64,9 @@ export function getDefaultSettings() {
 
 export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
-  const div = select("#graph-container");
-  div.select("svg").select("g").remove()
+  select("#graph-container").selectAll("*").remove()
+  select("#graph-container").append("div").attr("id", "graph")
+  const div = select("#graph");
 
   const renderNodes = () => {
     div.selectAll(".node").each(function () {
@@ -113,7 +112,8 @@ export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], opti
 
   const textDot = [
     `digraph {`,
-    `node[shape=rect];`
+    `node[shape=rect];`,
+    "Output"
   ]
 
   targets.forEach((target) => {
@@ -127,7 +127,7 @@ export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], opti
 
   textDot.push("}")
 
-  console.log(textDot.join("\n"))
+  console.log(textDot.join("\n  "))
 
   graphviz(div.node(), options).renderDot(textDot.join(""), () => {
     let svg = div.select("svg");
@@ -138,23 +138,9 @@ export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], opti
     renderNodes();
     renderEdges();
 
-    svg.attr("class", isMobile() ? "border-2 border-border transition-all duration-100" : "w-full h-screen border-2 border-border transition-all duration-100");
+    svg.attr("class", "border-2 border-border");
     svg.attr("width", null).attr("height", null);
   });
-}
-
-export function resizeChart() {
-  let div = select("#graph-container");
-  let svg = div.select("svg");
-  svg
-    .attr("width", (div.node() as HTMLDivElement).getBoundingClientRect().width)
-    .attr("height", (div.node() as HTMLDivElement).getBoundingClientRect().height)
-}
-
-function isMobile() {
-  return /mobile|android|touch|webos/i.test(
-    navigator.userAgent.toLowerCase()
-  )
 }
 
 function getCurrentFactoryForProduct(product: ResourcesEnum | UnitsEnum, settings: Settings) {

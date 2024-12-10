@@ -24,14 +24,25 @@ export default function Home() {
   const [settings, setSettings] = useState(getDefaultSettings());
   const settingTable = useRef<HTMLDivElement | null>(null);
   const settingToggleButton = useRef<HTMLButtonElement | null>(null);
+  const isMobile = (): boolean => {
+    if (typeof navigator !== "undefined") {
+      return /mobile|android|touch|webos/i.test(
+        navigator.userAgent.toLowerCase()
+      );
+    } else {
+      return false
+    }
+  };
+  const option: GraphvizOptions = {
+    zoom: !isMobile(),
+    useWorker: false,
+    growEnteringEdges: false,
+    tweenShapes: false,
+    tweenPaths: false,
+    zoomScaleExtent: [0.5, 2],
+  };
 
   useEffect(() => {
-    const option: GraphvizOptions = {
-      zoom: !/mobile|android|touch|webos/i.test(
-        navigator.userAgent.toLowerCase()
-      ),
-    };
-
     const handleMouseDown = (event: MouseEvent) => {
       if (settingTable.current && settingToggleButton.current) {
         if (
@@ -52,14 +63,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const option: GraphvizOptions = {
-      zoom: !/mobile|android|touch|webos/i.test(
-        navigator.userAgent.toLowerCase()
-      ),
-    };
-
     renderChart(targets, option, settings);
-  }, [targets, settings])
+  }, [targets, settings]);
 
   return (
     <div>
