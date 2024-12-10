@@ -152,7 +152,7 @@ export function resizeChart() {
 }
 
 function isMobile() {
-  return !/mobile|android|touch|webos/i.test(
+  return /mobile|android|touch|webos/i.test(
     navigator.userAgent.toLowerCase()
   )
 }
