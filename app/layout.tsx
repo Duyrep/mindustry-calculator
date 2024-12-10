@@ -19,7 +19,7 @@ export default function RootLayout({
       <br />
       The site is in development
       <br />
-      Latest Updates: 12/9/2024
+      Latest Updates: 12/10/2024
       <SpeedInsights />
     </body>
     </html>

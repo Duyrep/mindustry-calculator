@@ -1,4 +1,4 @@
-import { BaseType, select, Selection } from "d3";
+import { BaseType, select, Selection, text } from "d3";
 import { data } from "./data/7.0-Build-146";
 import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitsEnum } from "./enums";
 import { graphviz, GraphvizOptions } from "d3-graphviz";
@@ -7,9 +7,35 @@ type Settings = {
   [key in ResourcesEnum]: { key: FactoriesEnum | ExtractorsEnum }
 }
 
-export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings) {
+type Result = {
+  [key: string]: string[]
+}
+
+export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: Result = {}) {
   let factory = getCurrentFactoryForProduct(product, settings)
-  console.log(factory)
+  let node = getCurrentFactoryNameForProduct(product, settings) + " " + product
+  if (Object.keys(result).length == 0) {
+    result["Output"] = [node]
+  }
+  result[node] = []
+
+  try {
+    factory.input.resources.forEach((resource) => {
+      let factory2 = getCurrentFactoryNameForProduct(resource.name, settings)
+
+      if (Object.values(FactoriesEnum).includes(factory2 as FactoriesEnum)) {
+        factoryCalculation(resource.name, 1, settings, result)
+      }
+      result[node].push(factory2 + " " + resource.name)
+
+    })
+  } catch {
+    return { "Output": ["Error"] }
+  }
+
+
+  console.log(result)
+  return result
 }
 
 export function productCalculation(product: ResourcesEnum | UnitsEnum, numOfProduct: number) {
@@ -38,9 +64,10 @@ export function getDefaultSettings() {
   return settings;
 }
 
-export default function renderChart(options: GraphvizOptions | boolean, settings: Settings) {
+export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
   const div = select("#graph-container");
+  div.select("svg").select("g").remove()
 
   const renderNodes = () => {
     div.selectAll(".node").each(function () {
@@ -57,7 +84,7 @@ export default function renderChart(options: GraphvizOptions | boolean, settings
         .attr("rx", 4)
         .attr("fill", "rgba(0, 0, 0, 0)")
         .lower();
-      
+
       polygon.remove();
     });
   };
@@ -84,7 +111,25 @@ export default function renderChart(options: GraphvizOptions | boolean, settings
     return Math.max(...points.map(point => point[1])) - Math.min(...points.map(point => point[1]));
   };
 
-  graphviz(div.node(), options).renderDot(`digraph {node [shape=rect]; a->b}`, () => {
+  const textDot = [
+    `digraph {`,
+    `node[shape=rect];`
+  ]
+
+  targets.forEach((target) => {
+    let result = factoryCalculation(target, 1, settings);
+    for (const key in result) {
+      result[key].forEach((value) => {
+        textDot.push(`"${value}" -> "${key}";`)
+      })
+    }
+  })
+
+  textDot.push("}")
+
+  console.log(textDot.join("\n"))
+
+  graphviz(div.node(), options).renderDot(textDot.join(""), () => {
     let svg = div.select("svg");
 
     svg.select("polygon").remove();
@@ -93,8 +138,8 @@ export default function renderChart(options: GraphvizOptions | boolean, settings
     renderNodes();
     renderEdges();
 
-    const { width, height } = (div.node() as HTMLDivElement).getBoundingClientRect();
-    svg.attr("width", width).attr("height", height);
+    svg.attr("class", isMobile() ? "border-2 border-border transition-all duration-100" : "w-full h-screen border-2 border-border transition-all duration-100");
+    svg.attr("width", null).attr("height", null);
   });
 }
 
@@ -106,10 +151,24 @@ export function resizeChart() {
     .attr("height", (div.node() as HTMLDivElement).getBoundingClientRect().height)
 }
 
+function isMobile() {
+  return !/mobile|android|touch|webos/i.test(
+    navigator.userAgent.toLowerCase()
+  )
+}
+
 function getCurrentFactoryForProduct(product: ResourcesEnum | UnitsEnum, settings: Settings) {
   if (Object.values(UnitsEnum).includes(product as UnitsEnum)) {
     return data.factories[data.units[product as UnitsEnum].key];
   } else {
     return data.factories[settings[product as ResourcesEnum].key as FactoriesEnum];
+  }
+}
+
+function getCurrentFactoryNameForProduct(product: ResourcesEnum | UnitsEnum, settings: Settings) {
+  if (Object.values(UnitsEnum).includes(product as UnitsEnum)) {
+    return data.units[product as UnitsEnum].key
+  } else {
+    return settings[product as ResourcesEnum].key;
   }
 }

@@ -1,10 +1,8 @@
 "use client";
 
 import {
-  factoryCalculation,
   getDefaultSettings,
   getFactoriesByProduct,
-  resizeChart,
 } from "@/calculations/calculations";
 import {
   ExtractorsEnum,
@@ -28,9 +26,11 @@ export default function Home() {
   const settingToggleButton = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    factoryCalculation(ResourcesEnum.Silicon, 1, settings);
-    const option: GraphvizOptions = {"zoom": !/mobile|android|touch|webos/i.test(navigator.userAgent.toLowerCase())}
-    console.log(option)
+    const option: GraphvizOptions = {
+      zoom: !/mobile|android|touch|webos/i.test(
+        navigator.userAgent.toLowerCase()
+      ),
+    };
 
     const handleMouseDown = (event: MouseEvent) => {
       if (settingTable.current && settingToggleButton.current) {
@@ -43,15 +43,23 @@ export default function Home() {
       }
     };
 
-    renderChart(option, settings)
+    renderChart(targets, option, settings);
     document.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("resize", resizeChart);
 
     return () => {
       document.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("resize", resizeChart);
     };
-  }, [settings]);
+  }, []);
+
+  useEffect(() => {
+    const option: GraphvizOptions = {
+      zoom: !/mobile|android|touch|webos/i.test(
+        navigator.userAgent.toLowerCase()
+      ),
+    };
+
+    renderChart(targets, option, settings);
+  }, [targets, settings])
 
   return (
     <div>
@@ -217,10 +225,7 @@ export default function Home() {
           />
         ))}
       </div>
-      <div
-        id="graph-container"
-        className="w-full h-screen border-2 my-2 border-border transition-all duration-100"
-      ></div>
+      <div id="graph-container" className="p-2"></div>
     </div>
   );
 }

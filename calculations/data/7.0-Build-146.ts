@@ -94,19 +94,33 @@ export const data: Data = {
       key: []
     },
     [ResourcesEnum.Lead]: {
-      key: []
+      key: [
+        ExtractorsEnum.MechanicalDrill,
+        ExtractorsEnum.PneumaticDrill,
+        ExtractorsEnum.LaserDrill,
+        ExtractorsEnum.AirblastDrill,
+        FactoriesEnum.Separator
+      ]
     },
     [ResourcesEnum.Metaglass]: {
       key: []
     },
     [ResourcesEnum.Oil]: {
-      key: []
+      key: [
+        ExtractorsEnum.MechanicalPump,
+        ExtractorsEnum.RotaryPump,
+        ExtractorsEnum.ImpulsePump,
+        ExtractorsEnum.OilExtractor,
+        FactoriesEnum.SporePress
+      ]
     },
     [ResourcesEnum.Plastanium]: {
       key: []
     },
     [ResourcesEnum.Pyratite]: {
-      key: []
+      key: [
+        FactoriesEnum.PyratiteMixer
+      ]
     },
     [ResourcesEnum.Scrap]: {
       key: []
@@ -330,12 +344,22 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.CoalCentrifuge]: {
-      power: 0,
+      power: 42,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Oil,
+            perSecond: 1
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 2
+          }
+        ]
       }
     },
     [FactoriesEnum.CryofluidMixer]: {
@@ -420,12 +444,30 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.PyratiteMixer]: {
-      power: 0,
+      power: 12,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Lead,
+            perSecond: 1.5
+          },
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 1.5
+          },
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 0.75
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Pyratite,
+            perSecond: 0.75
+          }
+        ]
       }
     },
     [FactoriesEnum.Separator]: {
@@ -438,12 +480,30 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SiliconCrucible]: {
-      power: 0,
+      power: 240,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 4
+          },
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 2.6
+          },
+          {
+            name: ResourcesEnum.Pyratite,
+            perSecond: 0.6
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Silicon,
+            perSecond: 5.3
+          }
+        ]
       }
     },
     [FactoriesEnum.SiliconSmelter]: {
