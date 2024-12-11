@@ -715,7 +715,28 @@ export const data: Data = {
         resources: []
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 0.40
+          },
+          {
+            name: ResourcesEnum.Scrap,
+            perSecond: 0.40
+          },
+          {
+            name: ResourcesEnum.Copper,
+            perSecond: 0.36
+          },
+          {
+            name: ResourcesEnum.Lead,
+            perSecond: 0.36
+          },
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 0.34
+          }
+        ]
       }
     },
     [ExtractorsEnum.MechanicalPump]: {
@@ -742,7 +763,32 @@ export const data: Data = {
         resources: []
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 0.6
+          },
+          {
+            name: ResourcesEnum.Scrap,
+            perSecond: 0.6
+          },
+          {
+            name: ResourcesEnum.Copper,
+            perSecond: 0.53
+          },
+          {
+            name: ResourcesEnum.Lead,
+            perSecond: 0.53
+          },
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 0.47
+          },
+          {
+            name: ResourcesEnum.Titanium,
+            perSecond: 0.43
+          }
+        ]
       }
     },
     [ExtractorsEnum.RotaryPump]: {
