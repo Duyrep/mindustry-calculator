@@ -143,7 +143,6 @@ export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], opti
   const textDot = [
     `digraph {`,
     `node[shape=rect label=""];`,
-    `ranksep=1.5`,
     `"Output" [label="Output"]`
   ]
 
@@ -153,7 +152,7 @@ export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], opti
     for (const key in result) {
       result[key].forEach((value) => {
         textDot.push(`"${value}" [label="                     x ${value.split(" ")[2]}"];`)
-        textDot.push(`"${value}" -> "${key}" [label=" x${value.split(" ")[3]}    "];`)
+        textDot.push(`"${value}" -> "${key}" [label=" x ${value.split(" ")[3]}/s    "];`)
       })
     }
   })
