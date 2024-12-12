@@ -1,9 +1,9 @@
 import { BaseType, select, Selection } from "d3";
 import { data } from "./data/7.0-Build-146";
-import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitsEnum } from "./enums";
+import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitFactoriesEnum, UnitsEnum } from "./enums";
 import { graphviz, GraphvizOptions } from "d3-graphviz";
 
-type Settings = {
+export type Settings = {
   [key in ResourcesEnum]: { key: FactoriesEnum | ExtractorsEnum }
 }
 
@@ -11,19 +11,9 @@ type Result = {
   [key: string]: string[]
 }
 
-export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: Result = {}) {
-  const getPerSec = (product: ResourcesEnum | UnitsEnum): number => {
-    try {
-      let factory = getCurrentFactoryForProduct(product, settings);
-    const resource = factory.output.resources.find((value) => value.name === product);
-    return resource ? resource.perSecond : 0;
-    } catch {
-      return 0
-    }
-  }
-
+export function calculation(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: Result = {}) {
   let factory = getCurrentFactoryForProduct(product, settings)
-  let node = getCurrentFactoryNameForProduct(product, settings) + " " + product + " " + numOfFactory.toFixed(1) + " " + (getPerSec(product) * numOfFactory).toFixed(1)
+  let node = getCurrentFactoryNameForProduct(product, settings) + " " + product + " " + numOfFactory.toFixed(1) + " " + (getPerSec(product, settings) * numOfFactory).toFixed(1)
   if (Object.keys(result).length == 0) {
     result["Output"] = [node]
   }
@@ -32,11 +22,11 @@ export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFact
   try {
     factory.input.resources.forEach((resource) => {
       let factory2 = getCurrentFactoryNameForProduct(resource.name, settings)
-      let numOfFactory2 = (resource.perSecond / getPerSec(resource.name)) * numOfFactory
+      let numOfFactory2 = (resource.perSecond / getPerSec(resource.name, settings)) * numOfFactory
       let numOfProduct = resource.perSecond * numOfFactory
 
       if (Object.values(FactoriesEnum).includes(factory2 as FactoriesEnum)) {
-        factoryCalculation(resource.name, numOfFactory2, settings, result)
+        calculation(resource.name, numOfFactory2, settings, result)
       }
       result[node].push(factory2 + " " + resource.name + " " + numOfFactory2.toFixed(1) + " " + numOfProduct.toFixed(1))
     })
@@ -47,8 +37,22 @@ export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFact
   return abbreviate(result)
 }
 
-export function productCalculation(product: ResourcesEnum | UnitsEnum, numOfProduct: number) {
+export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings) {
+  return getPerSec(product, settings) * numOfFactory
+}
 
+export function productCalculation(product: ResourcesEnum | UnitsEnum, numOfProduct: number, settings: Settings) {
+  return numOfProduct / getPerSec(product, settings)
+}
+
+function getPerSec(product: ResourcesEnum | UnitsEnum, settings: Settings) {
+  try {
+    let factory = getCurrentFactoryForProduct(product, settings);
+    const resource = factory.output.resources.find((value) => value.name === product);
+    return resource ? resource.perSecond : 0;
+  } catch {
+    return 0
+  }
 }
 
 function abbreviate(chart: Result) {
@@ -128,7 +132,7 @@ export function getDefaultSettings() {
   return settings;
 }
 
-export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], options: GraphvizOptions | boolean, settings: Settings) {
+export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), number][], options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
   select("#graph-container").selectAll("*").remove()
   select("#graph-container").append("div").attr("id", "graph")
@@ -219,15 +223,16 @@ export default function renderChart(targets: (ResourcesEnum | UnitsEnum)[], opti
   let targetCount: Record<string, number> = {};
 
   targets.forEach((target) => {
-    if (targetCount[target]) {
-      targetCount[target] += 1;
+    if (targetCount[target[0]]) {
+      targetCount[target[0]] += target[1];
     } else {
-      targetCount[target] = 1;
+
+      targetCount[target[0]] = target[1];
     }
   });
 
   for (const target in targetCount) {
-    let result = factoryCalculation(target as ResourcesEnum | UnitsEnum, targetCount[target], settings);
+    let result = calculation(target as ResourcesEnum | UnitsEnum, targetCount[target], settings);
 
     for (const key in result) {
       result[key].forEach((value) => {

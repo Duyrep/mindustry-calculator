@@ -17,8 +17,8 @@ import { useEffect, useRef, useState } from "react";
 import { GraphvizOptions } from "d3-graphviz";
 
 export default function Home() {
-  const [targets, setTargets] = useState<(ResourcesEnum | UnitsEnum)[]>([
-    ResourcesEnum.Silicon,
+  const [targets, setTargets] = useState<[(ResourcesEnum | UnitsEnum), number][]>([
+    [ResourcesEnum.Silicon, 1]
   ]);
   const [showSettings, setShowSettings] = useState(false);
   const [settings, setSettings] = useState(getDefaultSettings());
@@ -200,7 +200,7 @@ export default function Home() {
       <div>
         <button
           className="w-8 h-8 text-3xl rounded-md bg-secondary hover:bg-green-600 transition-all duration-100"
-          onClick={() => setTargets((prev) => [...prev, ResourcesEnum.Silicon])}
+          onClick={() => setTargets((prev) => [...prev, [ResourcesEnum.Silicon, 1]])}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -223,8 +223,9 @@ export default function Home() {
         {targets.map((value, index) => (
           <Target
             key={index}
-            product={value}
+            product={value[0]}
             index={index}
+            settings={settings}
             targets={targets}
             setTargets={setTargets}
           />
