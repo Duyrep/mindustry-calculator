@@ -96,11 +96,9 @@ function abbreviate(chart: Result) {
 
   try {
     for (const key2 in buildingCount2) {
-      let value = `${key2} ${buildingCount2[key2][1]}`
+      let value = `${key2} ${buildingCount2[key2][1].toFixed(1)}`
       buildingCount2[key2][0].forEach((keyNum) => {
-
-        result[keyNum[0]].push(value + " " + keyNum[1])
-
+        result[keyNum[0]].push(value + " " + keyNum[1].toFixed(1))
       })
     }
   } catch {
@@ -233,6 +231,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
 
   for (const target in targetCount) {
     let result = calculation(target as ResourcesEnum | UnitsEnum, targetCount[target], settings);
+    console.log(result)
 
     for (const key in result) {
       result[key].forEach((value) => {
