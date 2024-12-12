@@ -231,7 +231,6 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
 
   for (const target in targetCount) {
     let result = calculation(target as ResourcesEnum | UnitsEnum, targetCount[target], settings);
-    console.log(result)
 
     for (const key in result) {
       result[key].forEach((value) => {
