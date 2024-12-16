@@ -1,5 +1,4 @@
 import { data } from "./data/7.0-Build-146";
-import { Factories, UnitFactories } from "./dataType";
 import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitFactoriesEnum, UnitsEnum } from "./enums";
 
 export type Settings = {
@@ -18,20 +17,20 @@ type NodeData = {
   }
 }
 
-export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: NodeData = {}, to: string = "") {
+export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: NodeData = {}, to: {name: string, numOfProductPerSec: number} = {name: "", numOfProductPerSec: 0}) {
   let factory = getCurrentFactoryForProduct(product, settings)
   let noteName = String(getCurrentFactoryNameForProduct(product, settings)) + " " + product
 
   if (Object.keys(result).length == 0) {
     result[noteName] = {
-      to: [{ name: "Output", numOfProductPerSec: getPerSec(product, settings) * numOfFactory }],
+      to: [{ name: "Output", numOfProductPerSec: factoryCalculation(product, numOfFactory, settings) }],
       factoryName: getCurrentFactoryNameForProduct(product, settings),
       productName: product,
       numOfFactory: numOfFactory
     }
   } else {
     let nodeData = {
-      to: [{ name: to, numOfProductPerSec: factoryCalculation(product, numOfFactory, settings) }],
+      to: [to],
       factoryName: getCurrentFactoryNameForProduct(product, settings),
       productName: product,
       numOfFactory: numOfFactory,
@@ -39,7 +38,7 @@ export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactor
 
     if (result[noteName]) {
       nodeData.to = result[noteName].to
-      nodeData.to.push({ name: to, numOfProductPerSec: factoryCalculation(product, numOfFactory, settings) })
+      nodeData.to.push({ name: to.name, numOfProductPerSec: factoryCalculation(product, numOfFactory, settings) })
       nodeData.numOfFactory = nodeData.numOfFactory + result[noteName].numOfFactory
     }
     result[noteName] = nodeData
@@ -47,9 +46,9 @@ export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactor
 
   try {
     factory.input.resources.forEach((resource) => {
-    let numOfFactory1 = productCalculation(resource.name, resource.perSecond, settings)
+    let numOfFactory1 = productCalculation(resource.name, resource.perSecond, settings) * numOfFactory
 
-    calculateProduct(resource.name, numOfFactory1, settings, result, noteName)
+    calculateProduct(resource.name, numOfFactory1, settings, result, {name: noteName, numOfProductPerSec: factoryCalculation(product, numOfFactory, settings)})
   });
   } catch {
     return {}
@@ -96,9 +95,6 @@ export function calculate(targets: [(ResourcesEnum | UnitsEnum), number][], sett
       }
     }
   })
-
-  console.log(arr)
-  console.log(result)
 
   return result
 }
