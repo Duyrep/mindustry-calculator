@@ -92,19 +92,11 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
     `"Output" [label="Output"];`
   ]
 
-  // targets.forEach((target) => {
-  //   let result = calculateProduct(target[0], target[1], settings);
-  //   result.forEach((value) => {
-  //     let node = `"${value.factoryName} ${value.productName}"`
-  //     textDot.push(`${node}[label="                    x ${+value.numOfFactory.toFixed(1)}"];`)
-  //     textDot.push(`${node}->"${value.to}" [label="  x ${+value.numOfProduct.toFixed(3)}      "];`)
-  //   })
-  // })
   let result = calculate(targets, settings)
   for (const key in result) {
     textDot.push(`"${key}"[label="                    x ${+result[key].numOfFactory.toFixed(1)}"];`)
     result[key].to.forEach((value) => {
-      textDot.push(`"${key}" -> "${value.name}"[label="x ${+value.numOfProductPerSec.toFixed(2)}"]`)
+      textDot.push(`"${key}" -> "${value.name}"[label=" x ${+value.numOfProductPerSec.toFixed(2)}         "]`)
     })
   }
 
