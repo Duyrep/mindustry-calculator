@@ -1,20 +1,17 @@
 "use client";
 
 import {
-  getDefaultSettings,
-  getFactoriesByProduct,
-} from "@/calculations/calculations";
-import {
   ExtractorsEnum,
   FactoriesEnum,
   ResourcesEnum,
   UnitsEnum,
 } from "@/calculations/enums";
-import renderChart from "@/calculations/calculations";
+import renderChart from "@/calculations/render";
 import Target from "@/components/Target";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { GraphvizOptions } from "d3-graphviz";
+import { getDefaultSettings, getFactoriesByProduct } from "@/calculations/calculations";
 
 export default function Home() {
   const [targets, setTargets] = useState<[(ResourcesEnum | UnitsEnum), number][]>([
@@ -39,7 +36,7 @@ export default function Home() {
     growEnteringEdges: false,
     tweenShapes: false,
     tweenPaths: false,
-    zoomScaleExtent: [0.5, 2],
+    zoomScaleExtent: [0.8, 10],
   };
 
   useEffect(() => {

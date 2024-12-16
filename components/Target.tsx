@@ -73,18 +73,15 @@ export default function Target({
           key={idx}
           src={`/assets/sprites/${value}.webp`}
           alt={value}
+          title={value}
           className={`cursor-pointer rounded-md p-1 w-12 h-12 transition hover:bg-brand duration-300 ${(value as ResourcesEnum | UnitsEnum) == product && "bg-brand"}`}
           onClick={() => {
             updateTargets(value as ResourcesEnum);
             closeDropdown();
           }}
-
         />
       ));
   };
-
-
-
 
   const removeTarget = (): void => {
     if (targetRef.current) {
@@ -201,6 +198,15 @@ export default function Target({
   }, []);
 
   useEffect(() => {
+    if (numOfProductInput.current) {
+      numOfProductInput.current.value = String(factoryCalculation(product, numOfFactoryState, settings))
+    }
+    if (numOfFactoryInput.current) {
+      numOfFactoryInput.current.value = String(numOfFactoryState)
+    }
+  }, [targets, settings]);
+
+  useEffect(() => {
     setTimeout(() => {
       if (targetRef.current) {
         targetRef.current.classList.remove("opacity-0");
@@ -249,7 +255,7 @@ export default function Target({
           <div className="ml-2">
             <label>Item/s:</label>
             <input
-              className="ml-1 w-28 pl-2 h-8 bg-secondary focus:outline-none rounded-md"
+              className="ml-1 w-32 pl-2 h-8 bg-secondary focus:outline-none rounded-md"
               ref={numOfProductInput}
               type="text"
               onKeyDown={onKeyDownInputHandler2}
