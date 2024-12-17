@@ -96,7 +96,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
   for (const key in result) {
     textDot.push(`"${key}"[label="                    x ${+result[key].numOfFactory.toFixed(1)}"];`)
     result[key].to.forEach((value) => {
-      textDot.push(`"${key}" -> "${value.name}"[label=" x ${+value.numOfProductPerSec.toFixed(2)}         "]`)
+      textDot.push(`"${key}" -> "${value.name}"[label=" x ${+value.numOfProductPerSec.toFixed(2)}/s         "]`)
     })
   }
 
