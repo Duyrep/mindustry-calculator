@@ -1,7 +1,14 @@
 import { data } from "./data/7.0-Build-146";
 import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitFactoriesEnum, UnitsEnum } from "./enums";
 
+
+
 export type Settings = {
+  factorySettings: FactorySettings
+  displayRate: number
+}
+
+export type FactorySettings = {
   [key in ResourcesEnum]: { key: FactoriesEnum | ExtractorsEnum }
 }
 
@@ -18,27 +25,27 @@ type NodeData = {
 }
 
 export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: NodeData = {}, to: { name: string, numOfProductPerSec: number } = { name: "", numOfProductPerSec: 0 }) {
-  let factory = getCurrentFactoryForProduct(product, settings)
-  let noteName = String(getCurrentFactoryNameForProduct(product, settings)) + " " + product
+  let factory = getCurrentFactoryForProduct(product, settings.factorySettings)
+  let noteName = String(getCurrentFactoryNameForProduct(product, settings.factorySettings)) + " " + product
 
   if (Object.keys(result).length == 0) {
     result[noteName] = {
-      to: [{ name: "Output", numOfProductPerSec: factoryCalculation(product, numOfFactory, settings) }],
-      factoryName: getCurrentFactoryNameForProduct(product, settings),
+      to: [{ name: "Output", numOfProductPerSec: factoryCalculate(product, numOfFactory, settings) }],
+      factoryName: getCurrentFactoryNameForProduct(product, settings.factorySettings),
       productName: product,
       numOfFactory: numOfFactory
     }
   } else {
     let nodeData = {
       to: [to],
-      factoryName: getCurrentFactoryNameForProduct(product, settings),
+      factoryName: getCurrentFactoryNameForProduct(product, settings.factorySettings),
       productName: product,
       numOfFactory: numOfFactory,
     }
 
     if (result[noteName]) {
       nodeData.to = result[noteName].to
-      nodeData.to.push({ name: to.name, numOfProductPerSec: factoryCalculation(product, numOfFactory, settings) })
+      nodeData.to.push({ name: to.name, numOfProductPerSec: factoryCalculate(product, numOfFactory, settings) })
       const a: Record<string, number> = {};
       nodeData.to.forEach(({ name, numOfProductPerSec }) => {
         a[name] = (a[name] || 0) + numOfProductPerSec;
@@ -51,11 +58,12 @@ export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactor
 
   try {
     factory.input.resources.forEach((resource) => {
-      let numOfFactory1 = productCalculation(resource.name, resource.perSecond, settings) * numOfFactory
+      let numOfFactory1 = productCalculate(resource.name, resource.perSecond, settings.factorySettings) * numOfFactory
 
-      calculateProduct(resource.name, numOfFactory1, settings, result, { name: noteName, numOfProductPerSec: factoryCalculation(resource.name, numOfFactory1, settings) })
+      calculateProduct(resource.name, numOfFactory1, settings, result, { name: noteName, numOfProductPerSec: factoryCalculate(resource.name, numOfFactory1, settings) })
     });
-  } catch {
+  } catch (error) {
+    console.log(error)
     return {}
   }
 
@@ -105,10 +113,10 @@ export function calculate(targets: [(ResourcesEnum | UnitsEnum), number][], sett
 }
 
 export function getDefaultSettings() {
-  let settings: Settings = Object.values(ResourcesEnum).reduce((acc, resource) => {
+  let settings: FactorySettings = Object.values(ResourcesEnum).reduce((acc, resource) => {
     acc[resource] = { key: FactoriesEnum.BlastMixer };
     return acc;
-  }, {} as Settings);
+  }, {} as FactorySettings);
 
   Object.keys(data.resources).forEach((value) => {
     settings[value as ResourcesEnum].key = data.resources[value as ResourcesEnum].key[0];
@@ -117,15 +125,33 @@ export function getDefaultSettings() {
   return settings;
 }
 
-export function factoryCalculation(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings) {
-  return getPerSec(product, settings) * numOfFactory
+export function factoryCalculate(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings) {
+  let resource = getCurrentFactoryForProduct(product, settings.factorySettings).output.resources.find((value) => value.name === product);
+  if (resource?.rate) {
+    return getPerSec(product, settings.factorySettings) * (resource.rate / 100) * numOfFactory * settings.displayRate
+  }
+  return getPerSec(product, settings.factorySettings) * numOfFactory * settings.displayRate
 }
 
-export function productCalculation(product: ResourcesEnum | UnitsEnum, numOfProduct: number, settings: Settings) {
+export function productCalculate(product: ResourcesEnum | UnitsEnum, numOfProduct: number, settings: FactorySettings) {
+  let resource = getCurrentFactoryForProduct(product, settings).output.resources.find((value) => value.name === product);
+  if (resource?.rate) {
+    let perSec = getPerSec(product, settings) * resource.rate / 100;
+    return numOfProduct / perSec
+  }
   return numOfProduct / getPerSec(product, settings)
 }
 
-function getPerSec(product: ResourcesEnum | UnitsEnum, settings: Settings) {
+export function productCalculateInput(product: ResourcesEnum | UnitsEnum, numOfProduct: number, settings: Settings) {
+  let resource = getCurrentFactoryForProduct(product, settings.factorySettings).output.resources.find((value) => value.name === product);
+  if (resource?.rate) {
+    let perSec = getPerSec(product, settings.factorySettings) * resource.rate / 100;
+    return numOfProduct / (perSec * settings.displayRate)
+  }
+  return numOfProduct / (getPerSec(product, settings.factorySettings) * settings.displayRate)
+}
+
+function getPerSec(product: ResourcesEnum | UnitsEnum, settings: FactorySettings) {
   try {
     let factory = getCurrentFactoryForProduct(product, settings);
     const resource = factory.output.resources.find((value) => value.name === product);
@@ -135,7 +161,7 @@ function getPerSec(product: ResourcesEnum | UnitsEnum, settings: Settings) {
   }
 }
 
-function getCurrentFactoryNameForProduct(product: ResourcesEnum | UnitsEnum, settings: Settings) {
+function getCurrentFactoryNameForProduct(product: ResourcesEnum | UnitsEnum, settings: FactorySettings) {
   if (Object.values(UnitsEnum).includes(product as UnitsEnum)) {
     return data.units[product as UnitsEnum].key;
   } else {
@@ -143,7 +169,7 @@ function getCurrentFactoryNameForProduct(product: ResourcesEnum | UnitsEnum, set
   }
 }
 
-function getCurrentFactoryForProduct(product: ResourcesEnum | UnitsEnum, settings: Settings) {
+function getCurrentFactoryForProduct(product: ResourcesEnum | UnitsEnum, settings: FactorySettings) {
   if (Object.values(UnitsEnum).includes(product as UnitsEnum)) {
     return data.factories[data.units[product as UnitsEnum].key];
   } else {

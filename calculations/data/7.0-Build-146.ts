@@ -48,7 +48,12 @@ export const data: Data = {
       ]
     },
     [ResourcesEnum.Slag]: {
-      key: []
+      key: [
+        FactoriesEnum.Melter,
+        ExtractorsEnum.MechanicalPump,
+        ExtractorsEnum.RotaryPump,
+        ExtractorsEnum.ImpulsePump
+      ]
     },
     [ResourcesEnum.BlastCompound]: {
       key: [
@@ -115,7 +120,12 @@ export const data: Data = {
       ]
     },
     [ResourcesEnum.Scrap]: {
-      key: []
+      key: [
+        ExtractorsEnum.MechanicalDrill,
+        ExtractorsEnum.PneumaticDrill,
+        ExtractorsEnum.LaserDrill,
+        ExtractorsEnum.AirblastDrill
+      ]
     },
     [ResourcesEnum.SporePod]: {
       key: [
@@ -143,7 +153,12 @@ export const data: Data = {
       key: []
     },
     [ResourcesEnum.Beryllium]: {
-      key: []
+      key: [
+        // ExtractorsEnum.PlasmaBore,
+        // ExtractorsEnum.LargePlasmaBore,
+        // ExtractorsEnum.ImpactDrill,
+        // ExtractorsEnum.EruptionDrill
+      ]
     },
     [ResourcesEnum.Carbide]: {
       key: []
@@ -161,13 +176,19 @@ export const data: Data = {
       key: []
     },
     [ResourcesEnum.Oxide]: {
-      key: []
+      key: [
+        // FactoriesEnum.OxidationChamber
+      ]
     },
     [ResourcesEnum.Ozone]: {
       key: []
     },
     [ResourcesEnum.Tungsten]: {
-      key: []
+      key: [
+        // ExtractorsEnum.ImpactDrill,
+        // ExtractorsEnum.LargePlasmaBore,
+        // ExtractorsEnum.EruptionDrill
+      ]
     }
   },
 
@@ -391,12 +412,42 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Disassembler]: {
-      power: 0,
+      power: 204,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Scrap,
+            perSecond: 4.0
+          },
+          {
+            name: ResourcesEnum.Slag,
+            perSecond: 7.2
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 1.6,
+            rate: 40.0
+          },
+          {
+            name: ResourcesEnum.Graphite,
+            perSecond: 1.6,
+            rate: 20.0
+          },
+          {
+            name: ResourcesEnum.Titanium,
+            perSecond: 1.6,
+            rate: 20.0
+          },
+          {
+            name: ResourcesEnum.Thorium,
+            perSecond: 1.6,
+            rate: 20.0
+          }
+        ]
       }
     },
     [FactoriesEnum.GraphitePress]: {
@@ -442,12 +493,22 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Melter]: {
-      power: 0,
+      power: 60,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Scrap,
+            perSecond: 6.25
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Slag,
+            perSecond: 12.0
+          }
+        ]
       }
     },
     [FactoriesEnum.MultiPress]: {
@@ -520,12 +581,22 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Pulverizer]: {
-      power: 0,
+      power: 30,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Scrap,
+            perSecond: 1.51
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 1.51
+          }
+        ]
       }
     },
     [FactoriesEnum.PyratiteMixer]: {

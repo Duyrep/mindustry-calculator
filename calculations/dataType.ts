@@ -49,6 +49,7 @@ type Extractors = {
 export type Resource = {
   name: ResourcesEnum | UnitsEnum
   perSecond: number
+  rate?: number
 }
 
 export type Unit = {

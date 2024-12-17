@@ -1,4 +1,4 @@
-import { factoryCalculation, productCalculation, Settings } from "@/calculations/calculations";
+import { factoryCalculate, productCalculateInput, Settings } from "@/calculations/calculations";
 import { ResourcesEnum, UnitsEnum } from "@/calculations/enums";
 import Image from "next/image";
 import React, {
@@ -107,7 +107,7 @@ export default function Target({
     if (event.key == "Enter") {
       if (isNumber(target.value)) {
         const numOfFactory = Number(target.value)
-        const numOfProduct = factoryCalculation(product, numOfFactory, settings)
+        const numOfProduct = factoryCalculate(product, numOfFactory, settings)
         const updatedTargets = [...targets]
 
         updatedTargets[index][1] = numOfFactory
@@ -115,7 +115,7 @@ export default function Target({
         target.blur()
         setNumOfFactory(numOfFactory);
         if (numOfProductInput.current) {
-          numOfProductInput.current.value = String(numOfProduct)
+          numOfProductInput.current.value = String(+numOfProduct.toFixed(3))
         }
       }
     }
@@ -126,7 +126,7 @@ export default function Target({
 
     if (isNumber(target.value)) {
       const numOfFactory = Number(target.value)
-      const numOfProduct = factoryCalculation(product, numOfFactory, settings)
+      const numOfProduct = factoryCalculate(product, numOfFactory, settings)
       const updatedTargets = [...targets]
 
       updatedTargets[index][1] = numOfFactory
@@ -134,7 +134,7 @@ export default function Target({
       target.blur()
       setNumOfFactory(numOfFactory);
       if (numOfProductInput.current) {
-        numOfProductInput.current.value = String(numOfProduct)
+        numOfProductInput.current.value = String(+numOfProduct.toFixed(3))
       }
     }
   };
@@ -144,7 +144,7 @@ export default function Target({
 
     if (event.key == "Enter") {
       if (isNumber(target.value)) {
-        const numOfFactory = productCalculation(product, Number(target.value), settings)
+        const numOfFactory = productCalculateInput(product, Number(target.value), settings)
         const updatedTargets = [...targets]
 
         updatedTargets[index][1] = numOfFactory
@@ -152,7 +152,7 @@ export default function Target({
         target.blur()
         setNumOfFactory(numOfFactory);
         if (numOfFactoryInput.current) {
-          numOfFactoryInput.current.value = String(numOfFactory)
+          numOfFactoryInput.current.value = String(+numOfFactory.toFixed(1))
         }
       }
     }
@@ -162,14 +162,14 @@ export default function Target({
     const target = event.target as HTMLInputElement
 
     if (isNumber(target.value)) {
-      const numOfFactory = productCalculation(product, Number(target.value), settings)
+      const numOfFactory = productCalculateInput(product, Number(target.value), settings)
       const updatedTargets = [...targets]
 
       updatedTargets[index][1] = numOfFactory
       setTargets(updatedTargets)
       setNumOfFactory(numOfFactory);
       if (numOfFactoryInput.current) {
-        numOfFactoryInput.current.value = String(numOfFactory)
+        numOfFactoryInput.current.value = String(+numOfFactory.toFixed(1))
       }
     }
   };
@@ -184,10 +184,10 @@ export default function Target({
     };
     
     if (numOfProductInput.current) {
-      numOfProductInput.current.value = String(factoryCalculation(product, numOfFactoryState, settings))
+      numOfProductInput.current.value = String(+factoryCalculate(product, numOfFactoryState, settings).toFixed(3))
     }
     if (numOfFactoryInput.current) {
-      numOfFactoryInput.current.value = String(numOfFactoryState)
+      numOfFactoryInput.current.value = String(+numOfFactoryState.toFixed(1))
     }
 
     document.addEventListener("mousedown", handleMouseDown);
@@ -199,10 +199,10 @@ export default function Target({
 
   useEffect(() => {
     if (numOfProductInput.current) {
-      numOfProductInput.current.value = String(factoryCalculation(product, numOfFactoryState, settings))
+      numOfProductInput.current.value = String(+factoryCalculate(product, numOfFactoryState, settings).toFixed(3))
     }
     if (numOfFactoryInput.current) {
-      numOfFactoryInput.current.value = String(numOfFactoryState)
+      numOfFactoryInput.current.value = String(+numOfFactoryState.toFixed(1))
     }
   }, [targets, settings]);
 
@@ -253,7 +253,7 @@ export default function Target({
 
         <div className="flex flex-wrap content-center">
           <div className="ml-2">
-            <label>Item/s:</label>
+            <label>Item/{settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}:</label>
             <input
               className="ml-1 w-32 pl-2 h-8 bg-secondary focus:outline-none rounded-md"
               ref={numOfProductInput}

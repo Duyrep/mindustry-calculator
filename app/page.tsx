@@ -11,14 +11,14 @@ import Target from "@/components/Target";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { GraphvizOptions } from "d3-graphviz";
-import { getDefaultSettings, getFactoriesByProduct } from "@/calculations/calculations";
+import { FactorySettings, getDefaultSettings, getFactoriesByProduct, Settings } from "@/calculations/calculations";
 
 export default function Home() {
   const [targets, setTargets] = useState<[(ResourcesEnum | UnitsEnum), number][]>([
     [ResourcesEnum.Silicon, 1]
   ]);
   const [showSettings, setShowSettings] = useState(false);
-  const [settings, setSettings] = useState(getDefaultSettings());
+  const [settings, setSettings] = useState<Settings>({displayRate: 1, factorySettings: getDefaultSettings()});
   const settingTable = useRef<HTMLDivElement | null>(null);
   const settingToggleButton = useRef<HTMLButtonElement | null>(null);
   const isMobile = (): boolean => {
@@ -68,9 +68,8 @@ export default function Home() {
       <div className="flex flex-warp content-center mb-2">
         <button
           ref={settingToggleButton}
-          className={`my-2 rounded-md ${
-            showSettings ? "bg-brand" : "bg-secondary"
-          }`}
+          className={`my-2 rounded-md ${showSettings ? "bg-brand" : "bg-secondary"
+            }`}
           onClick={() => setShowSettings(!showSettings)}
         >
           <svg
@@ -94,6 +93,30 @@ export default function Home() {
             ref={settingTable}
             className="absolute p-2 overflow-auto ml-10 border border-border rounded-md bg-background w-72 h-80"
           >
+            <b>Display</b>
+            <hr className="border-2 bg-border " />
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Display rates as:</td>
+                  <td>
+                    <div className="p-1 cursor-pointer">
+                      <div className={`rounded-md p-1 ${settings.displayRate == 1 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({...prev, displayRate: 1}))}>Item/s</div>
+                      <div className={`rounded-md p-1 ${settings.displayRate == 60 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({...prev, displayRate: 60}))}>Item/m</div>
+                      <div className={`rounded-md p-1 ${settings.displayRate == 3600 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({...prev, displayRate: 3600}))}>Item/h</div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <b>Factory</b>
+            <hr className="border-2 bg-border " />
             <table>
               <thead>
                 <tr className="border border-border rounded-t-md py-1">
@@ -102,7 +125,7 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {/* <tr className="border border-border">
+                <tr className="border border-border">
                   <td className="text-center">All</td>
                   <td className="flex flex-wrap">
                     {[
@@ -112,38 +135,26 @@ export default function Home() {
                       "AirblastDrill",
                     ].map((value) => (
                       <Image
-                        className="p-1"
+                        className="p-1 cursor-pointer"
                         key={value}
                         src={`/assets/sprites/${value}.webp`}
                         width={48}
                         height={48}
                         alt=""
-                        // onClick={() =>
-                        //   setSettings((prev) => {
-                        //     for (const key in prev) {
-                        //       if (
-                        //         ([
-                        //           "MechanicalDrill",
-                        //           "PneumaticDrill",
-                        //           "LaserDrill",
-                        //           "AirblastDrill",
-                        //         ] as ExtractorsEnum[]).includes(
-                        //           prev[key as ResourcesEnum]
-                        //             .key as ExtractorsEnum
-                        //         )
-                        //       ) {
-                        //         prev[key as ResourcesEnum].key = value as ExtractorsEnum
-                        //         console.log(key, prev[key as ResourcesEnum])
-                        //         console.log(settings)
-                        //       }
-                        //     }
-                        //     return prev;
-                        //   })
-                        // }
+                        onClick={() => {
+                          const factorySettings: FactorySettings = {...settings.factorySettings}
+                          for (const key in factorySettings) {
+                            const factories = getFactoriesByProduct(key as ResourcesEnum)
+                            if (factories.includes(value as ExtractorsEnum)) {
+                              factorySettings[key as ResourcesEnum].key = value as ExtractorsEnum
+                            }
+                          }
+                          setSettings(prev => ({...prev, factorySettings: factorySettings}))
+                        }}
                       />
                     ))}
                   </td>
-                </tr> */}
+                </tr>
                 {Object.keys(ResourcesEnum).map((valuei) => (
                   <tr
                     key={valuei}
@@ -170,11 +181,10 @@ export default function Home() {
                           key={valuej}
                           width={48}
                           height={48}
-                          className={`p-1 rounded-md ${
-                            valuej == settings[valuei as ResourcesEnum].key
-                              ? "bg-brand"
-                              : "cursor-pointer"
-                          }`}
+                          className={`p-1 rounded-md ${valuej == settings.factorySettings[valuei as ResourcesEnum].key
+                            ? "bg-brand"
+                            : "cursor-pointer"
+                            }`}
                           src={`/assets/sprites/${valuej}.webp`}
                           alt={valuej}
                           onClick={() =>

@@ -1,7 +1,7 @@
 import { BaseType, select, Selection, text } from "d3";
 import { ResourcesEnum, UnitsEnum } from "./enums";
 import { graphviz, GraphvizOptions } from "d3-graphviz";
-import { calculate, calculateProduct, Settings } from "./calculations";
+import { calculate, Settings } from "./calculations";
 
 export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), number][], options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
@@ -96,9 +96,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
   console.log(result)
   for (const key in result) {
     textDot.push(`"${key}"[label="                    x ${+result[key].numOfFactory.toFixed(1)}"];`)
-    result[key].to.forEach((value) => {
-      textDot.push(`"${key}" -> "${value.name}"[label=" x ${+value.numOfProductPerSec.toFixed(2)}/s         "]`)
-    })
+    result[key].to.forEach((value) => textDot.push(`"${key}" -> "${value.name}"[label=" x ${+Math.max(value.numOfProductPerSec, 0.1).toFixed(2)}/${settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}         "]`))
   }
 
   textDot.push("}")
