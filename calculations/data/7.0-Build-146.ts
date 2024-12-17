@@ -627,12 +627,38 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.Separator]: {
-      power: 0,
+      power: 60,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Slag,
+            perSecond: 4.1
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Copper,
+            perSecond: 0.72,
+            rate: 41.6
+          },
+          {
+            name: ResourcesEnum.Lead,
+            perSecond: 0.43,
+            rate: 25
+          },
+          {
+            name: ResourcesEnum.Graphite,
+            perSecond: 0.29,
+            rate: 16.6
+          },
+          {
+            name: ResourcesEnum.Titanium,
+            perSecond: 0.29,
+            rate: 16.6
+          }
+        ]
       }
     },
     [FactoriesEnum.SiliconCrucible]: {
