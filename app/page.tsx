@@ -18,7 +18,7 @@ export default function Home() {
     [ResourcesEnum.Silicon, 1]
   ]);
   const [showSettings, setShowSettings] = useState(false);
-  const [settings, setSettings] = useState<Settings>({displayRate: 1, factorySettings: getDefaultSettings()});
+  const [settings, setSettings] = useState<Settings>({ displayRate: 1, factorySettings: getDefaultSettings() });
   const settingTable = useRef<HTMLDivElement | null>(null);
   const settingToggleButton = useRef<HTMLButtonElement | null>(null);
   const isMobile = (): boolean => {
@@ -107,9 +107,9 @@ export default function Home() {
                   <td>Display rates as:</td>
                   <td>
                     <div className="p-1 cursor-pointer">
-                      <div className={`rounded-md p-1 ${settings.displayRate == 1 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({...prev, displayRate: 1}))}>Item/s</div>
-                      <div className={`rounded-md p-1 ${settings.displayRate == 60 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({...prev, displayRate: 60}))}>Item/m</div>
-                      <div className={`rounded-md p-1 ${settings.displayRate == 3600 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({...prev, displayRate: 3600}))}>Item/h</div>
+                      <div className={`rounded-md p-1 ${settings.displayRate == 1 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({ ...prev, displayRate: 1 }))}>Item/s</div>
+                      <div className={`rounded-md p-1 ${settings.displayRate == 60 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({ ...prev, displayRate: 60 }))}>Item/m</div>
+                      <div className={`rounded-md p-1 ${settings.displayRate == 3600 ? "bg-brand" : ""}`} onClick={() => setSettings(prev => ({ ...prev, displayRate: 3600 }))}>Item/h</div>
                     </div>
                   </td>
                 </tr>
@@ -142,14 +142,14 @@ export default function Home() {
                         height={48}
                         alt=""
                         onClick={() => {
-                          const factorySettings: FactorySettings = {...settings.factorySettings}
+                          const factorySettings: FactorySettings = { ...settings.factorySettings }
                           for (const key in factorySettings) {
                             const factories = getFactoriesByProduct(key as ResourcesEnum)
                             if (factories.includes(value as ExtractorsEnum)) {
                               factorySettings[key as ResourcesEnum].key = value as ExtractorsEnum
                             }
                           }
-                          setSettings(prev => ({...prev, factorySettings: factorySettings}))
+                          setSettings(prev => ({ ...prev, factorySettings: factorySettings }))
                         }}
                       />
                     ))}
@@ -187,12 +187,11 @@ export default function Home() {
                             }`}
                           src={`/assets/sprites/${valuej}.webp`}
                           alt={valuej}
-                          onClick={() =>
-                            setSettings((prev) => ({
-                              ...prev,
-                              [valuei as ResourcesEnum]: { key: valuej },
-                            }))
-                          }
+                          onClick={() => {
+                            const factorySettings = {...settings.factorySettings}
+                            factorySettings[valuei as ResourcesEnum].key = valuej
+                            setSettings(prev => ({...prev, factorySettings: factorySettings}))
+                          }}
                           title={valuej}
                         />
                       ))}
