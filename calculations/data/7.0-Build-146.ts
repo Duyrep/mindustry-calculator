@@ -4,7 +4,12 @@ import { Data } from "../dataType"
 export const data: Data = {
   resources: {
     [ResourcesEnum.Graphite]: {
-      key: []
+      key: [
+        FactoriesEnum.GraphitePress,
+        FactoriesEnum.MultiPress,
+        FactoriesEnum.Separator,
+        FactoriesEnum.Disassembler
+      ]
     },
     [ResourcesEnum.Sand]: {
       key: [
@@ -113,7 +118,9 @@ export const data: Data = {
       key: []
     },
     [ResourcesEnum.SporePod]: {
-      key: []
+      key: [
+        ExtractorsEnum.Cultivator
+      ]
     },
     [ResourcesEnum.Titanium]: {
       key: [
@@ -347,7 +354,7 @@ export const data: Data = {
         resources: [
           {
             name: ResourcesEnum.Oil,
-            perSecond: 1
+            perSecond: 6
           }
         ]
       },
@@ -395,10 +402,20 @@ export const data: Data = {
     [FactoriesEnum.GraphitePress]: {
       power: 0,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 1.33
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Graphite,
+            perSecond: 0.67
+          }
+        ]
       }
     },
     [FactoriesEnum.Kiln]: {
@@ -434,12 +451,26 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.MultiPress]: {
-      power: 0,
+      power: 108,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 6.0
+          },
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 6.0
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Graphite,
+            perSecond: 4.0
+          }
+        ]
       }
     },
     [FactoriesEnum.PhaseWeaver]: {
@@ -584,12 +615,22 @@ export const data: Data = {
       }
     },
     [FactoriesEnum.SporePress]: {
-      power: 0,
+      power: 42,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.SporePod,
+            perSecond: 3.0
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Oil,
+            perSecond: 18
+          }
+        ]
       }
     },
     [FactoriesEnum.SurgeSmelter]: {
@@ -896,12 +937,26 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.OilExtractor]: {
-      power: 0,
+      power: 180,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 1.0
+          },
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 9
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Oil,
+            perSecond: 15
+          }
+        ]
       }
     },
     [ExtractorsEnum.PneumaticDrill]: {
@@ -966,12 +1021,22 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.Cultivator]: {
-      power: 0,
+      power: 80,
       input: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 18
+          }
+        ]
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.SporePod,
+            perSecond: 0.6
+          }
+        ]
       }
     },
     [ExtractorsEnum.EruptionDrill]: {
@@ -1028,289 +1093,209 @@ export const data: Data = {
         resources: []
       }
     },
-  },
-
-  unitFactories: {
-      [UnitFactoriesEnum.AdditiveReconstructor]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+    [UnitFactoriesEnum.AdditiveReconstructor]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.AirFactory]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.ExponentialReconstructor]: {
-        power: 780,
-        input: {
-          resources: [
-            {
-              name: ResourcesEnum.Silicon,
-              perSecond: 9.44
-            },
-            {
-              name: ResourcesEnum.Titanium,
-              perSecond: 8.33
-            },
-            {
-              name: ResourcesEnum.Plastanium,
-              perSecond: 7.22
-            },
-            {
-              name: ResourcesEnum.Cryofluid,
-              perSecond: 60.0
-            }
-          ],
-          units: []
-        },
-        output: {
-          resources: [
-            {
-              name: UnitsEnum.Scepter,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Vela,
-              perSecond: 1.0
-            },
-
-            {
-              name: UnitsEnum.Arkyid,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Antumbra,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Sei,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Aegires,
-              perSecond: 1.0
-            }
-          ]
-        }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.AirFactory]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.GroundFactory]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.MultiplicativeReconstructor]: {
-        power: 360,
-        input: {
-          resources: [
-            {
-              name: ResourcesEnum.Silicon,
-              perSecond: 4.33
-            },
-            {
-              name: ResourcesEnum.Titanium,
-              perSecond: 2.67
-            },
-            {
-              name: ResourcesEnum.Metaglass,
-              perSecond: 1.33
-            }
-          ],
-          units: []
-        },
-        output: {
-          resources: [
-            {
-              name: UnitsEnum.Fortress,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Quasar,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Spiroct,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Zenith,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Mega,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Bryde,
-              perSecond: 1.0
-            },
-            {
-              name: UnitsEnum.Cyerce,
-              perSecond: 1.0
-            }
-          ]
-        }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.ExponentialReconstructor]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.NavalFactory]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.TetrativeReconstructor]: {
-        power: 1500,
-        input: {
-          resources: [
-            {
-              name: ResourcesEnum.Silicon,
-              perSecond: 4.17
-            },
-            {
-              name: ResourcesEnum.Plastanium,
-              perSecond: 2.5
-            },
-            {
-              name: ResourcesEnum.SurgeAlloy,
-              perSecond: 4.17
-            },
-            {
-              name: ResourcesEnum.PhaseFabric,
-              perSecond: 1.46
-            },
-            {
-              name: ResourcesEnum.Cryofluid,
-              perSecond: 180.0
-            }
-          ],
-          units: []
-        },
-        output: {
-          resources: [
-            {
-              name: UnitsEnum.Reign,
-              perSecond: 1.0
-            }
-          ]
-        }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.GroundFactory]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.MechAssembler]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.MechFabricator]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.MultiplicativeReconstructor]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.MechRefabricator]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.PrimeRefabricator]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.NavalFactory]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.ShipAssembler]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.ShipFabricator]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.TetrativeReconstructor]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.ShipRefabricator]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.TankAssembler]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.MechAssembler]: {
+      power: 0,
+      input: {
+        resources: []
       },
-      [UnitFactoriesEnum.TankFabricator]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
+      output: {
+        resources: []
       },
-      [UnitFactoriesEnum.TankRefabricator]: {
-        power: 0,
-        input: {
-          resources: [],
-          units: []
-        },
-        output: {
-          resources: []
-        }
-      }
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.MechFabricator]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.MechRefabricator]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.PrimeRefabricator]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.ShipAssembler]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.ShipFabricator]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.ShipRefabricator]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.TankAssembler]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.TankFabricator]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
+    },
+    [UnitFactoriesEnum.TankRefabricator]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: []
+      },
+      boots: undefined,
+      unitsInput: undefined,
+      unitsOutput: undefined
     }
+  },
 }

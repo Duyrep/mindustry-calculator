@@ -93,6 +93,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
   ]
 
   let result = calculate(targets, settings)
+  console.log(result)
   for (const key in result) {
     textDot.push(`"${key}"[label="                    x ${+result[key].numOfFactory.toFixed(1)}"];`)
     result[key].to.forEach((value) => {

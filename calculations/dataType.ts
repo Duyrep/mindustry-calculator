@@ -4,7 +4,6 @@ export type Data = {
   resources: Resources
   units: Units
   factories: Factories
-  unitFactories: UnitFactories
 }
 
 export type Resources = {
@@ -18,28 +17,33 @@ export type Units = {
 }
 
 export type Factories = {
-  [key in FactoriesEnum | ExtractorsEnum]: {
+  [key in FactoriesEnum | ExtractorsEnum | UnitFactoriesEnum]: {
     power: number
     input: {
       resources: Resource[]
-    },
+    }
     output: {
       resources: Resource[]
     }
+    boots?: {
+      resources: Resource[]
+    }
+    unitsInput?: Unit[]
+    unitsOutput?: Unit[]
   }
 }
 
-export type UnitFactories = {
-  [key in UnitFactoriesEnum]: {
-    power: number
+type Extractors = {
+  power: number
+    boots: {
+      resources: Resource[]
+    }
     input: {
-      units: UnitsInput[]
       resources: Resource[]
     },
     output: {
       resources: Resource[]
     }
-  }
 }
 
 export type Resource = {
@@ -47,7 +51,7 @@ export type Resource = {
   perSecond: number
 }
 
-export type UnitsInput = {
+export type Unit = {
   name: UnitsEnum
   perSecond: 1
 }

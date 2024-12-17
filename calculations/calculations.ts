@@ -17,7 +17,7 @@ type NodeData = {
   }
 }
 
-export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: NodeData = {}, to: {name: string, numOfProductPerSec: number} = {name: "", numOfProductPerSec: 0}) {
+export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings, result: NodeData = {}, to: { name: string, numOfProductPerSec: number } = { name: "", numOfProductPerSec: 0 }) {
   let factory = getCurrentFactoryForProduct(product, settings)
   let noteName = String(getCurrentFactoryNameForProduct(product, settings)) + " " + product
 
@@ -39,6 +39,11 @@ export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactor
     if (result[noteName]) {
       nodeData.to = result[noteName].to
       nodeData.to.push({ name: to.name, numOfProductPerSec: factoryCalculation(product, numOfFactory, settings) })
+      const a: Record<string, number> = {};
+      nodeData.to.forEach(({ name, numOfProductPerSec }) => {
+        a[name] = (a[name] || 0) + numOfProductPerSec;
+      });
+      nodeData.to = Object.entries(a).map(([name, numOfProductPerSec]) => ({ name, numOfProductPerSec }));
       nodeData.numOfFactory = nodeData.numOfFactory + result[noteName].numOfFactory
     }
     result[noteName] = nodeData
@@ -46,14 +51,14 @@ export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactor
 
   try {
     factory.input.resources.forEach((resource) => {
-    let numOfFactory1 = productCalculation(resource.name, resource.perSecond, settings) * numOfFactory
+      let numOfFactory1 = productCalculation(resource.name, resource.perSecond, settings) * numOfFactory
 
-    calculateProduct(resource.name, numOfFactory1, settings, result, {name: noteName, numOfProductPerSec: factoryCalculation(product, numOfFactory, settings)})
-  });
+      calculateProduct(resource.name, numOfFactory1, settings, result, { name: noteName, numOfProductPerSec: factoryCalculation(resource.name, numOfFactory1, settings) })
+    });
   } catch {
     return {}
   }
-  
+
 
   return result
 }
@@ -140,7 +145,7 @@ function getCurrentFactoryNameForProduct(product: ResourcesEnum | UnitsEnum, set
 
 function getCurrentFactoryForProduct(product: ResourcesEnum | UnitsEnum, settings: Settings) {
   if (Object.values(UnitsEnum).includes(product as UnitsEnum)) {
-    return data.unitFactories[data.units[product as UnitsEnum].key];
+    return data.factories[data.units[product as UnitsEnum].key];
   } else {
     return data.factories[settings[product as ResourcesEnum].key];
   }
