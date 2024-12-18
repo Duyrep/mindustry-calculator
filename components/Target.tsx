@@ -16,11 +16,11 @@ export default function Target({
   targets,
   setTargets,
 }: {
-  product: ResourcesEnum | UnitsEnum;
+  product: ResourcesEnum | UnitsEnum | undefined;
   index: number;
   settings: Settings;
-  targets: [(ResourcesEnum | UnitsEnum), number][];
-  setTargets: Dispatch<SetStateAction<[(ResourcesEnum | UnitsEnum), number][]>>;
+  targets: [(ResourcesEnum | UnitsEnum | undefined), number][];
+  setTargets: Dispatch<SetStateAction<[(ResourcesEnum | UnitsEnum | undefined), number][]>>;
 }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [exiting, setExiting] = useState(false);
@@ -105,7 +105,7 @@ export default function Target({
     const target = event.target as HTMLInputElement;
 
     if (event.key == "Enter") {
-      if (isNumber(target.value)) {
+      if (isNumber(target.value) && product) {
         const numOfFactory = Number(target.value)
         const numOfProduct = factoryCalculate(product, numOfFactory, settings)
         const updatedTargets = [...targets]
@@ -124,7 +124,7 @@ export default function Target({
   const onBlurInputHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
 
-    if (isNumber(target.value)) {
+    if (isNumber(target.value) && product) {
       const numOfFactory = Number(target.value)
       const numOfProduct = factoryCalculate(product, numOfFactory, settings)
       const updatedTargets = [...targets]
@@ -143,7 +143,7 @@ export default function Target({
     const target = event.target as HTMLInputElement
 
     if (event.key == "Enter") {
-      if (isNumber(target.value)) {
+      if (isNumber(target.value) && product) {
         const numOfFactory = productCalculateInput(product, Number(target.value), settings)
         const updatedTargets = [...targets]
 
@@ -161,7 +161,7 @@ export default function Target({
   const onBlurInputHandler2 = (event: React.FocusEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement
 
-    if (isNumber(target.value)) {
+    if (isNumber(target.value) && product) {
       const numOfFactory = productCalculateInput(product, Number(target.value), settings)
       const updatedTargets = [...targets]
 
@@ -174,6 +174,12 @@ export default function Target({
     }
   };
 
+  const formatString = (input: string): string => {
+    return input.replace(/([A-Z])/g, (match, p1, offset) => {
+      return offset === 0 ? p1 : ' ' + p1.toLowerCase();
+    });
+  }
+
   useEffect(() => {
     const handleMouseDown = (event: MouseEvent) => {
       if (dropdown.current && selector.current) {
@@ -182,11 +188,11 @@ export default function Target({
         }
       }
     };
-    
-    if (numOfProductInput.current) {
+
+    if (numOfProductInput.current && product) {
       numOfProductInput.current.value = String(+factoryCalculate(product, numOfFactoryState, settings).toFixed(3))
     }
-    if (numOfFactoryInput.current) {
+    if (numOfFactoryInput.current && product) {
       numOfFactoryInput.current.value = String(+numOfFactoryState.toFixed(1))
     }
 
@@ -198,7 +204,7 @@ export default function Target({
   }, []);
 
   useEffect(() => {
-    if (numOfProductInput.current) {
+    if (numOfProductInput.current && product) {
       numOfProductInput.current.value = String(+factoryCalculate(product, numOfFactoryState, settings).toFixed(3))
     }
     if (numOfFactoryInput.current) {
@@ -216,9 +222,65 @@ export default function Target({
   }, [targetRef]);
 
   return (
-    <div className="mb-2 transition-opacity duration-150 opacity-0" ref={targetRef}>
-      <div className="flex flex-wrap space-x-2 content-center">
+    <div className="relative mb-2 transition-opacity duration-150 opacity-0" ref={targetRef}>
+      <div className="flex flex-wrap space-x-1 content-center">
+
+        <div
+          className={
+            `flex w-44 border-2 border-border rounded-md cursor-pointer duration-150 select-none
+              ${showDropdown && "bg-brand"} 
+            `}
+          onClick={() => toggleDropdown()}
+          ref={selector}
+        >
+          {
+            product ?
+              <>
+                <Image
+                  width={48}
+                  height={48}
+                  className={`p-1 h-12 w-12`}
+                  src={`/assets/sprites/${product}.webp`}
+                  alt={formatString(product)}
+                  draggable={false}
+                />
+                <span className="flex flex-wrap content-center p-1">
+                  {formatString(product)}
+                </span>
+              </>
+              :
+              <span
+                className="flex flex-wrap content-center p-1 h-12"
+              >
+                Select product
+              </span>
+          }
+        </div>
+
         <div className="flex flex-wrap content-center">
+          <div className="ml-2">
+            <label>Item/{settings.displayRate == 60 ? "minute" : settings.displayRate == 3600 ? "hour" : "second"}:</label>
+            <input
+              className="ml-1 w-32 pl-2 h-8 bg-secondary focus:outline-none rounded-md"
+              ref={numOfProductInput}
+              type="text"
+              onKeyDown={onKeyDownInputHandler2}
+              onBlur={onBlurInputHandler2}
+            />
+          </div>
+          <div className="ml-2">
+            <label>Buildings:</label>
+            <input
+              className="ml-1 w-28 h-8 pl-2 bg-secondary rounded-md focus:outline-none"
+              ref={numOfFactoryInput}
+              type="text"
+              onKeyDown={onKeyDownInputHandler}
+              onBlur={onBlurInputHandler}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-wrap content-center" title="Delete">
           <button
             className="h-8 w-8 text-3xl rounded-md bg-secondary hover:bg-red-600 transition-colors duration-100"
             onClick={removeTarget}
@@ -240,52 +302,19 @@ export default function Target({
             </svg>
           </button>
         </div>
-        <Image
-          width={48}
-          height={48}
-          className={`cursor-pointer border-2 border-border rounded-md p-1 h-12 w-12 ${showDropdown && "bg-brand"
-            } duration-150`}
-          ref={selector}
-          src={`/assets/sprites/${product}.webp`}
-          alt={product}
-          onClick={() => toggleDropdown()}
-        />
-
-        <div className="flex flex-wrap content-center">
-          <div className="ml-2">
-            <label>Item/{settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}:</label>
-            <input
-              className="ml-1 w-32 pl-2 h-8 bg-secondary focus:outline-none rounded-md"
-              ref={numOfProductInput}
-              type="text"
-              onKeyDown={onKeyDownInputHandler2}
-              onBlur={onBlurInputHandler2}
-            />
-          </div>
-          <div className="ml-2">
-            <label>Buildings:</label>
-            <input
-              className="ml-1 w-28 h-8 pl-2 bg-secondary rounded-md focus:outline-none"
-              ref={numOfFactoryInput}
-              type="text"
-              onKeyDown={onKeyDownInputHandler}
-              onBlur={onBlurInputHandler}
-            />
-          </div>
-        </div>
       </div>
 
       {showDropdown && (
         <div
           ref={dropdown}
-          className={`absolute ml-10 p-2 h-80 bg-background border-2 border-border rounded-md overflow-auto transition-all duration-150 ease-in-out transform ${exiting
+          className={`absolute z-10 flex p-2 h-80 bg-background border-2 border-border rounded-md overflow-auto transition-all duration-150 ease-in-out transform ${exiting
             ? "opacity-0 scale-95"
             : mounted
               ? "opacity-100 scale-100"
               : "opacity-0 scale-95"
             }`}
         >
-          <div className="w-72">
+          <div className="w-60">
             <span className="mx-2 text-lg">Items</span>
             <hr className="border-2 bg-border mx-2" />
             {[0, 20].map((start, idx) => (

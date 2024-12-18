@@ -126,20 +126,28 @@ export function getDefaultSettings() {
 }
 
 export function factoryCalculate(product: ResourcesEnum | UnitsEnum, numOfFactory: number, settings: Settings) {
-  let resource = getCurrentFactoryForProduct(product, settings.factorySettings).output.resources.find((value) => value.name === product);
-  if (resource?.rate) {
-    return getPerSec(product, settings.factorySettings) * (resource.rate / 100) * numOfFactory * settings.displayRate
+  try {
+    let resource = getCurrentFactoryForProduct(product, settings.factorySettings).output.resources.find((value) => value.name === product);
+    if (resource?.rate) {
+      return getPerSec(product, settings.factorySettings) * (resource.rate / 100) * numOfFactory * settings.displayRate
+    }
+    return getPerSec(product, settings.factorySettings) * numOfFactory * settings.displayRate
+  } catch {
+    return 0;
   }
-  return getPerSec(product, settings.factorySettings) * numOfFactory * settings.displayRate
 }
 
 export function productCalculate(product: ResourcesEnum | UnitsEnum, numOfProduct: number, settings: FactorySettings) {
-  let resource = getCurrentFactoryForProduct(product, settings).output.resources.find((value) => value.name === product);
-  if (resource?.rate) {
-    let perSec = getPerSec(product, settings) * resource.rate / 100;
-    return numOfProduct / perSec
+  try {
+    let resource = getCurrentFactoryForProduct(product, settings).output.resources.find((value) => value.name === product);
+    if (resource?.rate) {
+      let perSec = getPerSec(product, settings) * resource.rate / 100;
+      return numOfProduct / perSec
+    }
+    return numOfProduct / getPerSec(product, settings)
+  } catch {
+    return 0;
   }
-  return numOfProduct / getPerSec(product, settings)
 }
 
 export function productCalculateInput(product: ResourcesEnum | UnitsEnum, numOfProduct: number, settings: Settings) {

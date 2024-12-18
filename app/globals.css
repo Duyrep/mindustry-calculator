@@ -9,6 +9,7 @@
   --brand: 240 50% 60%;
   --secondary: 222 0% 85%;
   --border: 0 0% 85%;
+  --card: 0 0% 90%;
 }
 
 .dark {
@@ -18,11 +19,16 @@
   --brand: 160 84.1% 39.4%;
   --secondary: 222 0% 15%;
   --border: 12 6.5% 25.1%;
+  --card: 0 0% 10%;
 }
 
 @layer utilities {
   .bg-brand {
     background-color: hsl(var(--brand));
+  }
+
+  .bg-card {
+    background-color: hsl(var(--card))
   }
 
   .border-border {

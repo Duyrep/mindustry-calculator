@@ -3,7 +3,7 @@ import { ResourcesEnum, UnitsEnum } from "./enums";
 import { graphviz, GraphvizOptions } from "d3-graphviz";
 import { calculate, Settings } from "./calculations";
 
-export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), number][], options: GraphvizOptions | boolean, settings: Settings) {
+export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undefined), number][], options: GraphvizOptions | boolean, settings: Settings) {
   const color = select("html").classed("dark") ? "white" : "black";
   select("#graph-container").selectAll("*").remove()
   select("#graph-container").append("div").attr("id", "graph")
@@ -56,7 +56,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
       const text = edge.select("text");
       const textFontSize = Number(text.attr("font-size")) * 2
       const textBBox = (text.node() as SVGGraphicsElement).getBBox()
-      const productName = title.text().split(" ")[1].split("->")[0];
+      const productName = title.text().split(" ")[title.text().split(" ").length - 1];
 
       title.text("")
       edge.select("polygon").attr("stroke", color);
@@ -92,14 +92,21 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum), numbe
     `"Output" [label="Output"];`
   ]
 
-  let result = calculate(targets, settings)
-  console.log(result)
+  let targets1 = [ ...targets ]
+  for (const key in targets1) {
+    if (!targets1[key][0]) {
+      delete targets1[key]
+    }
+  }
+
+  let result = calculate(targets1 as [(ResourcesEnum | UnitsEnum), number][], settings)
   for (const key in result) {
     textDot.push(`"${key}"[label="                    x ${+result[key].numOfFactory.toFixed(1)}"];`)
-    result[key].to.forEach((value) => textDot.push(`"${key}" -> "${value.name}"[label=" x ${+Math.max(value.numOfProductPerSec, 0.1).toFixed(2)}/${settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}         "]`))
+    result[key].to.forEach((value) => textDot.push(`"${value.name}" -> "${key}"[label=" x ${+Math.max(value.numOfProductPerSec, 0.1).toFixed(2)}/${settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}         "]`))
   }
 
   textDot.push("}")
+  console.log(textDot)
 
   graphviz(div.node(), options).renderDot(textDot.join(""), () => {
     let svg = div.select("svg");

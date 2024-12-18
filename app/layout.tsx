@@ -13,13 +13,8 @@ export default function RootLayout({
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Mindustry Calculator</title>
     </head>
-    <body className="w-full h-full p-2">
+    <body className="w-full h-full overflow-hidden">
       {children}
-      Website made by Duyrep
-      <br />
-      The site is in development
-      <br />
-      Latest Updates: 12/17/2024
       <SpeedInsights />
     </body>
     </html>
