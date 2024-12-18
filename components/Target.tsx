@@ -83,19 +83,19 @@ export default function Target({
       ));
   };
 
-  const removeTarget = (): void => {
-    if (targetRef.current) {
-      targetRef.current.classList.remove("opacity-1");
-      targetRef.current.classList.add("opacity-0");
-      setTimeout(() => {
-        setTargets((prev) => prev.filter((_, i) => i !== index));
-        if (targetRef.current) {
-          targetRef.current.classList.remove("opacity-0");
-          targetRef.current.classList.add("opacity-1");
-        }
-      }, 99);
-    }
-  };
+  // const removeTarget = (): void => {
+  //   if (targetRef.current) {
+  //     targetRef.current.classList.remove("opacity-1");
+  //     targetRef.current.classList.add("opacity-0");
+  //     setTimeout(() => {
+  //       setTargets((prev) => prev.filter((_, i) => i !== index));
+  //       if (targetRef.current) {
+  //         targetRef.current.classList.remove("opacity-0");
+  //         targetRef.current.classList.add("opacity-1");
+  //       }
+  //     }, 99);
+  //   }
+  // };
 
   const isNumber = (str: string): boolean => {
     return /^\d+(\.\d+)?$/.test(str);
