@@ -225,6 +225,7 @@ export default function Target({
     <div className="relative mb-2 transition-opacity duration-150 opacity-0" ref={targetRef}>
       <div className="flex flex-wrap space-x-1 content-center">
 
+        <div className="flex flex-wrap content-center">Output:</div>
         <div
           className={
             `flex w-44 border-2 border-border rounded-md cursor-pointer duration-150 select-none
@@ -280,7 +281,7 @@ export default function Target({
           </div>
         </div>
 
-        <div className="flex flex-wrap content-center" title="Delete">
+        {/* <div className="flex flex-wrap content-center" title="Delete">
           <button
             className="h-8 w-8 text-3xl rounded-md bg-secondary hover:bg-red-600 transition-colors duration-100"
             onClick={removeTarget}
@@ -301,7 +302,7 @@ export default function Target({
               <path d="M4 12H20M12 4V20" />
             </svg>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {showDropdown && (

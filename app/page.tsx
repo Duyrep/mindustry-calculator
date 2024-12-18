@@ -196,7 +196,7 @@ export default function Home() {
           />
         ))}
       </div>
-      <button
+      {/* <button
         className="flex flex-wrap content-center justify-center space-x-2 w-44 h-12 p-1 pr-2 rounded-md bg-secondary hover:bg-green-600 transition-colors duration-100"
         onClick={() => setTargets((prev) => [...prev, [undefined, 1]])}
       >
@@ -218,7 +218,7 @@ export default function Home() {
           </svg>
         </span>
         <span>Add product</span>
-      </button>
+      </button> */}
       <div id="graph-container" className="p-2"></div>
       Website made by Duyrep
       <br />

@@ -56,9 +56,9 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
       const text = edge.select("text");
       const textFontSize = Number(text.attr("font-size")) * 2
       const textBBox = (text.node() as SVGGraphicsElement).getBBox()
-      const productName = title.text().split(" ")[title.text().split(" ").length - 1];
+      const productName = title.text().split(" ")[1].split("->")[0];
 
-      title.text("")
+      // title.text("")
       edge.select("polygon").attr("stroke", color);
       edge.select("path").attr("stroke", color);
 
@@ -102,7 +102,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
   let result = calculate(targets1 as [(ResourcesEnum | UnitsEnum), number][], settings)
   for (const key in result) {
     textDot.push(`"${key}"[label="                    x ${+result[key].numOfFactory.toFixed(1)}"];`)
-    result[key].to.forEach((value) => textDot.push(`"${value.name}" -> "${key}"[label=" x ${+Math.max(value.numOfProductPerSec, 0.1).toFixed(2)}/${settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}         "]`))
+    result[key].to.forEach((value) => textDot.push(`"${key}" -> "${value.name}"[label=" x ${+Math.max(value.numOfProductPerSec, 0.1).toFixed(2)}/${settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}         "]`))
   }
 
   textDot.push("}")
