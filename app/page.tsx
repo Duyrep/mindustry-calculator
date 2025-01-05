@@ -455,6 +455,7 @@ export default function Home() {
         </div>
       </div>
       <div className="p-4 stroke-1" id="graph-container-main"></div>
+      <a className="text-brand" href="https://github.com/Duyrep/mindustry-calculator"><b>Github</b></a> <br />
       Website made by Duyrep <br />
       The site is in development <br />
       Latest Updates: 1/5/2025 <br />
