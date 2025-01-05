@@ -67,6 +67,9 @@ export function calculate(
     (building.input as InputOutputBuilding[]).forEach((product1) => {
       const numOfBuildings1 = calculateNumOfBuildings(product1.perSecond * numOfBuildings, product1.name, settings)
       calculate(numOfBuildings1, product1.name, settings, nodes, { name: `${buildingName} ${product}`, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings) }, link + 1)
+      // if ((building.output as InputOutputBuilding[]).length > 1) {
+      //   // nodes
+      // }
     })
   } else if (building.type == BuildingTypes.Extractor) {
     if (building.input) {
