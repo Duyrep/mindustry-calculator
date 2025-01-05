@@ -411,10 +411,16 @@ export const data: Data = {
     [BuildingsEnum.Cultivator]: {
       type: BuildingTypes.Extractor,
       power: 80,
-      output: [
+      input: [
         {
           name: ResourcesEnum.Water,
           perSecond: 18.0
+        }
+      ],
+      output: [
+        {
+          name: ResourcesEnum.SporePod,
+          perSecond: 1
         }
       ],
       affinities: {

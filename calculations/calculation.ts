@@ -71,7 +71,6 @@ export function calculate(
   } else if (building.type == BuildingTypes.Extractor) {
     if (building.input) {
       (building.input as InputOutputBuilding[]).forEach((product1) => {
-        console.log(product1.name, product1.perSecond, getNumOfProductsPerSecondOfOutput(product1.name, settings))
         const numOfBuildings1 = calculateNumOfBuildings(product1.perSecond * numOfBuildings, product1.name, settings)
         calculate(numOfBuildings1, product1.name, settings, nodes, { name: nodeName, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings) }, link + 1)
       })

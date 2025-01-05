@@ -108,7 +108,6 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
 
   if (target) {
     const result = calculate(numOfBuildings, target, settings)
-    console.log(result)
     Object.keys(result).forEach((key, index) => {
       textDot.push(
         `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
@@ -122,7 +121,6 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
   }
 
   textDot.push("}")
-  console.log(textDot)
   const div = select("#graph-container-secondary")
   const option: GraphvizOptions = {
     useWorker: false,
