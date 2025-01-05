@@ -1,13 +1,10 @@
 import { BaseType, select, Selection, text } from "d3";
-import { ResourcesEnum, UnitsEnum } from "./enums";
-import { graphviz, GraphvizOptions } from "d3-graphviz";
-import { calculate, Settings } from "./calculations";
+import { calculate, getNumOfProductsPerSecondOfOutput, Settings } from "./calculation";
+import { graphviz, GraphvizOptions } from "d3-graphviz"
+import { ResourcesEnum } from "./enums";
 
-export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undefined), number][], options: GraphvizOptions | boolean, settings: Settings) {
-  const color = select("html").classed("dark") ? "white" : "black";
-  select("#graph-container").selectAll("*").remove()
-  select("#graph-container").append("div").attr("id", "graph")
-  const div = select("#graph");
+export function renderChart(numOfBuildings: number, target: undefined | ResourcesEnum, settings: Settings, graphDirection: "LR" | "TB") {
+  deleteChart()
 
   const renderNodes = () => {
     div.selectAll(".node").each(function () {
@@ -20,16 +17,21 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
         .attr("y", points[1][1])
         .attr("width", getRectangleWidth(points))
         .attr("height", getRectangleHeight(points))
-        .attr("stroke", color)
         .attr("rx", 4)
         .attr("fill", "rgba(0, 0, 0, 0)")
         .lower();
       polygon.remove();
 
       const title = node.select("title")
-      const [factoryName, product] = title.text().split(" ")
+      const [buildingName, product, link] = title.text().split(" ")
 
-      if (factoryName == "Output") {
+      if (!link) {
+        node.classed("link-0", true)
+      } else {
+        node.classed(link, true)
+      }
+
+      if (buildingName == "Output") {
         return
       }
       title.text(product)
@@ -45,7 +47,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
         .attr("y", Number(image.attr("y")))
         .attr("width", getRectangleHeight(points) - 4)
         .attr("height", getRectangleHeight(points) - 4)
-        .attr("href", `/assets/sprites/${factoryName}.webp`)
+        .attr("href", `/assets/sprites/${buildingName}.webp`)
     });
   };
 
@@ -56,15 +58,25 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
       const text = edge.select("text");
       const textFontSize = Number(text.attr("font-size")) * 2
       const textBBox = (text.node() as SVGGraphicsElement).getBBox()
-      const productName = title.text().split(" ")[1].split("->")[0];
+      const [_, productName, link] = title.text().split("->")[0].split(" ");
+
+      edge.classed(link, true)
+      edge.select("path").attr("stroke", "")
+      edge.select("polygon").attr("stroke", "")
+      // edge.append("rect")
+      //   .attr("x", +text.attr("x") - textBBox.width)
+      //   .attr("y", text.attr("y"))
+      //   .attr("width", textBBox.width)
+      //   .attr("height", textBBox.height)
 
       title.text("")
-      edge.select("polygon").attr("stroke", color);
-      edge.select("path").attr("stroke", color);
+
+      edge.select("text")
+        .attr("x", textBBox.x)
 
       edge.append("image")
-        .attr("x", Number(text.attr("x")) - textBBox.width / 2 - textFontSize)
-        .attr("y", Number(text.attr("y")) - textBBox.height - 4)
+        .attr("x", (+text.attr("x") - textBBox.width / 2 - textFontSize) + 32)
+        .attr("y", +text.attr("y") - textBBox.height - 4)
         .attr("width", textFontSize)
         .attr("height", textFontSize)
         .attr("href", `/assets/sprites/${productName}.webp`)
@@ -88,44 +100,70 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
   const textDot = [
     `digraph {`,
     `node[shape=rect label=""];`,
+    `edge[labeldistance=0.5];`,
+    `rankdir="${graphDirection}"`,
     `ranksep=1;`,
-    `"Output" [label="Output"];`
+    `"Output" [label="Output" tooltip="link-0"];`
   ]
 
-  let targets1 = [ ...targets ]
-  for (const key in targets1) {
-    if (!targets1[key][0]) {
-      delete targets1[key]
-    }
-  }
-
-  let result = calculate(targets1 as [(ResourcesEnum | UnitsEnum), number][], settings)
-  for (const key in result) {
-    textDot.push(`"${key}"[label="                    x ${+result[key].numOfFactory.toFixed(1)}"];`)
-    result[key].to.forEach((value) => textDot.push(`"${key}" -> "${value.name}"[label=" x ${+Math.max(value.numOfProductPerSec, 0.1).toFixed(2)}/${settings.displayRate == 60 ? "m" : settings.displayRate == 3600 ? "h" : "s"}         "]`))
+  if (target) {
+    const result = calculate(numOfBuildings, target, settings)
+    console.log(result)
+    Object.keys(result).forEach((key, index) => {
+      textDot.push(
+        `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
+      )
+      result[key].to.forEach(({ name, numOfProductsPerSec }) => {
+        textDot.push(
+          `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="link-${result[key].link}"];`
+        )
+      })
+    })
   }
 
   textDot.push("}")
-
-  graphviz(div.node(), options).renderDot(textDot.join(""), () => {
+  console.log(textDot)
+  const div = select("#graph-container-secondary")
+  const option: GraphvizOptions = {
+    useWorker: false,
+    zoom: !isMobile(),
+    growEnteringEdges: false,
+    tweenShapes: false,
+    tweenPaths: false,
+    zoomScaleExtent: [0.9, 4],
+  }
+  graphviz(div.node(), option).renderDot(textDot.join(""), () => {
     let svg = div.select("svg");
 
-    svg.select("polygon").remove();
-    svg.selectAll("text").attr("fill", color);
-
-    renderNodes();
-    renderEdges();
-
-    svg.attr("class", "border-2 border-border");
     svg.attr("width", (div.node() as HTMLElement).getBoundingClientRect().width).attr("height", null);
+    svg.attr("class", "border-2 border-border")
+    svg.select("polygon").remove()
+
+    renderNodes()
+    renderEdges()
 
     resizeChart()
     window.removeEventListener("resize", resizeChart)
     window.addEventListener("resize", resizeChart)
-  });
+  })
+}
+
+function deleteChart() {
+  select("#graph-container-main").select("*").remove()
+  select("#graph-container-main").append("div").attr("id", "graph-container-secondary")
 }
 
 function resizeChart() {
-  let width = (select("#graph").node() as HTMLElement).getBoundingClientRect().width
-  select("#graph").select("svg").attr("width", width).attr("height", width * 9 / 16);
+  let width = (select("#graph-container-secondary").node() as HTMLElement).getBoundingClientRect().width
+  select("#graph-container-secondary").select("svg").attr("width", width).attr("height", width * 9 / 16);
+}
+
+function isMobile() {
+  if (typeof navigator !== "undefined") {
+    return /mobile|android|touch|webos/i.test(
+      navigator.userAgent.toLowerCase()
+    );
+  } else {
+    return false
+  }
 }

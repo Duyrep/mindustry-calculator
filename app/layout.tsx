@@ -1,5 +1,4 @@
 import "./globals.css";
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function RootLayout({
   children,
@@ -7,15 +6,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="w-full h-full bg-background text-foreground dark">
+    <html lang="en" className="h-full dark text-foreground">
     <head>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Mindustry Calculator</title>
     </head>
-    <body className="w-full h-full overflow-hidden">
+    <body className="overflow-hidden h-full">
       {children}
-      <SpeedInsights />
     </body>
     </html>
   );

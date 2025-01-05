@@ -1,4 +1,5 @@
-export enum BuildingsEnum {
+export enum ExtractorsEnum {
+  // Surpulo
   AirblastDrill = "AirblastDrill",
   LaserDrill = "LaserDrill",
   PneumaticDrill = "PneumaticDrill",
@@ -10,6 +11,19 @@ export enum BuildingsEnum {
   Cultivator = "Cultivator",
   WaterExtractor = "WaterExtractor",
 
+  // // Erekir
+  // CliffCrusher = "CliffCrusher",
+  // TurbineCondenser = "TurbineCondenser",
+  // EruptionDrill = "EruptionDrill",
+  // ImpactDrill = "ImpactDrill",
+  // LargePlasmaBore = "LargePlasmaBore",
+  // PlasmaBore = "PlasmaBore",
+  // ReinforcedPump = "ReinforcedPump",
+  // VentCondenser = "VentCondenser"
+}
+
+export enum FactoriesEnum {
+  // Serpulo
   BlastMixer = "BlastMixer",
   CoalCentrifuge = "CoalCentrifuge",
   CryofluidMixer = "CryofluidMixer",
@@ -35,9 +49,39 @@ export enum BuildingsEnum {
   MultiplicativeReconstructor = "MultiplicativeReconstructor",
   NavalFactory = "NavalFactory",
   TetrativeReconstructor = "TetrativeReconstructor",
+
+  // // Erekir
+  // AtmosphericConcentrator = "AtmosphericConcentrator",
+  // CarbideCrucible = "CarbideCrucible",
+  // CyanogenSynthesizer = "CyanogenSynthesizer",
+  // Electrolyzer = "Electrolyzer",
+  // OxidationChamber = "OxidationChamber",
+  // PhaseSynthesizer = "PhaseSynthesizer",
+  // SiliconArcFurnace = "SiliconArcFurnace",
+  // SlagIncinerator = "SlagIncinerator",
+  // SurgeCrucible = "SurgeCrucible",
+
+  // MechAssembler = "MechAssembler",
+  // MechFabricator = "MechFabricator",
+  // MechRefabricator = "MechRefabricator",
+  // PrimeRefabricator = "PrimeRefabricator",
+  // ShipAssembler = "ShipAssembler",
+  // ShipFabricator = "ShipFabricator",
+  // ShipRefabricator = "ShipRefabricator",
+  // TankAssembler = "TankAssembler",
+  // TankFabricator = "TankFabricator",
+  // TankRefabricator = "TankRefabricator"
+
+  // // Heat
+  // ElectricHeater = "ElectricHeater",
+  // HeatRedirector = "HeatRedirector",
+  // HeatRouter = "HeatRouter",
+  // PhaseHeater = "PhaseHeater",
+  // SlagHeater = "SlagHeater",
 }
 
 export enum ResourcesEnum {
+  // Items
   Copper = "Copper",
   Lead = "Lead",
   Coal = "Coal",
@@ -54,11 +98,22 @@ export enum ResourcesEnum {
   Plastanium = "Plastanium",
   Pyratite = "Pyratite",
   SporePod = "SporePod",
+  // Beryllium = "Beryllium",
+  // Carbide = "Carbide",
+  // Oxide = "Oxide",
+  // Tungsten = "Tungsten",
 
+  // Liquids
   Water = "Water",
   Slag = "Slag",
   Oil = "Oil",
-  Cryofluid = "Cryofluid"
+  Cryofluid = "Cryofluid",
+  // Arkycite = "Arkycite",
+  // Neoplasm = "Neoplasm",
+  // Cyanogen = "Cyanogen",
+  // Hydrogen = "Hydrogen",
+  // Nitrogen = "Nitrogen",
+  // Ozone = "Ozone",
 }
 
 export enum UnitsEnum {
@@ -98,6 +153,23 @@ export enum UnitsEnum {
   Aegires = "Aegires",
   Cyerce = "Cyerce",
   Navanax = "Navanax",
+
+  // // Erekir
+  // Stell = "Stell",
+  // Locus = "Locus",
+  // Precept = "Precept",
+  // Vanquish = "Vanquish",
+  // Conquer = "Conquer",
+  // Merui = "Merui",
+  // Cleroi = "Cleroi",
+  // Anthicus = "Anthicus",
+  // Tecta = "Tecta",
+  // Collaris = "Collaris",
+  // Elude = "Elude",
+  // Avert = "Avert",
+  // Obviate = "Obviate",
+  // Quell = "Quell",
+  // Disrupt = "Disrupt"
 }
 
 export enum TilesEnum {
@@ -119,11 +191,4 @@ export enum TilesEnum {
   MossFloor = "MossFloor",
   TaintedWaterFloor = "TaintedWaterFloor",
   SporeMossFloor = "SporeMossFloor"
-}
-
-export enum BuildingTypes {
-    Extractor = "Extractor",
-    Factory = "Factory",
-    Reconstructor = "Reconstructor",
-    Unit = "Unit"
 }
