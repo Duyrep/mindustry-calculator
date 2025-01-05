@@ -1,4 +1,5 @@
 import { data } from "./data/7.0-Build-146";
+import { Resource } from "./dataType";
 import { ExtractorsEnum, FactoriesEnum, ResourcesEnum, UnitFactoriesEnum, UnitsEnum } from "./enums";
 
 
@@ -66,7 +67,6 @@ export function calculateProduct(product: ResourcesEnum | UnitsEnum, numOfFactor
     console.log(error)
     return {}
   }
-
 
   return result
 }
@@ -191,4 +191,15 @@ export function getFactoriesByProduct(product: ResourcesEnum | UnitsEnum) {
   } else {
     return data.units[product as UnitsEnum].key;
   }
+}
+
+export function getFactoriesWithBoost() {
+  let factories: Record<string, Resource[]> = {}
+  for (const key in data.factories) {
+    let factory = data.factories[key as FactoriesEnum | ExtractorsEnum | UnitFactoriesEnum].booster
+    if (factory) {
+      factories[key] = factory.resources
+    }
+  }
+  return factories
 }

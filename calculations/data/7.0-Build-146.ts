@@ -923,6 +923,14 @@ export const data: Data = {
             perSecond: 2.0
           },
         ]
+      },
+      booster: {
+        resources: [
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 6.0
+          }
+        ]
       }
     },
     [ExtractorsEnum.CliffCrusher]: {
@@ -979,6 +987,56 @@ export const data: Data = {
             perSecond: 1.12
           }
         ]
+      },
+      booster: {
+        resources: [
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 4.8
+          }
+        ]
+      }
+    },
+    [ExtractorsEnum.PneumaticDrill]: {
+      power: 0,
+      input: {
+        resources: []
+      },
+      output: {
+        resources: [
+          {
+            name: ResourcesEnum.Sand,
+            perSecond: 0.6
+          },
+          {
+            name: ResourcesEnum.Scrap,
+            perSecond: 0.6
+          },
+          {
+            name: ResourcesEnum.Copper,
+            perSecond: 0.53
+          },
+          {
+            name: ResourcesEnum.Lead,
+            perSecond: 0.53
+          },
+          {
+            name: ResourcesEnum.Coal,
+            perSecond: 0.47
+          },
+          {
+            name: ResourcesEnum.Titanium,
+            perSecond: 0.43
+          }
+        ]
+      },
+      booster: {
+        resources: [
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 3.6
+          }
+        ]
       }
     },
     [ExtractorsEnum.MechanicalDrill]: {
@@ -1007,6 +1065,14 @@ export const data: Data = {
           {
             name: ResourcesEnum.Coal,
             perSecond: 0.34
+          }
+        ]
+      },
+      booster: {
+        resources: [
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 3.0
           }
         ]
       }
@@ -1056,40 +1122,6 @@ export const data: Data = {
         ]
       }
     },
-    [ExtractorsEnum.PneumaticDrill]: {
-      power: 0,
-      input: {
-        resources: []
-      },
-      output: {
-        resources: [
-          {
-            name: ResourcesEnum.Sand,
-            perSecond: 0.6
-          },
-          {
-            name: ResourcesEnum.Scrap,
-            perSecond: 0.6
-          },
-          {
-            name: ResourcesEnum.Copper,
-            perSecond: 0.53
-          },
-          {
-            name: ResourcesEnum.Lead,
-            perSecond: 0.53
-          },
-          {
-            name: ResourcesEnum.Coal,
-            perSecond: 0.47
-          },
-          {
-            name: ResourcesEnum.Titanium,
-            perSecond: 0.43
-          }
-        ]
-      }
-    },
     [ExtractorsEnum.RotaryPump]: {
       power: 0,
       input: {
@@ -1109,12 +1141,17 @@ export const data: Data = {
       }
     },
     [ExtractorsEnum.WaterExtractor]: {
-      power: 0,
+      power: 90,
       input: {
         resources: []
       },
       output: {
-        resources: []
+        resources: [
+          {
+            name: ResourcesEnum.Water,
+            perSecond: 6.6
+          }
+        ]
       }
     },
     [ExtractorsEnum.Cultivator]: {
@@ -1198,7 +1235,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1210,7 +1246,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1222,7 +1257,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1234,7 +1268,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1246,7 +1279,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1258,7 +1290,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1270,7 +1301,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1282,7 +1312,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1294,7 +1323,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1306,7 +1334,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1318,7 +1345,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1330,7 +1356,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1342,7 +1367,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1354,7 +1378,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1366,7 +1389,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1378,7 +1400,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     },
@@ -1390,7 +1411,6 @@ export const data: Data = {
       output: {
         resources: []
       },
-      boots: undefined,
       unitsInput: undefined,
       unitsOutput: undefined
     }

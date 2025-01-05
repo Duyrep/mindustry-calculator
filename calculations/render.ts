@@ -58,7 +58,7 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
       const textBBox = (text.node() as SVGGraphicsElement).getBBox()
       const productName = title.text().split(" ")[1].split("->")[0];
 
-      // title.text("")
+      title.text("")
       edge.select("polygon").attr("stroke", color);
       edge.select("path").attr("stroke", color);
 
@@ -106,7 +106,6 @@ export default function renderChart(targets: [(ResourcesEnum | UnitsEnum | undef
   }
 
   textDot.push("}")
-  console.log(textDot)
 
   graphviz(div.node(), options).renderDot(textDot.join(""), () => {
     let svg = div.select("svg");

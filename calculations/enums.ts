@@ -175,3 +175,10 @@ export enum UnitsEnum {
   Quell = "Quell",
   Disrupt = "Disrupt"
 }
+
+export enum Titles {
+  SlatFloor = "SlatFloor",
+  SandFloor = "SandFloor",
+  DarkSandFloor = "DarkSandFloor",
+  ShaleFloor = "ShaleFloor"
+}

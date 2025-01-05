@@ -25,25 +25,12 @@ export type Factories = {
     output: {
       resources: Resource[]
     }
-    boots?: {
+    booster?: {
       resources: Resource[]
     }
     unitsInput?: Unit[]
     unitsOutput?: Unit[]
   }
-}
-
-type Extractors = {
-  power: number
-    boots: {
-      resources: Resource[]
-    }
-    input: {
-      resources: Resource[]
-    },
-    output: {
-      resources: Resource[]
-    }
 }
 
 export type Resource = {

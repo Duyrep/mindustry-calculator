@@ -11,7 +11,7 @@ import Target from "@/components/Target";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { GraphvizOptions } from "d3-graphviz";
-import { FactorySettings, getDefaultSettings, getFactoriesByProduct, Settings } from "@/calculations/calculations";
+import { FactorySettings, getDefaultSettings, getFactoriesByProduct, getFactoriesWithBoost, Settings } from "@/calculations/calculations";
 
 export default function Home() {
   const [targets, setTargets] = useState<[(ResourcesEnum | UnitsEnum | undefined), number][]>([
@@ -39,9 +39,11 @@ export default function Home() {
     zoomScaleExtent: [0.8, 10],
   };
 
-  useEffect(() => {
-    renderChart(targets, option, settings);
-  }, []);
+  const formatString = (input: string): string => {
+    return input.replace(/([A-Z])/g, (match, p1, offset) => {
+      return offset === 0 ? p1 : ' ' + p1.toLowerCase();
+    });
+  }
 
   useEffect(() => {
     renderChart(targets, option, settings);
@@ -92,22 +94,65 @@ export default function Home() {
               </span>
               <b>Factory</b>
               <hr className="border-2 bg-border my-2" />
+              {/* <table className="border border-border w-full">
+                <thead>
+                  <tr>
+                    <th className="w-12">Factory</th>
+                    <th>Booster</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    Object.keys(getFactoriesWithBoost()).map((key) => {
+                      let resources = getFactoriesWithBoost()[key]
+                      return (
+                        <tr key={key} className="border border-border">
+                          <td>
+                            <Image
+                              className="p-1"
+                              src={`/assets/sprites/${key}.webp`}
+                              width={48}
+                              height={48}
+                              alt={formatString(key)}
+                              title={formatString(key)}
+                            /></td>
+                          <td className="flex">
+                            {
+                              resources.map((i) => (
+                                <Image
+                                  className="p-1"
+                                  key={i.name}
+                                  src={`/assets/sprites/${i.name}.webp`}
+                                  width={48}
+                                  height={48}
+                                  alt={i.name}
+                                  title={i.name}
+                                />
+                              ))
+                            }
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </table> */}
               <table className="w-full">
                 <thead>
                   <tr className="border border-border rounded-t-md py-1">
-                    <th className="w-1">Product</th>
+                    <th className="w-12">Product</th>
                     <th colSpan={1}>Factory</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border border-border">
                     <td className="text-center">All</td>
-                    <td className="flex flex-wrap">
+                    <td className="flex flex-wrap my-2">
                       {[
                         "MechanicalDrill",
                         "PneumaticDrill",
                         "LaserDrill",
-                        "AirblastDrill",
+                        "AirblastDrill"
                       ].map((value) => (
                         <Image
                           className="p-1 cursor-pointer rounded-md hover:bg-brand duration-150"
@@ -115,7 +160,8 @@ export default function Home() {
                           src={`/assets/sprites/${value}.webp`}
                           width={48}
                           height={48}
-                          alt=""
+                          alt={formatString(value)}
+                          title={formatString(value)}
                           onClick={() => {
                             const factorySettings: FactorySettings = { ...settings.factorySettings }
                             for (const key in factorySettings) {
@@ -133,43 +179,45 @@ export default function Home() {
                   {Object.keys(ResourcesEnum).map((valuei) => (
                     <tr
                       key={valuei}
-                      className="border border-border overflow-x-scroll"
+                      className="h-12 border border-border overflow-x-scroll"
                     >
                       <td>
                         <Image
                           width={48}
                           height={48}
-                          className="w-12 h-12 p-1"
+                          className="p-1"
                           src={`/assets/sprites/${valuei}.webp`}
-                          alt={valuei}
-                          title={valuei}
+                          alt={formatString(valuei)}
+                          title={formatString(valuei)}
                         />
                       </td>
-                      <td className="flex flex-wrap my-2">
-                        {(
-                          getFactoriesByProduct(valuei as ResourcesEnum) as (
-                            | FactoriesEnum
-                            | ExtractorsEnum
-                          )[]
-                        ).map((valuej) => (
-                          <Image
-                            key={valuej}
-                            width={48}
-                            height={48}
-                            className={`p-1 rounded-md hover:bg-brand duration-150 ${valuej == settings.factorySettings[valuei as ResourcesEnum].key
-                              ? "bg-brand"
-                              : "cursor-pointer"
-                              }`}
-                            src={`/assets/sprites/${valuej}.webp`}
-                            alt={valuej}
-                            onClick={() => {
-                              const factorySettings = { ...settings.factorySettings }
-                              factorySettings[valuei as ResourcesEnum].key = valuej
-                              setSettings(prev => ({ ...prev, factorySettings: factorySettings }))
-                            }}
-                            title={valuej}
-                          />
-                        ))}
+                      <td>
+                        <div className="flex flex-wrap my-2">
+                          {(
+                            getFactoriesByProduct(valuei as ResourcesEnum) as (
+                              | FactoriesEnum
+                              | ExtractorsEnum
+                            )[]
+                          ).map((valuej) => (
+                            <Image
+                              key={valuej}
+                              width={48}
+                              height={48}
+                              className={`p-1 rounded-md hover:bg-brand duration-150 ${valuej == settings.factorySettings[valuei as ResourcesEnum].key
+                                ? "bg-brand"
+                                : "cursor-pointer"
+                                }`}
+                              src={`/assets/sprites/${valuej}.webp`}
+                              alt={formatString(valuej)}
+                              onClick={() => {
+                                const factorySettings = { ...settings.factorySettings }
+                                factorySettings[valuei as ResourcesEnum].key = valuej
+                                setSettings(prev => ({ ...prev, factorySettings: factorySettings }))
+                              }}
+                              title={formatString(valuej)}
+                            />
+                          ))}
+                        </div>
                       </td>
                     </tr>
                   ))}
