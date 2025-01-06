@@ -23,24 +23,18 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
       polygon.remove();
 
       const title = node.select("title")
-      const [buildingName, product, link] = title.text().split(" ")
-
-      if (!link) {
-        node.classed("link-0", true)
-      } else {
-        node.classed(link, true)
-      }
+      const [buildingName, product] = title.text().split(" ")
 
       if (buildingName == "Output" || buildingName == "Surplus") {
         return
       }
-      // title.text(product)
+      title.text(product)
 
       const image = node.append("image")
         .attr("x", Number(rect.attr("x")) + 2)
         .attr("y", Number(rect.attr("y")) + 2)
         .attr("height", getRectangleHeight(points) - 4)
-        .attr("href", `/assets/sprites/${product}.webp`)
+        .attr("href", `/assets/sprites/${product != "Surplus" ? product : buildingName + "Output"}.webp`)
 
       node.append("image")
         .attr("x", Number(image.attr("x")) + getRectangleHeight(points) + 2)
@@ -58,9 +52,9 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
       const text = edge.select("text");
       const textFontSize = Number(text.attr("font-size")) * 2
       const textBBox = (text.node() as SVGGraphicsElement).getBBox()
-      const [_, productName, link] = title.text().split("->")[0].split(" ");
+      const [_, productName] = title.text().split("->")[0].split(" ");
+      const aTitle = edge.select("g").select("a").attr("title").split(" ")
 
-      edge.classed(link, true)
       edge.select("path").attr("stroke", "")
       edge.select("polygon").attr("stroke", "")
       // edge.append("rect")
@@ -79,7 +73,7 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
         .attr("y", +text.attr("y") - textBBox.height - 4)
         .attr("width", textFontSize)
         .attr("height", textFontSize)
-        .attr("href", `/assets/sprites/${productName}.webp`)
+        .attr("href", `/assets/sprites/${aTitle.length == 1 ? productName + ".webp" : aTitle[0] + ".webp"}`)
     });
   };
 
@@ -114,12 +108,22 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
           `"${key}"[label="Surplus" tooltip="link-${result[key].link}"];`
         )
       } else {
+        if (result[key].surplus) {
+          result[key].surplus.forEach(({ name, numOfProductsPerSec }) => {
+            textDot.push(
+              `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="${name} link-${result[key].link}"];`
+            )
+            textDot.push(
+              `"${key}" -> "Surplus"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="${name} link-${result[key].link}"];`
+            )
+          })
+        }
         textDot.push(
           `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
         )
         result[key].to.forEach(({ name, numOfProductsPerSec }) => {
           textDot.push(
-            `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="link-${result[key].link}"];`
+            `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="${result[key].surplus ? result[key].productName + " " : ""}link-${result[key].link}"];`
           )
         })
       }
