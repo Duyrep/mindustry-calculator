@@ -34,7 +34,7 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
         .attr("x", Number(rect.attr("x")) + 2)
         .attr("y", Number(rect.attr("y")) + 2)
         .attr("height", getRectangleHeight(points) - 4)
-        .attr("href", `/assets/sprites/${product != "Surplus" ? product : buildingName + "Output"}.webp`)
+        .attr("href", `/assets/sprites/${product}.webp`)
 
       node.append("image")
         .attr("x", Number(image.attr("x")) + getRectangleHeight(points) + 2)
@@ -73,7 +73,7 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
         .attr("y", +text.attr("y") - textBBox.height - 4)
         .attr("width", textFontSize)
         .attr("height", textFontSize)
-        .attr("href", `/assets/sprites/${aTitle.length == 1 ? productName + ".webp" : aTitle[0] + ".webp"}`)
+        .attr("href", `/assets/sprites/${productName}.webp`)
     });
   };
 
@@ -103,30 +103,14 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
   if (target) {
     const result = calculate(numOfBuildings, target, settings)
     Object.keys(result).forEach((key) => {
-      if (key == "Surplus") {
+      textDot.push(
+        `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
+      )
+      result[key].to.forEach(({ name, numOfProductsPerSec }) => {
         textDot.push(
-          `"${key}"[label="Surplus" tooltip="link-${result[key].link}"];`
+          `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="link-${result[key].link}"];`
         )
-      } else {
-        if (result[key].surplus) {
-          result[key].surplus.forEach(({ name, numOfProductsPerSec }) => {
-            textDot.push(
-              `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="${name} link-${result[key].link}"];`
-            )
-            textDot.push(
-              `"${key}" -> "Surplus"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="${name} link-${result[key].link}"];`
-            )
-          })
-        }
-        textDot.push(
-          `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
-        )
-        result[key].to.forEach(({ name, numOfProductsPerSec }) => {
-          textDot.push(
-            `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="${result[key].surplus ? result[key].productName + " " : ""}link-${result[key].link}"];`
-          )
-        })
-      }
+      })
     })
   }
 

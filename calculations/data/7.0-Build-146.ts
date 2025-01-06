@@ -787,11 +787,11 @@ export const data: Data = {
       power: 240,
       input: [
         {
-          name: ResourcesEnum.Coal,
+          name: ResourcesEnum.Sand,
           perSecond: 4
         },
         {
-          name: ResourcesEnum.Sand,
+          name: ResourcesEnum.Coal,
           perSecond: 2.6
         },
         {

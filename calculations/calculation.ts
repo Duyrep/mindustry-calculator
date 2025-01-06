@@ -44,7 +44,7 @@ export function calculate(
 ) {
   const building = getCurrentBuildingOfProduct(product, settings.product)
   const buildingName = getCurrentBuildingNameOfProduct(product, settings.product)
-  const nodeName = building.type == BuildingTypes.Factory ? (building.output as InputOutputBuilding[]).length > 1 ? buildingName + " Surplus" : buildingName + " " + product : buildingName + " " + product
+  const nodeName = buildingName + " " + product
   const productPerSec = getNumOfProductsPerSecondOfOutput(product, settings) * numOfBuildings
   let node = createNode([], buildingName, product, numOfBuildings, link)
 
@@ -68,19 +68,6 @@ export function calculate(
 
   nodes[nodeName] = node
   if (building.type == BuildingTypes.Factory) {
-    if ((building.output as InputOutputBuilding[]).length > 1) {
-      const node1 = createNode([], "", "", 0, link);
-      nodes["Surplus"] = node1;
-      const surplus: {
-        name: string,
-        numOfProductsPerSec: number
-      }[] = [];
-      (building.output as InputOutputBuilding[]).filter((value) => value.name != product).forEach((product1) => {
-        surplus.push({ name: product1.name, numOfProductsPerSec: product1.perSecond * numOfBuildings })
-      })
-      node.surplus = surplus;
-    }
-
     (building.input as InputOutputBuilding[]).forEach((product1) => {
       const numOfBuildings1 = calculateNumOfBuildings(product1.perSecond * numOfBuildings, product1.name, settings)
       calculate(
@@ -89,7 +76,7 @@ export function calculate(
         settings,
         nodes,
         {
-          name: (building.output as InputOutputBuilding[]).length > 1 ? buildingName + " Surplus" : nodeName,
+          name: nodeName,
           numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings)
         },
         link + 1
