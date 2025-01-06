@@ -31,10 +31,10 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
         node.classed(link, true)
       }
 
-      if (buildingName == "Output") {
+      if (buildingName == "Output" || buildingName == "Surplus") {
         return
       }
-      title.text(product)
+      // title.text(product)
 
       const image = node.append("image")
         .attr("x", Number(rect.attr("x")) + 2)
@@ -108,15 +108,21 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
 
   if (target) {
     const result = calculate(numOfBuildings, target, settings)
-    Object.keys(result).forEach((key, index) => {
-      textDot.push(
-        `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
-      )
-      result[key].to.forEach(({ name, numOfProductsPerSec }) => {
+    Object.keys(result).forEach((key) => {
+      if (key == "Surplus") {
         textDot.push(
-          `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="link-${result[key].link}"];`
+          `"${key}"[label="Surplus" tooltip="link-${result[key].link}"];`
         )
-      })
+      } else {
+        textDot.push(
+          `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
+        )
+        result[key].to.forEach(({ name, numOfProductsPerSec }) => {
+          textDot.push(
+            `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="link-${result[key].link}"];`
+          )
+        })
+      }
     })
   }
 

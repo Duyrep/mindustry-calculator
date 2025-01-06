@@ -28,6 +28,10 @@ type Node = {
   productName: string,
   numOfBuildings: number,
   link: number
+  surplus?: {
+    name: string,
+    numOfProductsPerSec: number
+  }[]
 }
 
 export function calculate(
@@ -66,11 +70,16 @@ export function calculate(
   if (building.type == BuildingTypes.Factory) {
     (building.input as InputOutputBuilding[]).forEach((product1) => {
       const numOfBuildings1 = calculateNumOfBuildings(product1.perSecond * numOfBuildings, product1.name, settings)
-      calculate(numOfBuildings1, product1.name, settings, nodes, { name: `${buildingName} ${product}`, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings) }, link + 1)
-      // if ((building.output as InputOutputBuilding[]).length > 1) {
-      //   // nodes
-      // }
+      calculate(numOfBuildings1, product1.name, settings, nodes, { name: nodeName, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings) }, link + 1)
     })
+
+    if ((building.output as InputOutputBuilding[]).length > 1) {
+      (building.output as InputOutputBuilding[]).filter((value) => value.name != product).forEach((product1) => {
+        const node1 = createNode([], "", "", 0, link)
+        nodes["Surplus"] = node1
+        node.to.push({ name: "Surplus", numOfProductsPerSec: product1.perSecond * numOfBuildings })
+      })
+    }
   } else if (building.type == BuildingTypes.Extractor) {
     if (building.input) {
       (building.input as InputOutputBuilding[]).forEach((product1) => {
@@ -81,7 +90,7 @@ export function calculate(
       const found = building.booster.find((value) => value.name == settings.buildings[buildingName].booster?.name)
       if (found) {
         const numOfBuildings1 = calculateNumOfBuildings(found.perSecond * (numOfBuildings * found.perSecond), found.name, settings)
-        calculate(numOfBuildings1, found.name, settings, nodes, { name: nodeName, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, found.name, settings)}, link + 1)
+        calculate(numOfBuildings1, found.name, settings, nodes, { name: nodeName, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, found.name, settings) }, link + 1)
       }
     }
   } else if (building.type == BuildingTypes.Unit) {
@@ -158,7 +167,7 @@ export function getNumOfProductsPerSecondOfOutput(product: ResourcesEnum, settin
     if (building.affinities) {
       return outputProduct.perSecond + outputProduct.perSecond * (settings.buildings[buildingName].affinitiesTile as AffinitieTiles).productivity
     } else if (building.booster && settings.buildings[buildingName].booster) {
-      return outputProduct.perSecond * settings.buildings[buildingName].booster.perSecond
+      return outputProduct.perSecond * settings.buildings[buildingName].booster.speedBoost
     } else {
       return outputProduct.perSecond
     };
