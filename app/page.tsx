@@ -458,7 +458,7 @@ export default function Home() {
       <a className="text-brand" href="https://github.com/Duyrep/mindustry-calculator"><b>Github</b></a> <br />
       Website made by Duyrep <br />
       The site is in development <br />
-      Latest Updates: 1/6/2025 <br />
+      Latest Updates: 1/11/2025<br />
     </div>
   );
 }
