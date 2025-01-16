@@ -101,6 +101,7 @@ export default function Home() {
                         width={40}
                         height={40}
                         alt={building}
+                        title={formatString(building)}
                         draggable={false}
                       />
                       <span></span>
