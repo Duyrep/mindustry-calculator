@@ -4,7 +4,7 @@ import { calculateNumOfBuildings, getDefaultSettings, getBuildingsOfProduct, Pro
 import { BuildingsEnum, ResourcesEnum, TilesEnum } from "@/calculations/enums";
 import { renderChart } from "@/calculations/render";
 import Image from "next/image"
-import React, { JSX, useEffect, useRef, useState } from "react";
+import React, { JSX, useEffect, useMemo, useRef, useState } from "react";
 
 export default function Home() {
   const [calculate, setCalculate] = useState<"numOfProduct" | "numOfBuildings">("numOfProduct");
@@ -70,278 +70,311 @@ export default function Home() {
         </svg>
         <span className="ml-1 flex flex-wrap content-center h-full">Settings</span>
       </button>
-      {
-        showSettings && <div className="fixed top-0 right-0 bottom-0 left-0 z-50 bg-card overflow-hidden select-none">
-          <div className="p-4 flex flex-col h-full gap-2">
-            <div className="overflow-auto">
-              <span className="text-lg">Buildings Tile</span>
-              <hr />
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th className="w-12"></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    Object.keys(settings.buildings).reduce<JSX.Element[]>((acc, building) => {
-                      if (!settings.buildings[building as BuildingsEnum].affinitiesTile) {
-                        return acc
+      <div className={`fixed top-0 right-0 bottom-0 left-0 z-50 bg-card overflow-hidden select-none ${!showSettings && "hidden"}`}>
+        <div className="p-4 flex flex-col h-full gap-2">
+          <div className="overflow-auto">
+            <div className="flex items-center my-2">
+              <span>Beacon:</span>
+              <div className="flex">
+                {
+                  [
+                    BuildingsEnum.OverdriveProjector,
+                    BuildingsEnum.OverdriveDome
+                  ].map((building) => (
+                    <div key={building}
+                      className={`mx-1 rounded-sm p-1 cursor-pointer duration-150 
+                        ${building == settings.beacon.name ? "bg-brand" : "bg-secondary"}`
                       }
-                      const affinitiesTile = getAffinitiesOfBuilding(building as BuildingsEnum)
-                      if (!affinitiesTile) {
-                        return acc
-                      }
-                      acc.push(
-                        <tr key={building} className={`${acc.length != 0 && "border-t border-border"}`}>
-                          <td>
-                            <div className="flex items-center">
-                              <Image
-                                src={`/assets/sprites/${building}.webp`}
-                                width={40} height={40}
-                                alt={building}
-                                draggable={false}
-                                title={formatString(building)}
-                              />
-                              <span>:</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="flex flex-wrap py-2">
-                              {
-                                Object.values(affinitiesTile).map((tile) => (
-                                  <div
-                                    key={tile.name}
-                                    className={`mx-1 rounded-sm p-1 cursor-pointer hover:bg-brand duration-150
-                                      ${settings.buildings[building as BuildingsEnum].affinitiesTile?.name == tile.name ? "bg-brand" : "bg-secondary"}
-                                    `}
-                                    onClick={() => {
-                                      const buildingSettings = { ...settings.buildings }
-                                      buildingSettings[building as BuildingsEnum].affinitiesTile = tile
-                                      setSettings(prev => ({ ...prev, buildingSettings: buildingSettings }))
-                                    }}
-                                    title={formatString(tile.name)}
-                                  >
-                                    {
-                                      tile.name == TilesEnum.Other ?
-                                        <span className="flex h-full items-center">Other</span>
-                                        :
-                                        <div className="flex text-sm flex-col items-center">
-                                          <Image
-                                            src={`/assets/sprites/${tile.name}.webp`}
-                                            width={40} height={40}
-                                            alt={tile.name}
-                                            draggable={false}
-                                          />
-                                          <span className="text-center">{formatNumber(tile.productivity * 100)}%</span>
-                                        </div>
-                                    }
-                                  </div>
-                                ))
-                              }
-                            </div>
-                          </td>
-                        </tr>
-                      )
+                      onClick={() => {
+                        const beaconSettings = { ...settings.beacon }
+                        if (beaconSettings.name == building) {
+                          beaconSettings.name = undefined;
+                        } else {
+                          beaconSettings.name = building;
+                        }
+                        setSettings(prev => ({ ...prev, beacon: beaconSettings }))
+                      }}
+                    >
+                      <Image
+                        src={`/assets/sprites/${building}.webp`}
+                        width={40}
+                        height={40}
+                        alt={building}
+                        draggable={false}
+                      />
+                      <span></span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+            <span className="text-lg">Buildings Tile</span>
+            <hr />
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="w-12"></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  Object.keys(settings.buildings).reduce<JSX.Element[]>((acc, building) => {
+                    if (!settings.buildings[building as BuildingsEnum].affinitiesTile) {
                       return acc
-                    }, [])
-                  }
-                </tbody>
-              </table>
-              <span className="text-lg">Extractor boost</span>
-              <hr />
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th className="w-12"></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><span className="flex justify-center">All</span></td>
-                    <td className="flex flex-wrap my-2">
-                      {[
-                        ResourcesEnum.Water
-                      ].map((value) => (
-                        <Image
-                          className="p-1 mx-1 cursor-pointer rounded-md bg-secondary hover:bg-brand duration-150"
-                          key={value}
-                          src={`/assets/sprites/${value}.webp`}
-                          width={48}
-                          height={48}
-                          alt={formatString(value)}
-                          title={formatString(value)}
-                          onClick={() => {
-                            const buildingSettings: BuildingSettings = { ...settings.buildings }
-                            for (const key in buildingSettings) {
-                              const building = getBuilding(key as BuildingsEnum)
-                              if (building.booster != undefined) {
-                                buildingSettings[key as BuildingsEnum].booster = building.booster.find((booster) => booster.name == value)
-                              }
-                            }
-                            setSettings(prev => ({ ...prev, factorySettings: buildingSettings }))
-                          }}
-                        />
-                      ))}
-                    </td>
-                  </tr>
-                  {
-                    Object.keys(settings.buildings).map((building) => {
-                      if (!settings.buildings[building as BuildingsEnum].booster == undefined) return;
-                      const boosters = getBoostersOfBuilding(building as BuildingsEnum)
-                      if (!boosters) return;
-                      return (
-                        <tr key={building} className="border-t border-border">
-                          <td>
-                            <div className="flex items-center">
-                              <Image
-                                src={`/assets/sprites/${building}.webp`}
-                                width={40} height={40}
-                                alt={building}
-                                draggable={false}
-                                title={formatString(building)}
-                              />
-                              <span>:</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="flex flex-wrap py-2">
-                              {
-                                Object.values(boosters).map((booster) => (
-                                  <div
-                                    key={booster.name}
-                                    className={`flex flex-col mx-1 rounded-sm p-1 cursor-pointer duration-150
-                                      ${settings.buildings[building as BuildingsEnum].booster == booster ? "bg-brand" : "bg-secondary"}
-                                    `}
-                                    onClick={() => {
-                                      const buildingSettings = { ...settings.buildings }
-                                      if (buildingSettings[building as BuildingsEnum].booster == booster) {
-                                        buildingSettings[building as BuildingsEnum].booster = null
-                                      } else {
-                                        buildingSettings[building as BuildingsEnum].booster = booster
-                                      }
-                                      setSettings(prev => ({ ...prev, buildingSettings: buildingSettings }))
-                                    }}
-                                  >
-                                    <Image
-                                      src={`/assets/sprites/${booster.name}.webp`}
-                                      width={40} height={40}
-                                      alt={booster.name}
-                                      draggable={false}
-                                      title={formatString(booster.name)}
-                                    />
-                                    <span className="text-center">x{booster.speedBoost}</span>
-                                  </div>
-                                ))
-                              }
-                            </div>
-                          </td>
-                        </tr>)
-                    })
-                  }
-                </tbody>
-              </table>
-              <span className="text-lg">Products</span>
-              <hr />
-              <table className="min-w-full">
-                <thead>
-                  <tr>
-                    <th className="w-12"></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="text-center">All</td>
-                    <td className="flex flex-wrap my-2">
-                      {[
-                        "MechanicalDrill",
-                        "PneumaticDrill",
-                        "LaserDrill",
-                        "AirblastDrill"
-                      ].map((value) => (
-                        <Image
-                          className="p-1 mx-1 cursor-pointer rounded-md bg-secondary hover:bg-brand duration-150"
-                          key={value}
-                          src={`/assets/sprites/${value}.webp`}
-                          width={48}
-                          height={48}
-                          alt={formatString(value)}
-                          title={formatString(value)}
-                          onClick={() => {
-                            const productSettings: ProductSettings = { ...settings.product }
-                            for (const key in productSettings) {
-                              const factories = getBuildingsOfProduct(key as ResourcesEnum)
-                              if (factories.includes(value as BuildingsEnum)) {
-                                productSettings[key as ResourcesEnum].key = value as BuildingsEnum
-                              }
-                            }
-                            setSettings(prev => ({ ...prev, factorySettings: productSettings }))
-                          }}
-                        />
-                      ))}
-                    </td>
-                  </tr>
-                  {
-                    Object.keys(settings.product).map((resource) => (
-                      <tr key={resource} className="border-t border-border text-lg">
+                    }
+                    const affinitiesTile = getAffinitiesOfBuilding(building as BuildingsEnum)
+                    if (!affinitiesTile) {
+                      return acc
+                    }
+                    acc.push(
+                      <tr key={building} className={`${acc.length != 0 && "border-t border-border"}`}>
                         <td>
-                          <div className="flex">
+                          <div className="flex items-center">
                             <Image
-                              src={`/assets/sprites/${resource}.webp`}
+                              src={`/assets/sprites/${building}.webp`}
                               width={40} height={40}
-                              alt={resource}
+                              alt={building}
                               draggable={false}
-                              title={formatString(resource)}
+                              title={formatString(building)}
                             />
                             <span>:</span>
                           </div>
                         </td>
-                        <td className="py-2">
-                          <div className="flex flex-wrap">
-                            {getBuildingsOfProduct(resource as ResourcesEnum).map((factory) => <Image
-                              className={`mx-1 rounded-sm p-1 cursor-pointer hover:bg-brand duration-150
-                                ${settings.product[resource as ResourcesEnum].key == factory ? "bg-brand" : "bg-secondary"}
-                              `}
-                              onClick={() => {
-                                const productSettings = { ...settings.product }
-                                productSettings[resource as ResourcesEnum].key = factory
-                                setSettings(prev => ({ ...prev, productSettings: productSettings }))
-                              }}
-                              key={factory}
-                              src={`/assets/sprites/${factory}.webp`}
-                              width={48} height={48}
-                              alt={factory}
-                              draggable={false}
-                              title={formatString(factory)}
-                            />)}
+                        <td>
+                          <div className="flex flex-wrap py-2">
+                            {
+                              Object.values(affinitiesTile).map((tile) => (
+                                <div
+                                  key={tile.name}
+                                  className={`mx-1 rounded-sm p-1 cursor-pointer hover:bg-brand duration-150
+                                      ${settings.buildings[building as BuildingsEnum].affinitiesTile?.name == tile.name ? "bg-brand" : "bg-secondary"}
+                                    `}
+                                  onClick={() => {
+                                    const buildingSettings = { ...settings.buildings }
+                                    buildingSettings[building as BuildingsEnum].affinitiesTile = tile
+                                    setSettings(prev => ({ ...prev, buildingSettings: buildingSettings }))
+                                  }}
+                                  title={formatString(tile.name)}
+                                >
+                                  {
+                                    tile.name == TilesEnum.Other ?
+                                      <span className="flex h-full items-center">Other</span>
+                                      :
+                                      <div className="flex text-sm flex-col items-center">
+                                        <Image
+                                          src={`/assets/sprites/${tile.name}.webp`}
+                                          width={40} height={40}
+                                          alt={tile.name}
+                                          draggable={false}
+                                        />
+                                        <span className="text-center">{formatNumber(tile.productivity * 100)}%</span>
+                                      </div>
+                                  }
+                                </div>
+                              ))
+                            }
                           </div>
                         </td>
                       </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            </div>
-            <div className="items-center justify-between flex gap-1 p-0">
-              <button
-                className="bg-secondary rounded-md px-4 py-2 hover:bg-brand duration-150" type="button"
-                onClick={() => setSettings(getDefaultSettings())}
-              >
-                <span>Reset</span>
-              </button>
-              <button
-                className="bg-brand rounded-md px-4 py-2" type="button"
-                onClick={() => setShowSettings(false)}
-              >
-                <span>Close</span>
-              </button>
-            </div>
+                    )
+                    return acc
+                  }, [])
+                }
+              </tbody>
+            </table>
+            <span className="text-lg">Extractor boost</span>
+            <hr />
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="w-12"></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span className="flex justify-center">All</span></td>
+                  <td className="flex flex-wrap my-2">
+                    {[
+                      ResourcesEnum.Water
+                    ].map((value) => (
+                      <Image
+                        className="p-1 mx-1 cursor-pointer rounded-md bg-secondary hover:bg-brand duration-150"
+                        key={value}
+                        src={`/assets/sprites/${value}.webp`}
+                        width={48}
+                        height={48}
+                        alt={formatString(value)}
+                        title={formatString(value)}
+                        onClick={() => {
+                          const buildingSettings: BuildingSettings = { ...settings.buildings }
+                          for (const key in buildingSettings) {
+                            const building = getBuilding(key as BuildingsEnum)
+                            if (building.booster != undefined) {
+                              buildingSettings[key as BuildingsEnum].booster = building.booster.find((booster) => booster.name == value)
+                            }
+                          }
+                          setSettings(prev => ({ ...prev, factorySettings: buildingSettings }))
+                        }}
+                      />
+                    ))}
+                  </td>
+                </tr>
+                {
+                  Object.keys(settings.buildings).map((building) => {
+                    if (!settings.buildings[building as BuildingsEnum].booster == undefined) return;
+                    const boosters = getBoostersOfBuilding(building as BuildingsEnum)
+                    if (!boosters) return;
+                    return (
+                      <tr key={building} className="border-t border-border">
+                        <td>
+                          <div className="flex items-center">
+                            <Image
+                              src={`/assets/sprites/${building}.webp`}
+                              width={40} height={40}
+                              alt={building}
+                              draggable={false}
+                              title={formatString(building)}
+                            />
+                            <span>:</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="flex flex-wrap py-2">
+                            {
+                              Object.values(boosters).map((booster) => (
+                                <div
+                                  key={booster.name}
+                                  className={`flex flex-col mx-1 rounded-sm p-1 cursor-pointer duration-150
+                                      ${settings.buildings[building as BuildingsEnum].booster == booster ? "bg-brand" : "bg-secondary"}
+                                    `}
+                                  onClick={() => {
+                                    const buildingSettings = { ...settings.buildings }
+                                    if (buildingSettings[building as BuildingsEnum].booster == booster) {
+                                      buildingSettings[building as BuildingsEnum].booster = null
+                                    } else {
+                                      buildingSettings[building as BuildingsEnum].booster = booster
+                                    }
+                                    setSettings(prev => ({ ...prev, buildingSettings: buildingSettings }))
+                                  }}
+                                >
+                                  <Image
+                                    src={`/assets/sprites/${booster.name}.webp`}
+                                    width={40} height={40}
+                                    alt={booster.name}
+                                    draggable={false}
+                                    title={formatString(booster.name)}
+                                  />
+                                  <span className="text-center">x{booster.speedBoost}</span>
+                                </div>
+                              ))
+                            }
+                          </div>
+                        </td>
+                      </tr>)
+                  })
+                }
+              </tbody>
+            </table>
+            <span className="text-lg">Products</span>
+            <hr />
+            <table className="min-w-full">
+              <thead>
+                <tr>
+                  <th className="w-12"></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="text-center">All</td>
+                  <td className="flex flex-wrap my-2">
+                    {[
+                      "MechanicalDrill",
+                      "PneumaticDrill",
+                      "LaserDrill",
+                      "AirblastDrill"
+                    ].map((value) => (
+                      <Image
+                        className="p-1 mx-1 cursor-pointer rounded-md bg-secondary hover:bg-brand duration-150"
+                        key={value}
+                        src={`/assets/sprites/${value}.webp`}
+                        width={48}
+                        height={48}
+                        alt={formatString(value)}
+                        title={formatString(value)}
+                        onClick={() => {
+                          const productSettings: ProductSettings = { ...settings.product }
+                          for (const key in productSettings) {
+                            const factories = getBuildingsOfProduct(key as ResourcesEnum)
+                            if (factories.includes(value as BuildingsEnum)) {
+                              productSettings[key as ResourcesEnum].key = value as BuildingsEnum
+                            }
+                          }
+                          setSettings(prev => ({ ...prev, factorySettings: productSettings }))
+                        }}
+                      />
+                    ))}
+                  </td>
+                </tr>
+                {
+                  Object.keys(settings.product).map((resource) => (
+                    <tr key={resource} className="border-t border-border text-lg">
+                      <td>
+                        <div className="flex">
+                          <Image
+                            src={`/assets/sprites/${resource}.webp`}
+                            width={40} height={40}
+                            alt={resource}
+                            draggable={false}
+                            title={formatString(resource)}
+                          />
+                          <span>:</span>
+                        </div>
+                      </td>
+                      <td className="py-2">
+                        <div className="flex flex-wrap">
+                          {getBuildingsOfProduct(resource as ResourcesEnum).map((factory) => <Image
+                            className={`mx-1 rounded-sm p-1 cursor-pointer hover:bg-brand duration-150
+                                ${settings.product[resource as ResourcesEnum].key == factory ? "bg-brand" : "bg-secondary"}
+                              `}
+                            onClick={() => {
+                              const productSettings = { ...settings.product }
+                              productSettings[resource as ResourcesEnum].key = factory
+                              setSettings(prev => ({ ...prev, productSettings: productSettings }))
+                            }}
+                            key={factory}
+                            src={`/assets/sprites/${factory}.webp`}
+                            width={48} height={48}
+                            alt={factory}
+                            draggable={false}
+                            title={formatString(factory)}
+                          />)}
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <div className="items-center justify-between flex gap-1 p-0">
+            <button
+              className="bg-secondary rounded-md px-4 py-2 hover:bg-brand duration-150" type="button"
+              onClick={() => setSettings(getDefaultSettings())}
+            >
+              <span>Reset</span>
+            </button>
+            <button
+              className="bg-brand rounded-md px-4 py-2" type="button"
+              onClick={() => setShowSettings(false)}
+            >
+              <span>Close</span>
+            </button>
           </div>
         </div>
-      }
+      </div>
       <div className="space-y-2">
         <div className="flex items-center select-none flex-wrap space-x-2">
           <label>Output:</label>
@@ -458,7 +491,7 @@ export default function Home() {
       <a className="text-brand" href="https://github.com/Duyrep/mindustry-calculator"><b>Github</b></a> <br />
       Website made by Duyrep <br />
       The site is in development <br />
-      Latest Updates: 1/11/2025<br />
+      Latest Updates: 1/16/2025<br />
     </div>
   );
 }

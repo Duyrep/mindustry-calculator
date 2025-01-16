@@ -35,6 +35,9 @@ export enum BuildingsEnum {
   MultiplicativeReconstructor = "MultiplicativeReconstructor",
   NavalFactory = "NavalFactory",
   TetrativeReconstructor = "TetrativeReconstructor",
+
+  OverdriveProjector = "OverdriveProjector",
+  OverdriveDome = "OverdriveDome"
 }
 
 export enum ResourcesEnum {
@@ -125,5 +128,6 @@ export enum BuildingTypes {
     Extractor = "Extractor",
     Factory = "Factory",
     Reconstructor = "Reconstructor",
+    Beacon = "Beacon",
     Unit = "Unit"
 }

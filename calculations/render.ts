@@ -1,5 +1,5 @@
 import { BaseType, select, Selection, text } from "d3";
-import { calculate, getNumOfProductsPerSecondOfOutput, Settings } from "./calculation";
+import { calculate, Settings } from "./calculation";
 import { graphviz, GraphvizOptions } from "d3-graphviz"
 import { ResourcesEnum } from "./enums";
 
@@ -28,13 +28,13 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
       if (buildingName == "Output" || buildingName == "Surplus") {
         return
       }
-      title.text(product)
+      // title.text(product)
 
       const image = node.append("image")
         .attr("x", Number(rect.attr("x")) + 2)
         .attr("y", Number(rect.attr("y")) + 2)
         .attr("height", getRectangleHeight(points) - 4)
-        .attr("href", `/assets/sprites/${product}.webp`)
+        .attr("href", `/assets/sprites/${product ? product : buildingName + "Output"}.webp`)
 
       node.append("image")
         .attr("x", Number(image.attr("x")) + getRectangleHeight(points) + 2)
@@ -52,16 +52,11 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
       const text = edge.select("text");
       const textFontSize = Number(text.attr("font-size")) * 2
       const textBBox = (text.node() as SVGGraphicsElement).getBBox()
-      const [_, productName] = title.text().split("->")[0].split(" ");
       const aTitle = edge.select("g").select("a").attr("title").split(" ")
+      const [link, productName] = aTitle
 
       edge.select("path").attr("stroke", "")
       edge.select("polygon").attr("stroke", "")
-      // edge.append("rect")
-      //   .attr("x", +text.attr("x") - textBBox.width)
-      //   .attr("y", text.attr("y"))
-      //   .attr("width", textBBox.width)
-      //   .attr("height", textBBox.height)
 
       title.text("")
 
@@ -69,7 +64,7 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
         .attr("x", textBBox.x)
 
       edge.append("image")
-        .attr("x", (+text.attr("x") - textBBox.width / 2 - textFontSize) + 32)
+        .attr("x", (+text.attr("x") - textBBox.width / 2 - textFontSize) + 28)
         .attr("y", +text.attr("y") - textBBox.height - 4)
         .attr("width", textFontSize)
         .attr("height", textFontSize)
@@ -93,22 +88,23 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
 
   const textDot = [
     `digraph {`,
-    `node[shape=rect label=""];`,
+    `node[shape=rect];`,
     `edge[labeldistance=0.5];`,
-    `rankdir="${graphDirection}"`,
+    `rankdir="${graphDirection}";`,
     `ranksep=1;`,
-    `"Output" [label="Output" tooltip="link-0"];`
+    `"Output"`
   ]
 
   if (target) {
     const result = calculate(numOfBuildings, target, settings)
+    console.log(result)
     Object.keys(result).forEach((key) => {
       textDot.push(
-        `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="link-${result[key].link}"];`
+        `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="${result[key].link}"];`
       )
-      result[key].to.forEach(({ name, numOfProductsPerSec }) => {
+      result[key].to.forEach(({ name, productName, numOfProductsPerSec }) => {
         textDot.push(
-          `"${key}" -> "${name}"[label="          x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="link-${result[key].link}"];`
+          `"${key}" -> "${name}"[label="         x ${+numOfProductsPerSec.toFixed(3)}/s" tooltip="${result[key].link} ${productName}"];`
         )
       })
     })

@@ -1,16 +1,23 @@
 import { data } from "./data/7.0-Build-146";
-import { AffinitieTiles, Booster, Buildings, InputOutputBuilding } from "./dataTypes";
-import { BuildingsEnum, BuildingTypes, ResourcesEnum, TilesEnum } from "./enums";
+import { AffinitieTiles, Booster, InputOutputBuilding } from "./dataTypes";
+import { BuildingsEnum, BuildingTypes, ResourcesEnum } from "./enums";
 
 export type Settings = {
+  graphDirection: "LR" | "TB"
+  beacon: BeaconSettings
   buildings: BuildingSettings
   product: ProductSettings
 }
 
+export type BeaconSettings = {
+  name: BuildingsEnum | undefined
+  input: boolean
+}
+
 export type BuildingSettings = {
   [key in BuildingsEnum]: {
-    type: BuildingTypes | undefined
-    affinitiesTile?: AffinitieTiles
+    type: BuildingTypes | undefined,
+    affinitiesTile?: AffinitieTiles,
     booster?: Booster | null
   }
 }
@@ -22,16 +29,12 @@ export type ProductSettings = {
 type Node = {
   to: {
     name: string,
+    productName: string,
     numOfProductsPerSec: number
   }[],
   buildingName: string,
-  productName: string,
   numOfBuildings: number,
   link: number
-  surplus?: {
-    name: string,
-    numOfProductsPerSec: number
-  }[]
 }
 
 export function calculate(
@@ -39,28 +42,39 @@ export function calculate(
   product: ResourcesEnum,
   settings: Settings,
   nodes: { [key: string]: Node } = {},
-  to: { name: string, numOfProductsPerSec: number } = { name: "", numOfProductsPerSec: 0 },
-  link: number = 0
+  to: { name: string, productName: string, numOfProductsPerSec: number } = { name: "", productName: "", numOfProductsPerSec: 0 },
+  link: number = 0,
 ) {
   const building = getCurrentBuildingOfProduct(product, settings.product)
   const buildingName = getCurrentBuildingNameOfProduct(product, settings.product)
-  const nodeName = buildingName + " " + product
   const productPerSec = getNumOfProductsPerSecondOfOutput(product, settings) * numOfBuildings
-  let node = createNode([], buildingName, product, numOfBuildings, link)
+  let nodeName = buildingName + " " + product
+  let node = createNode([], buildingName, numOfBuildings, link)
+
+  if (building.type == BuildingTypes.Factory && (building.output as InputOutputBuilding[]).length > 1) {
+    nodeName = buildingName;
+  }
 
   if (nodes[nodeName]) {
     node = nodes[nodeName]
-    const found = node.to.find(value => value.name === to.name);
+    const found = node.to.find(value => value.name === to.name && value.productName === to.productName);
     if (found) {
       found.numOfProductsPerSec += to.numOfProductsPerSec;
     } else {
       node.to.push(to);
     }
-    node.numOfBuildings += numOfBuildings
+    node.numOfBuildings += numOfBuildings;
+    const found1 = node.to.find(value => value.productName === to.productName && value.name == "Surplus");
+    if (found1) {
+      const index = node.to.indexOf(found1);
+      if (index > -1) {
+        node.to.splice(index, 1);
+      }
+    }
   } else {
-    node = createNode([], buildingName, product, numOfBuildings, link)
+    node = createNode([], buildingName, numOfBuildings, link)
     if (Object.keys(nodes).length == 0) {
-      node.to.push({ name: "Output", numOfProductsPerSec: productPerSec })
+      node.to.push({ name: "Output", productName: product, numOfProductsPerSec: productPerSec })
     } else {
       node.to.push(to)
     }
@@ -68,6 +82,18 @@ export function calculate(
 
   nodes[nodeName] = node
   if (building.type == BuildingTypes.Factory) {
+    if ((building.output as InputOutputBuilding[]).length > 1) {
+      (building.output as InputOutputBuilding[]).forEach((product1) => {
+        const numOfBuildings1 = calculateNumOfBuildings(product1.perSecond * numOfBuildings, product1.name, settings)
+        const numOfProductsPerSec = calculateNumOfProducts(numOfBuildings1, product1.name, settings)
+        const found = nodes[nodeName].to.find(value => value.productName === product1.name);
+        if (found) {
+          found.numOfProductsPerSec += numOfProductsPerSec;
+        } else {
+          nodes[nodeName].to.push({ name: "Surplus", productName: product1.name, numOfProductsPerSec: numOfProductsPerSec })
+        }
+      })
+    }
     (building.input as InputOutputBuilding[]).forEach((product1) => {
       const numOfBuildings1 = calculateNumOfBuildings(product1.perSecond * numOfBuildings, product1.name, settings)
       calculate(
@@ -77,6 +103,7 @@ export function calculate(
         nodes,
         {
           name: nodeName,
+          productName: product1.name,
           numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings)
         },
         link + 1
@@ -86,17 +113,16 @@ export function calculate(
     if (building.input) {
       (building.input as InputOutputBuilding[]).forEach((product1) => {
         const numOfBuildings1 = calculateNumOfBuildings(product1.perSecond * numOfBuildings, product1.name, settings)
-        calculate(numOfBuildings1, product1.name, settings, nodes, { name: nodeName, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings) }, link + 1)
+        calculate(numOfBuildings1, product1.name, settings, nodes, { name: nodeName, productName: product1.name, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, product1.name, settings) }, link + 1)
       })
     } else if (building.booster && settings.buildings[buildingName].booster) {
       const found = building.booster.find((value) => value.name == settings.buildings[buildingName].booster?.name)
       if (found) {
         const numOfBuildings1 = calculateNumOfBuildings(found.perSecond * numOfBuildings, found.name, settings)
-        calculate(numOfBuildings1, found.name, settings, nodes, { name: nodeName, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, found.name, settings) }, link + 1)
+        calculate(numOfBuildings1, found.name, settings, nodes, { name: nodeName, productName: found.name, numOfProductsPerSec: calculateNumOfProducts(numOfBuildings1, found.name, settings) }, link + 1)
       }
     }
-  } else if (building.type == BuildingTypes.Unit) {
-  } else if (building.type == BuildingTypes.Reconstructor) { }
+  }
 
   return nodes
 }
@@ -104,20 +130,18 @@ export function calculate(
 function createNode(
   to: {
     name: string,
+    productName: string
     numOfProductsPerSec: number
   }[],
   buildingName: string,
-  productName: string,
   numOfBuildings: number,
   link: number
 ): Node {
   return {
     to: to,
     buildingName: buildingName,
-    productName: productName,
     numOfBuildings: numOfBuildings,
-    link: link,
-    surplus: undefined
+    link: link
   }
 }
 
@@ -153,31 +177,50 @@ export function getCurrentBuildingOfProduct(product: ResourcesEnum, settings: Pr
   }
 }
 
-export function getNumOfProductsPerSecondOfOutput(product: ResourcesEnum, settings: Settings) {
-  const building = getCurrentBuildingOfProduct(product, settings.product)
-  const buildingName = getCurrentBuildingNameOfProduct(product, settings.product)
-  if (building.type == BuildingTypes.Factory) {
-    const outputProduct = (building.output as InputOutputBuilding[]).find((value) => value.name === product)
-    if (!outputProduct) return 0;
-    if (building.affinities) {
-      return outputProduct.perSecond + outputProduct.perSecond * (settings.buildings[buildingName].affinitiesTile as AffinitieTiles).productivity
-    } else {
-      return outputProduct.perSecond
-    };
-  } else if (building.type == BuildingTypes.Extractor) {
-    const outputProduct = (building.output as InputOutputBuilding[]).find((value) => value.name === product)
-    if (!outputProduct) return 0;
-    if (building.affinities) {
-      return outputProduct.perSecond + outputProduct.perSecond * (settings.buildings[buildingName].affinitiesTile as AffinitieTiles).productivity
-    } else if (building.booster && settings.buildings[buildingName].booster) {
-      return outputProduct.perSecond * settings.buildings[buildingName].booster.speedBoost
-    } else {
-      return outputProduct.perSecond
-    };
-  } else {
-    return 0
+export function getNumOfProductsPerSecondOfOutput(product: ResourcesEnum, settings: Settings): number {
+  const building = getCurrentBuildingOfProduct(product, settings.product);
+  const buildingName = getCurrentBuildingNameOfProduct(product, settings.product);
+
+  const outputProduct = (building.output as InputOutputBuilding[]).find((value) => value.name === product);
+  if (!outputProduct) return 0;
+
+  const calculateProductivity = (base: number, productivity: number | undefined): number => {
+    let result = base;
+    if (productivity) {
+      result += base * productivity;
+    }
+    if (settings.beacon.name) {
+      const beaconBuilding = getBuilding(settings.beacon.name)
+      if (beaconBuilding.speedBoost) {
+        result += base * beaconBuilding.speedBoost;
+      }
+    }
+    return result;
+  };
+
+  switch (building.type) {
+    case BuildingTypes.Factory:
+      return calculateProductivity(
+        outputProduct.perSecond,
+        settings.buildings[buildingName]?.affinitiesTile?.productivity
+      );
+
+    case BuildingTypes.Extractor:
+      const productivity = settings.buildings[buildingName]?.affinitiesTile?.productivity;
+      const boosterSpeed = settings.buildings[buildingName]?.booster?.speedBoost;
+      if (productivity) {
+        return calculateProductivity(outputProduct.perSecond, productivity);
+      } else if (boosterSpeed) {
+        return outputProduct.perSecond * boosterSpeed;
+      } else {
+        return outputProduct.perSecond;
+      }
+
+    default:
+      return 0;
   }
 }
+
 
 export function getAffinitiesOfBuilding(name: BuildingsEnum) {
   return getBuilding(name).affinities?.titles
@@ -193,6 +236,8 @@ export function getBuilding(name: BuildingsEnum) {
 
 export function getDefaultSettings(): Settings {
   return {
+    beacon: { name: undefined, input: false },
+    graphDirection: "TB",
     buildings: getDefaultBuildingSettings(),
     product: getDefaultProductSettings()
   }

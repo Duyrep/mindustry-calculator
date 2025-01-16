@@ -18,6 +18,7 @@ export type Buildings = {
     output: InputOutputBuilding[] | InputOutputBuildingUint[] | UnitsEnum[],
     affinities?: Affinities,
     booster?: Booster[]
+    speedBoost?: number
 }
 
 export type Affinities = {

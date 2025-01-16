@@ -344,7 +344,6 @@ export const data: Data = {
           perSecond: 118.7
         }
       ]
-      
     },
     [BuildingsEnum.RotaryPump]: {
       type: BuildingTypes.Extractor,
@@ -1135,6 +1134,34 @@ export const data: Data = {
         UnitsEnum.Flare,
         UnitsEnum.Mono
       ]
+    },
+    [BuildingsEnum.OverdriveProjector]: {
+      type: BuildingTypes.Beacon,
+      power: 210,
+      input: [
+        {
+          name: ResourcesEnum.PhaseFabric,
+          perSecond: 0.15
+        }
+      ],
+      output: [],
+      speedBoost: 1.25
+    },
+    [BuildingsEnum.OverdriveDome]: {
+      type: BuildingTypes.Beacon,
+      power: 600,
+      input: [
+        {
+          name: ResourcesEnum.PhaseFabric,
+          perSecond: 0.2
+        },
+        {
+          name: ResourcesEnum.Silicon,
+          perSecond: 0.2
+        }
+      ],
+      output: [],
+      speedBoost: 1.5
     }
   }
 }
