@@ -4,7 +4,7 @@ import { calculateNumOfBuildings, getDefaultSettings, getBuildingsOfProduct, Pro
 import { BuildingsEnum, ResourcesEnum, TilesEnum } from "@/calculations/enums";
 import { renderChart } from "@/calculations/render";
 import Image from "next/image"
-import React, { JSX, useEffect, useMemo, useRef, useState } from "react";
+import React, { JSX, useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const [calculate, setCalculate] = useState<"numOfProduct" | "numOfBuildings">("numOfProduct");
@@ -27,6 +27,7 @@ export default function Home() {
   const formatNumber = (num: number): string => (num >= 0 ? '+' : '') + num.toString();
 
   useEffect(() => {
+    settings.graphDirection = graphDirection;
     if (numOfBuildingsInput.current && numOfProductInput.current) {
       if (target) {
         if (calculate == "numOfProduct") {
@@ -44,7 +45,7 @@ export default function Home() {
     if (target && calculate == "numOfProduct") {
       setNumOfBuildings(calculateNumOfBuildings(numOfProduct, target, settings))
     }
-    renderChart(numOfBuildings, target, settings, graphDirection);
+    renderChart(numOfBuildings, target, settings);
   }, [target, settings, numOfBuildings, numOfProduct, calculate, graphDirection]);
 
   return (

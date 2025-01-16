@@ -3,7 +3,7 @@ import { calculate, Settings } from "./calculation";
 import { graphviz, GraphvizOptions } from "d3-graphviz"
 import { ResourcesEnum } from "./enums";
 
-export function renderChart(numOfBuildings: number, target: undefined | ResourcesEnum, settings: Settings, graphDirection: "LR" | "TB") {
+export function renderChart(numOfBuildings: number, target: undefined | ResourcesEnum, settings: Settings) {
   deleteChart()
 
   const renderNodes = () => {
@@ -90,7 +90,7 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
     `digraph {`,
     `node[shape=rect];`,
     `edge[labeldistance=0.5];`,
-    `rankdir="${graphDirection}";`,
+    `rankdir="${settings.graphDirection}";`,
     `ranksep=1;`,
     `"Output"`
   ]
