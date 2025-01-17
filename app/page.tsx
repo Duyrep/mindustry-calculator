@@ -1,7 +1,7 @@
 "use client"
 
 import { calculateNumOfBuildings, getDefaultSettings, getBuildingsOfProduct, ProductSettings, Settings, getAffinitiesOfBuilding, getBoostersOfBuilding, BuildingSettings, getBuilding, calculateNumOfProducts } from "@/calculations/calculation";
-import { BuildingsEnum, ResourcesEnum, TilesEnum } from "@/calculations/enums";
+import { BuildingsEnum, ResourcesEnum, TilesEnum} from "@/calculations/enums";
 import { renderChart } from "@/calculations/render";
 import Image from "next/image"
 import React, { JSX, useEffect, useRef, useState } from "react";
@@ -81,32 +81,35 @@ export default function Home() {
                   [
                     BuildingsEnum.OverdriveProjector,
                     BuildingsEnum.OverdriveDome
-                  ].map((building) => (
-                    <div key={building}
-                      className={`mx-1 rounded-sm p-1 cursor-pointer duration-150 
-                        ${building == settings.beacon.name ? "bg-brand" : "bg-secondary"}`
-                      }
-                      onClick={() => {
-                        const beaconSettings = { ...settings.beacon }
-                        if (beaconSettings.name == building) {
-                          beaconSettings.name = undefined;
-                        } else {
-                          beaconSettings.name = building;
+                  ].map((buildingName) => {
+                    const building = getBuilding(buildingName)
+                    return (
+                      <div key={buildingName}
+                        className={`flex flex-col items-center mx-1 rounded-sm p-1 cursor-pointer duration-150 
+                        ${buildingName == settings.beacon.name ? "bg-brand" : "bg-secondary"}`
                         }
-                        setSettings(prev => ({ ...prev, beacon: beaconSettings }))
-                      }}
-                    >
-                      <Image
-                        src={`/assets/sprites/${building}.webp`}
-                        width={40}
-                        height={40}
-                        alt={building}
-                        title={formatString(building)}
-                        draggable={false}
-                      />
-                      <span></span>
-                    </div>
-                  ))
+                        onClick={() => {
+                          const beaconSettings = { ...settings.beacon }
+                          if (beaconSettings.name == buildingName) {
+                            beaconSettings.name = undefined;
+                          } else {
+                            beaconSettings.name = buildingName;
+                          }
+                          setSettings(prev => ({ ...prev, beacon: beaconSettings }))
+                        }}
+                        title={formatString(buildingName)}
+                      >
+                        <Image
+                          src={`/assets/sprites/${buildingName}.webp`}
+                          width={40}
+                          height={40}
+                          alt={buildingName}
+                          draggable={false}
+                        />
+                        <span>{formatNumber(building.speedBoost as number * 100)}%</span>
+                      </div>
+                    )
+                  })
                 }
               </div>
             </div>
@@ -380,7 +383,8 @@ export default function Home() {
       <div className="space-y-2">
         <div className="flex items-center select-none flex-wrap space-x-2">
           <label>Output:</label>
-          <div>
+          <div className={`absolute top-0 right-0 w-screen h-screen ${!showDropdown && "hidden"}`} onClick={() => setShowDropdown(false)}></div>
+          <div className="relative">
             <div
               className={`flex items-center h-12 border-2 border-border rounded-md cursor-pointer ${showDropdown && "bg-brand"} duration-150`}
               onClick={() => setShowDropdown(!showDropdown)}
@@ -400,24 +404,33 @@ export default function Home() {
                   <span className="px-2">Select product</span>
               }
             </div>
-            <div className={`absolute w-48 p-2 flex flex-wrap bg-card border-border border-2 rounded-md ${!showDropdown && "hidden"}`}>
-              {
-                Object.keys(ResourcesEnum).map((value) => <Image
-                  className={`flex p-1 rounded-md hover:bg-brand duration-150 cursor-pointer ${value as ResourcesEnum == target ? "bg-brand" : ""}`}
-                  key={value}
-                  src={`/assets/sprites/${value}.webp`}
-                  width={43}
-                  height={43}
-                  title={formatString(value)}
-                  alt={value}
-                  onClick={() => {
-                    setShowDropdown(false);
-                    if (target != value) {
-                      setTarget(value as ResourcesEnum)
-                    }
-                  }}
-                />)
-              }
+            <div className={`absolute z-10 p-2 bg-card border-border border-2 rounded-md ${!showDropdown && "hidden"}`}>
+              <div className="w-[13.8rem] flex flex-wrap">
+                {
+                  // [...Object.keys(ResourcesEnum), ...Object.keys(UnitsEnum)].map((value) => (
+                  [...Object.keys(ResourcesEnum)].map((value) => (
+                    <div 
+                    className={`flex items-center rounded-md hover:bg-brand duration-150 cursor-pointer ${value as ResourcesEnum == target ? "bg-brand" : ""}`}
+                      key={value}
+                    >
+                      <Image
+                        className="w-11 p-1"
+                        src={`/assets/sprites/${value}.webp`}
+                        width={44}
+                        height={44}
+                        title={formatString(value)}
+                        alt={value}
+                        onClick={() => {
+                          setShowDropdown(false);
+                          if (target != value) {
+                            setTarget(value as ResourcesEnum)
+                          }
+                        }}
+                      />
+                    </div>)
+                  )
+                }
+              </div>
             </div>
           </div>
         </div>
@@ -439,7 +452,8 @@ export default function Home() {
               }}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
-                  (event.target as HTMLInputElement).blur()
+                  event.preventDefault();
+                  (event.target as HTMLInputElement).blur();
                 }
               }}
             />
@@ -461,7 +475,8 @@ export default function Home() {
               }}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
-                  (event.target as HTMLInputElement).blur()
+                  event.preventDefault();
+                  (event.target as HTMLInputElement).blur();
                 }
               }}
             />

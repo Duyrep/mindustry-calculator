@@ -6,7 +6,7 @@ export type Data = {
 }
 
 export type Products = {
-    [key in ResourcesEnum]: {
+    [key in ResourcesEnum | UnitsEnum]: {
         key: BuildingsEnum[]
     }
 }

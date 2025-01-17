@@ -145,6 +145,111 @@ export const data: Data = {
         BuildingsEnum.RotaryPump,
         BuildingsEnum.ImpulsePump
       ]
+    },
+    [UnitsEnum.Dagger]: {
+      key: []
+    },
+    [UnitsEnum.Mace]: {
+      key: []
+    },
+    [UnitsEnum.Fortress]: {
+      key: []
+    },
+    [UnitsEnum.Scepter]: {
+      key: []
+    },
+    [UnitsEnum.Reign]: {
+      key: []
+    },
+    [UnitsEnum.Nova]: {
+      key: []
+    },
+    [UnitsEnum.Pulsar]: {
+      key: []
+    },
+    [UnitsEnum.Quasar]: {
+      key: []
+    },
+    [UnitsEnum.Vela]: {
+      key: []
+    },
+    [UnitsEnum.Corvus]: {
+      key: []
+    },
+    [UnitsEnum.Crawler]: {
+      key: []
+    },
+    [UnitsEnum.Atrax]: {
+      key: []
+    },
+    [UnitsEnum.Spiroct]: {
+      key: []
+    },
+    [UnitsEnum.Arkyid]: {
+      key: []
+    },
+    [UnitsEnum.Toxopid]: {
+      key: []
+    },
+    [UnitsEnum.Flare]: {
+      key: []
+    },
+    [UnitsEnum.Horizon]: {
+      key: []
+    },
+    [UnitsEnum.Zenith]: {
+      key: []
+    },
+    [UnitsEnum.Antumbra]: {
+      key: []
+    },
+    [UnitsEnum.Eclipse]: {
+      key: []
+    },
+    [UnitsEnum.Mono]: {
+      key: []
+    },
+    [UnitsEnum.Poly]: {
+      key: []
+    },
+    [UnitsEnum.Mega]: {
+      key: []
+    },
+    [UnitsEnum.Quad]: {
+      key: []
+    },
+    [UnitsEnum.Oct]: {
+      key: []
+    },
+    [UnitsEnum.Risso]: {
+      key: []
+    },
+    [UnitsEnum.Minke]: {
+      key: []
+    },
+    [UnitsEnum.Bryde]: {
+      key: []
+    },
+    [UnitsEnum.Sei]: {
+      key: []
+    },
+    [UnitsEnum.Omura]: {
+      key: []
+    },
+    [UnitsEnum.Retusa]: {
+      key: []
+    },
+    [UnitsEnum.Oxynoe]: {
+      key: []
+    },
+    [UnitsEnum.Aegires]: {
+      key: []
+    },
+    [UnitsEnum.Cyerce]: {
+      key: []
+    },
+    [UnitsEnum.Navanax]: {
+      key: []
     }
   },
 

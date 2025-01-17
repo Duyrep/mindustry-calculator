@@ -1,4 +1,4 @@
-import { BaseType, select, Selection, text } from "d3";
+import { BaseType, select, Selection} from "d3";
 import { calculate, Settings } from "./calculation";
 import { graphviz, GraphvizOptions } from "d3-graphviz"
 import { ResourcesEnum } from "./enums";
@@ -97,7 +97,6 @@ export function renderChart(numOfBuildings: number, target: undefined | Resource
 
   if (target) {
     const result = calculate(numOfBuildings, target, settings)
-    console.log(result)
     Object.keys(result).forEach((key) => {
       textDot.push(
         `"${key}"[label="        :           x ${+result[key].numOfBuildings.toFixed(1)}" tooltip="${result[key].link}"];`
