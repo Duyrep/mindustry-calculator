@@ -727,7 +727,7 @@ export const data: Data = {
           perSecond: 2.0
         },
         {
-          name: ResourcesEnum.Lead,
+          name: ResourcesEnum.Sand,
           perSecond: 2.0
         }
       ],
