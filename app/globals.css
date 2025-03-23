@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 233, 43%, 93%;
+    --foreground: 0, 0%, 12%;
+
+    --card: 240 10% 100%;
+    --card-foreground: 60 9.1% 3%;
+
+    --popover: 213, 43%, 96%;
+    --popover-foreground: 60 9.1% 3%;
+
+    --primary: 60 9.1% 3%;
+    --primary-foreground: 360 100% 0%;
+
+    --secondary: 255 0% 95%;
+    --secondary-foreground: 60 9.1% 13%;
+
+    --muted: 12 6.5% 85%;
+    --muted-foreground: 24 5.4% 40%;
+
+    --accent: 12 6.5% 85.1%;
+    --accent-foreground: 60 9.1% 3%;
+
+    --border: 0 0% 55%;
+    --input: 12 6.5% 85;
+    --ring: 24 5.7% 20%;
+
+    --brand: 240 50% 60%;
+    --brand-foreground: 240 10% 100%;
+
+    --radius: 0.5rem;
+
+    --preview-size: 20rem;
+    --preview-card-height: 27rem;
+    --nav: 3.1rem;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 150 73% 55%;
+    --warning: 60 100% 35%;
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 90%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 60 9.1% 97.8%;
+
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 360 100% 100%;
+
+    --secondary: 222 0% 15%;
+    --secondary-foreground: 60 9.1% 87.8%;
+
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+
+    --border: 12 6.5% 25.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 24 5.7% 82.9%;
+
+    --brand: 160 84.1% 39.4%;
+    --brand-foreground: 240 10% 100%;
+  }
+}
+
+@layer base {
+  html,
+  body {
+    @apply h-full w-full;
+  }
+  body {
+    @apply dark:bg-gradient-background;
+  }
+  * {
+    @apply border-border;
+  }
+  div {
+    @apply box-border border-border;
+  }
+
+  .markdown-image {
+    @apply my-4;
+  }
+  .markdown > * {
+    @apply overflow-hidden;
+  }
+
+  /* .nodeHighLight {
+    fill: hsl(var(--brand))
+  } */
+  .edgeHighLight {
+    stroke: hsl(var(--brand))
+  }
+
+  hr {
+    @apply border-border border-2 mb-2
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  h4 {
+    @apply text-base;
+  }
+
+  blockquote {
+    @apply m-0 border-l-4 border-zinc-300 p-0 pl-2;
+  }
+
+  p > code {
+    @apply my-4 rounded-md border bg-background bg-opacity-60 p-1 text-foreground;
+  }
+
+  pre {
+    @apply my-4 rounded-md border bg-background bg-opacity-60 p-1 text-foreground;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply bg-white bg-opacity-20 bg-clip-padding;
+  }
+
+  *::-webkit-scrollbar {
+    @apply size-2;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-white bg-clip-padding;
+  }
+
+  *::-webkit-scrollbar-button {
+    @apply hidden;
+  }
+  ul {
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+  ol {
+    list-style: decimal;
+    list-style-type: decimal;
+    list-style-position: inside;
+  }
+  b {
+    font-weight: bold;
+  }
+
+  ul li {
+    list-style-position: outside;
+    margin-left: 1rem;
+    padding: 0.5rem;
+  }
+
+  li ::marker {
+    display: inline;
+  }
+
+  g path {
+    @apply focus:border-none focus:outline-none;
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+    aspect-ratio: auto 32 / 32;
+  }
+
+  #graph-container-main rect {
+    @apply stroke-foreground
+  }
+
+  #graph-container-main text {
+    @apply fill-foreground
+  }
+
+  #graph-container-main path  {
+    @apply  stroke-foreground
+  }
+
+  #graph-container-main polygon {
+    @apply stroke-foreground
+  }
+
+  @layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      overflow-y: auto;
+    }
+  }
+
+  .layout > .error {
+    @apply absolute inset-0;
+  }
+
+  [contenteditable='true']:empty:not(:focus):before {
+    content: attr(data-placeholder);
+    @apply text-muted-foreground;
+  }
+
+  .lucide {
+    @apply size-5 min-h-5 min-w-5 stroke-[2.5px];
+  }
+
+  .static {
+    position: static !important;
+  }
+}
