@@ -2,7 +2,7 @@ import { Selection, BaseType, select } from "d3"
 import { graphviz, GraphvizOptions } from "d3-graphviz"
 import { Nodes } from "./calculations/visualize";
 import { getBuilding, getMaterial, getTimeUnitInSeconds, SettingsType } from "./utils";
-// import { enableSVGEvents } from "./events";
+import { enableSVGEvents } from "./events";
 
 
 function convertPolygonToRect(points: string) {
@@ -25,7 +25,7 @@ function convertPolygonToRect(points: string) {
 export function render(graphDirection: "LR" | "TB", settings: SettingsType, result: Nodes) {
   const option: GraphvizOptions = {
     useWorker: false,
-    // zoom: false,
+    zoom: false,
     // zoomScaleExtent: [0.8, 2],
     engine: "dot"
   }
@@ -54,41 +54,41 @@ export function render(graphDirection: "LR" | "TB", settings: SettingsType, resu
   graphviz(select("#graph").node(), option).renderDot(dot.join(""), () => {
     if (!document.querySelector("#graph")?.querySelector("svg")) return;
     const svg = select("#graph").select("svg")
-    // const g = svg.select("g")
+    const polygon = svg.select("polygon")
+    const rect = convertPolygonToRect(polygon.attr("points"))
 
-    let svgWidth = 0, svgHeight = 0
-    svg.attr("width").slice(0, -2)
-    if (+svg.attr("width").slice(0, -2) > +svg.attr("height").slice(0, -2)) {
-      svgWidth = +svg.attr("width").slice(0, -2)
+    let svgX = 0, svgY = 0, svgWidth = 0, svgHeight = 0
+    if (+rect.width > rect.height) {
+      svgWidth = rect.width
       svgHeight = svgWidth / (16 / 9)
+      if (svgHeight < rect.height) {
+        svgHeight = rect.height
+        svgWidth = svgHeight * (16 / 9)
+      }
     } else {
-      svgHeight = +svg.attr("height").slice(0, -2)
+      svgHeight = rect.height
       svgWidth = svgHeight * (16 / 9)
+      if (svgWidth < rect.width) {
+        svgWidth = rect.width
+        svgHeight = svgWidth / (16 / 9)
+      }
     }
 
-    // const bbox = (g.node() as SVGGElement).getBBox();
-    // const gWidth = bbox.width;
-    // const gHeight = bbox.height;
-    // const gX = bbox.x;
-    // const gY = bbox.y
-    // let viewBoxX = gX - (svgWidth - gWidth) / 2;
-    // let viewBoxY = gY - (svgHeight - gHeight) / 2;
-    // if (+svg.attr("width").slice(0, -2) > +svg.attr("height").slice(0, -2)) {
-    //   viewBoxX = 0
-    // } else {
-    //   viewBoxY = 0
-    // }
+    const bbox = (polygon.node() as SVGPolygonElement).getBBox()
+    svgX = -svgWidth / 2 + bbox.width / 2
+    svgY = -svgHeight / 2 + bbox.height / 2
 
-    svg.select("polygon").remove()
+    svg.select("polygon")
+      .attr("fill", "transparent")
     svg.selectAll("text").attr("fill", "currentColor")
     svg.attr("style", "border: 1px hsl(var(--border)) solid; border-radius: calc(var(--radius) - 2px);")
-      .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+      .attr("viewBox", `${svgX} ${svgY} ${svgWidth} ${svgHeight}`)
       .attr("width", null)
       .attr("height", null)
 
     renderNodes(svg)
     renderEdges(svg)
-    // enableSVGEvents(svg)
+    enableSVGEvents(svg, bbox.width / 2, bbox.height / 2)
   })
 }
 
@@ -149,7 +149,7 @@ function renderNodes(svg: Selection<BaseType, unknown, HTMLElement, any>) {
       .attr("href", "/spritesheet.png")
       .attr("width", 32 * 14)
       .attr("height", 32 * 14)
-    
+
     rect.raise()
     polygon.remove()
 
@@ -217,7 +217,7 @@ function renderEdges(svg: Selection<BaseType, unknown, HTMLElement, any>) {
       .attr("href", "/spritesheet.png")
       .attr("width", 32 * 14 - 1)
       .attr("height", 32 * 14 - 1)
-    
+
     edge.append("rect")
       .attr("x", (+text.attr("x") - textBBox.width / 2 - textFontSize) + 7)
       .attr("y", +text.attr("y") - textFontSize + 8)
