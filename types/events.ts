@@ -1,11 +1,11 @@
 import { Selection, BaseType, select } from "d3";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function enableSVGEvents(svg: Selection<BaseType, unknown, HTMLElement, any>) {
-  const maxScale = 1.4
-  const minScale = 0.8
+export function enableSVGEvents(svg: Selection<BaseType, unknown, HTMLElement, any>, mindX: number, mindY: number) {
+  const maxScale = 1.2
+  const minScale = 0.4
   const viewBox = svg.attr("viewBox").split(" ").map((value) => +value)
-  let scale = 1, x = 0, y = 0, width = viewBox[2], height = viewBox[3], dragging = false, prevX = 0, prevY = 0
+  let scale = 1, x = viewBox[0], y = viewBox[1], width = viewBox[2], height = viewBox[3], dragging = false, prevX = x, prevY = y
 
   function setViewBox() {
     svg.attr("viewBox", `${x} ${y} ${width} ${height}`)
@@ -17,17 +17,21 @@ export function enableSVGEvents(svg: Selection<BaseType, unknown, HTMLElement, a
   }
 
   svg.on("wheel", function (event: WheelEvent) {
-    event.preventDefault()
+    event.preventDefault();
+    const p = point(event);
+    const zoomFactor = event.deltaY > 0 ? 1.1 : 0.9;
+    if (scale * zoomFactor <= maxScale && scale * zoomFactor >= minScale) {
+      scale *= zoomFactor;
+      width = viewBox[2] * scale;
+      height = viewBox[3] * scale;
 
-    if (event.deltaY > 0) {
-      scale = Math.min(scale + 0.1, maxScale);
-    } else {
-      scale = Math.max(scale - 0.1, minScale);
+      x += (p.x - x) * (1 - zoomFactor);
+      y += (p.y - y) * (1 - zoomFactor);
+
+      setViewBox();
     }
-    width = viewBox[2] * scale
-    height = viewBox[3] * scale
-    setViewBox()
-  })
+  });
+
 
   svg.on("mousedown", function (event: MouseEvent) {
     dragging = true
@@ -38,7 +42,7 @@ export function enableSVGEvents(svg: Selection<BaseType, unknown, HTMLElement, a
   select("html").on("mouseup", function () {
     dragging = false
   })
-
+  
   const debug = select("#debug")
   select("html").on("mousemove", function (event: MouseEvent) {
     event.preventDefault()
@@ -50,8 +54,8 @@ export function enableSVGEvents(svg: Selection<BaseType, unknown, HTMLElement, a
     x -= deltaX;
     y -= deltaY;
 
-    x = Math.max(-viewBox[2] / 2, Math.min(x, viewBox[2] / 2));
-    y = Math.max(-viewBox[3] / 2, Math.min(y, viewBox[3] / 2));
+    x = Math.max(mindX - width, Math.min(x, mindX));
+    y = Math.max(mindY - height, Math.min(y, mindY));
 
     debug.selectAll("span").remove()
     debug.append("span")

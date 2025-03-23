@@ -24,7 +24,7 @@ export default function FactoryTab(
 
   return (
     <div className={`${!show && "hidden"} p-1 overflow-auto`}>
-      <table className="bg-card">
+      <table className="bg-card" translate="no">
         <thead>
           <tr>
             {
