@@ -10,7 +10,7 @@ export function AffinitiesSettings(
   }
 ) {
   return (
-    <table>
+    <table className="table-fixed">
       <thead>
         <tr>
           <th></th>
@@ -30,7 +30,7 @@ export function AffinitiesSettings(
             acc.push(
               <tr key={buildingName}>
                 <td className={`${acc.length != 0 && "border-t"} py-2`}>
-                  <div className="flex items-center shrink-0">
+                  <div className="flex items-center w-max">
                     <CustomImage name={buildingName} settings={settings} />
                     <span className="mx-1">:</span>
                   </div>

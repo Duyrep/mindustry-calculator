@@ -14,7 +14,7 @@ export default function MaterialSettings(
     <table>
       <thead>
         <tr>
-          <th className="w-10"></th>
+          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -27,9 +27,9 @@ export default function MaterialSettings(
               key={materialName}
             >
               <td className={`${acc.length != 0 && "border-t"} py-2`}>
-                <div className="flex shrink-0 items-center">
+                <div className="flex items-center w-max">
                   <CustomImage name={materialName} settings={settings} />
-                  <span>:</span>
+                  <span className="mx-1">:</span>
                 </div>
               </td>
               <td className={`${acc.length != 0 && "border-t"} py-2`}>
