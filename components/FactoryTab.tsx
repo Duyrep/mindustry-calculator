@@ -23,8 +23,8 @@ export default function FactoryTab(
   }, [settings, target, materialsPerSec])
 
   return (
-    <div className={`${!show && "hidden"} p-1 overflow-auto`}>
-      <table className="bg-card text-nowrap" translate="no">
+    <div className={`${!show && "hidden"} p-1`}>
+      <table className="bg-card text-nowrap relative" translate="no">
         <thead>
           <tr>
             {

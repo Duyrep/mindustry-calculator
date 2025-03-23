@@ -19,9 +19,9 @@ export default function Target(
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <div className="flex items-center flex-shrink-0">
+    <div className="flex items-center flex-shrink-0 relative">
       <div
-        className={`fixed top-0 right-0 w-screen h-screen ${!showDropdown && "hidden"}`}
+        className={`fixed top-0 right-0 z-50 w-screen h-screen ${!showDropdown && "hidden"}`}
         onClick={() => setShowDropdown(false)}
       ></div>
       <div
