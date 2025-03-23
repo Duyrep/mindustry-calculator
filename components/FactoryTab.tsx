@@ -124,20 +124,20 @@ export default function FactoryTab(
                   className="text-xs"
                 >
                   <td className="py-2 border-t">
-                    <div className="flex items-center space-x-1">
+                    <div className="flex shrink-0 items-center space-x-1">
                       <CustomImage name={data.building as string} settings={settings} />
                       <span>x {+data.numOfBuildings.toFixed(1)}</span>
                     </div>
                   </td>
                   <td className="pl-4 border-t">
-                    <div className="flex items-center">
+                    <div className="flex shrink-0 items-center">
                       <CustomImage name={data.material} settings={settings} />
                       &nbsp;
                       {+(data.materialPerSec * getTimeUnitInSeconds(settings)).toFixed(3)}
                     </div>
                   </td>
                   <td className="border-t">
-                    {boosts && <div key={data.building} className="w-full flex flex-col flex-wrap content-center">
+                    {boosts && <div key={data.building} className="shrink-0 w-full flex flex-col flex-wrap content-center">
                       <div
                         className={`fixed left-0 top-0 w-screen h-screen ${!isShowDropdownBoost() && "hidden"}`}
                         onClick={() => setShowDropdownBoost(false)}
@@ -179,7 +179,7 @@ export default function FactoryTab(
                   <td className="pl-4 border-t">
                     {affinities && <>
                       <div
-                        className={`fixed left-0 top-0 w-screen h-screen ${!isShowDropdownAffinities() && "hidden"}`}
+                        className={`shrink-0 fixed left-0 top-0 w-screen h-screen ${!isShowDropdownAffinities() && "hidden"}`}
                         onClick={() => setShowDropdownAffinities(false)}
                       ></div>
                       <div className="flex justify-center">
@@ -231,7 +231,7 @@ export default function FactoryTab(
                   <td className="pl-4 border-t">
                     <div>
                       <div
-                        className={`fixed left-0 top-0 w-screen h-screen ${!isShowDropdownBeacons() && "hidden"}`}
+                        className={`fixed shrink-0 left-0 top-0 w-screen h-screen ${!isShowDropdownBeacons() && "hidden"}`}
                         onClick={() => setShowDropdownBeacons(false)}
                       ></div>
                       <div
@@ -276,7 +276,7 @@ export default function FactoryTab(
                       </div>
                     </div>
                   </td>
-                  <td className="pl-4 border-t">{+data.powerUse.toFixed(2)}</td>
+                  <td className="pl-4 shrink-0 border-t">{+data.powerUse.toFixed(2)}</td>
                 </tr>
               )
             }
@@ -284,10 +284,10 @@ export default function FactoryTab(
           }
           <tr>
             <td colSpan={5} className="border-t text-right">
-              <b>Total power:</b>
+              <div className="shrink-0"><b>Total power:</b></div>
             </td>
             <td className="pl-4 border-t  text-sm">
-              {+factoryResult.totalPowerUse.toFixed(2)}
+              <div className="shrink-0">{+factoryResult.totalPowerUse.toFixed(2)}</div>
             </td>
           </tr>
         </tbody>
