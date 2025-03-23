@@ -55,7 +55,7 @@ export default function App() {
 
   return (
     <div className="p-2 overflow-auto h-full">
-      <div className="space-y-1">
+      <div className="space-y-1 ">
         <Tabs tab={tab} setTab={setTab} />
         <div className="flex flex-wrap gap-1">
           <Target target={target} setTarget={setTarget} settings={settings} />

@@ -31,7 +31,7 @@ export default function Dropdown(
   return (
     <div
       ref={dropdownRef}
-      className={`fixed left-2 h-0 max-h-[calc(100%-6rem)] overflow-auto bg-secondary cursor-auto rounded-b-md select-none duration-500 transition-all ${show ? "h-96" : "h-0"}`}
+      className={`fixed z-50 left-2 h-0 max-h-[calc(100%-6rem)] overflow-auto bg-secondary cursor-auto rounded-b-md select-none duration-500 transition-all ${show ? "h-96" : "h-0"}`}
     >
       <div className="p-2">
         {Object.values(ModesEnum).map((mode) => (
