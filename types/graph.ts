@@ -2,7 +2,7 @@ import { Selection, BaseType, select } from "d3"
 import { graphviz, GraphvizOptions } from "d3-graphviz"
 import { Nodes } from "./calculations/visualize";
 import { getBuilding, getMaterial, getTimeUnitInSeconds, SettingsType } from "./utils";
-import { enableSVGEvents } from "./events";
+// import { enableSVGEvents } from "./events";
 
 
 function convertPolygonToRect(points: string) {
@@ -25,7 +25,7 @@ function convertPolygonToRect(points: string) {
 export function render(graphDirection: "LR" | "TB", settings: SettingsType, result: Nodes) {
   const option: GraphvizOptions = {
     useWorker: false,
-    zoom: false,
+    // zoom: false,
     // zoomScaleExtent: [0.8, 2],
     engine: "dot"
   }
@@ -88,7 +88,7 @@ export function render(graphDirection: "LR" | "TB", settings: SettingsType, resu
 
     renderNodes(svg)
     renderEdges(svg)
-    enableSVGEvents(svg)
+    // enableSVGEvents(svg)
   })
 }
 
