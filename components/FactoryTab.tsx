@@ -23,8 +23,8 @@ export default function FactoryTab(
   }, [settings, target, materialsPerSec])
 
   return (
-    <div className={`${!show && "hidden"} p-1`}>
-      <table>
+    <div className={`${!show && "hidden"} p-1 overflow-auto`}>
+      <table className="bg-card">
         <thead>
           <tr>
             {
@@ -161,9 +161,9 @@ export default function FactoryTab(
                         >
                           <div className={`flex flex-wrap gap-1 p-1 border rounded-md`}>
                             <div
-                              className={`flex-grow cursor-pointer select-none flex p-1 items-center rounded-md ${!settings.boosts[settings.mode][materialName as MaterialEnum]!.building[buildingName] ? "bg-brand" : "bg-secondary"}`}
+                              className={`cursor-pointer select-none flex p-1 items-center rounded-md ${!settings.boosts[settings.mode][materialName as MaterialEnum]!.building[buildingName] ? "bg-brand" : "bg-secondary"}`}
                               onClick={() => setBoost(undefined)}
-                            ><div className="w-[32px]"><span>None</span></div></div>
+                            ><div className="flex items-center w-[32px] h-[32px]"><span>None</span></div></div>
                             <div
                               className={`flex flex-col items-center cursor-pointer p-1 rounded-md ${settings.boosts[settings.mode][materialName as MaterialEnum]!.building[buildingName] == name && "bg-brand"}`}
                               onClick={() => setBoost(name)}
@@ -246,9 +246,9 @@ export default function FactoryTab(
                           )}
                         </div>
                       </div>
-                      <div className={`absolute flex flex-wrap gap-1 p-1 bg-secondary border rounded-md ${!isShowDropdownBeacons() && "hidden"}`}>
+                      <div className={`absolute min-w flex flex-wrap gap-1 p-1 bg-secondary border rounded-md ${!isShowDropdownBeacons() && "hidden"}`}>
                         <div
-                          className={`flex items-center rounded-md cursor-pointer flex-grow p-1 duration-100 ${getBeacon() == "" ? "bg-brand" : "bg-secondary"}`}
+                          className={`flex items-center rounded-md cursor-pointer p-1 duration-100 ${getBeacon() == "" ? "bg-brand" : "bg-secondary"}`}
                           onClick={() => setBeacons("")}
                         >
                           <div className="flex items-center w-[32px] h-[32px]"><span>None</span></div>
