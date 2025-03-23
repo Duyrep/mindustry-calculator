@@ -1,4 +1,4 @@
-import { BuildingGroupEnum, BuildingsEnum, data, MaterialEnum, ModesEnum } from "../data/7.0-Build-146";
+import { BuildingGroupEnum, BuildingsEnum, MaterialEnum, ModesEnum } from "../data/7.0-Build-146";
 import { getBuilding, getFactoryNameOfMaterial, SettingsType } from "../utils";
 
 export type FactoryResultType = {
