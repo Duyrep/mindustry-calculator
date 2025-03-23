@@ -1,4 +1,4 @@
-import { ModesEnum } from "@/types/data/7.0-Build-146";
+// import { ModesEnum } from "@/types/data/7.0-Build-146";
 import { getDefaultSettings, SettingsType } from "@/types/utils";
 import React from "react";
 import MaterialSettings from "./MaterialSettings";
@@ -46,12 +46,12 @@ export default function SettingsTab(
           </tr>
 
           <tr>
-            <td colSpan={2}><b><i>Factory</i></b><hr /></td>
+            <td colSpan={2}><b><i>Mode</i></b><hr /></td>
           </tr>
           <tr>
             <td className="pl-10 text-right">Mode:</td>
             <td>
-              {
+              {/* {
                 Object.values(ModesEnum).map((mode) => (
                   <button
                     key={mode}
@@ -59,7 +59,8 @@ export default function SettingsTab(
                     className={`p-1 px-2 rounded-md mx-1 duration-100 outline-none ${mode == settings.mode ? "bg-brand" : "bg-secondary"}`}
                   >{mode}</button>
                 ))
-              }
+              } */}
+              Coming soon
             </td>
           </tr>
 
