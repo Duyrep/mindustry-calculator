@@ -1,0 +1,61 @@
+{
+  "vi": {
+    "translation": {
+      "Factory": "Nhà máy",
+      "Visualize": "Hình dung",
+      "Settings": "Cài đặt",
+      "About": "Giới thiệu",
+
+      "Items": "Vật phẩm",
+      "items": "Vật phẩm",
+      "Buildings": "Công trình",
+
+      "second": "giây",
+      "minute": "phút",
+      "hour": "giờ",
+
+      "Second": "Giây",
+      "Minute": "Phút",
+      "Hour": "Giờ",
+
+      "Column settings": "Cài đặt cột",
+      "Belts": "Vận chuyển",
+      "Beacons": "Tăng tốc",
+      "Power": "Năng lượng",
+      "Links": "Liên kết",
+
+      "Affinities": "Tương thích",
+      "Boosts": "Tăng cường",
+      "Total power": "Tổng năng lượng",
+
+      "Reset": "Đặt lại",
+      "General": "Chung",
+      "Languages": "Ngôn ngữ",
+      "Display rates": "Hiển thị tỉ lệ",
+      "Modes": "Chế độ",
+      "Optional enhancements": "Các cải tiến tùy chọn",
+
+      "Copper": "Đồng",
+      "Lead": "Chì",
+      "Metaglass": "Thủy tinh",
+      "Graphite": "Than chì",
+      "Sand": "Cát",
+      "Coal": "Than",
+      "Titanium": "Titan",
+      "Thorium": "Thorium",
+      "Scrap": "Phế liệu",
+      "Silicon": "Silicon",
+      "Plastanium": "Nhựa",
+      "Phase fabric": "Sợi lượng tử",
+      "Surge alloy": "Hợp kim",
+      "Spore pod": "Vỏ bào tử",
+      "Blast compound": "Chất nổ",
+      "Pyratite": "Nhiệt hạch",
+
+      "Water": "Nước",
+      "Slag": "Xỉ",
+      "Oil": "Dầu",
+      "Cryofluid": "Chất làm lạnh"
+    }
+  }
+}

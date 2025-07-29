@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "id": "silicon",
+      "name": "Silicon",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 11
+      },
+      "producedBy": []
+    }
+  ],
+  "belts": [],
+  "buildings": [],
+  "beacons": [],
+  "tiles": [],
+  "recipes": []
+}

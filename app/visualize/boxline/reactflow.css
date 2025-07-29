@@ -1,0 +1,38 @@
+.react-flow__panel {
+  background: var(--color-surface-a10);
+}
+
+.react-flow__attribution a {
+  color: var(--color-surface-a40);
+}
+
+.react-flow__controls {
+  border-radius: 6px;
+  box-shadow: var(--shadow) 0px 3px 5px;
+}
+
+.react-flow__controls-zoomin {
+  border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid var(--color-surface-a50);
+}
+
+.react-flow__controls-zoomout {
+  border-bottom: 1px solid var(--color-surface-a50);
+}
+
+.react-flow__controls-fitview {
+  border-bottom: 1px solid var(--color-surface-a50);
+}
+
+.react-flow__controls-interactive {
+  border-radius: 0 0 6px 6px;
+}
+
+.react-flow__controls-button {
+  background: var(--color-surface-a10);
+  transition-duration: 0.2s;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--color-surface-a30);
+}

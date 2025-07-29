@@ -1,0 +1,1709 @@
+{
+  "items": [
+    {
+      "id": "copper",
+      "name": "Copper",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 1
+      },
+      "producedBy": [
+        "mechanical-drill",
+        "pneumatic-drill",
+        "laser-drill",
+        "air-blast-drill",
+        "separator"
+      ]
+    },
+    {
+      "id": "lead",
+      "name": "Lead",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 2
+      },
+      "producedBy": [
+        "mechanical-drill",
+        "pneumatic-drill",
+        "laser-drill",
+        "air-blast-drill",
+        "separator"
+      ]
+    },
+    {
+      "id": "scrap",
+      "name": "Scrap",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 3
+      },
+      "producedBy": [
+        "mechanical-drill",
+        "pneumatic-drill",
+        "laser-drill",
+        "air-blast-drill"
+      ]
+    },
+    {
+      "id": "sand",
+      "name": "Sand",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 4
+      },
+      "producedBy": [
+        "mechanical-drill",
+        "pneumatic-drill",
+        "laser-drill",
+        "air-blast-drill",
+        "pulverizer",
+        "disassembler"
+      ]
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 5
+      },
+      "producedBy": ["graphite-press", "multi-press"]
+    },
+    {
+      "id": "metaglass",
+      "name": "Metaglass",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 6
+      },
+      "producedBy": ["kiln"]
+    },
+    {
+      "id": "spore-pod",
+      "name": "Spore pod",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 7
+      },
+      "producedBy": ["cultivator"]
+    },
+    {
+      "id": "coal",
+      "name": "Coal",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 8
+      },
+      "producedBy": [
+        "mechanical-drill",
+        "pneumatic-drill",
+        "laser-drill",
+        "air-blast-drill",
+        "coal-centrifuge"
+      ]
+    },
+    {
+      "id": "titanium",
+      "name": "Titanium",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 9
+      },
+      "producedBy": [
+        "pneumatic-drill",
+        "laser-drill",
+        "air-blast-drill",
+        "separator",
+        "disassembler"
+      ]
+    },
+    {
+      "id": "thorium",
+      "name": "Thorium",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 10
+      },
+      "producedBy": ["laser-drill", "air-blast-drill", "disassembler"]
+    },
+    {
+      "id": "silicon",
+      "name": "Silicon",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 11
+      },
+      "producedBy": ["silicon-smelter", "silicon-crucible"]
+    },
+    {
+      "id": "plastanium",
+      "name": "Plastanium",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 12
+      },
+      "producedBy": ["plastanium-compressor"]
+    },
+    {
+      "id": "phase-fabric",
+      "name": "Phase fabric",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 13
+      },
+      "producedBy": ["phase-weaver"]
+    },
+    {
+      "id": "surge-alloy",
+      "name": "Surge alloy",
+      "category": "item",
+      "image": {
+        "row": 0,
+        "col": 14
+      },
+      "producedBy": ["surge-smelter"]
+    },
+    {
+      "id": "blast-compound",
+      "name": "Blast compound",
+      "category": "item",
+      "image": {
+        "row": 1,
+        "col": 0
+      },
+      "producedBy": ["blast-mixer"]
+    },
+    {
+      "id": "pyratite",
+      "name": "Pyratite",
+      "category": "item",
+      "image": {
+        "row": 1,
+        "col": 1
+      },
+      "producedBy": ["pyratite-mixer"]
+    },
+    {
+      "id": "water",
+      "name": "Water",
+      "category": "fluid",
+      "image": {
+        "row": 2,
+        "col": 0
+      },
+      "producedBy": [
+        "water-extractor",
+        "mechanical-pump",
+        "rotary-pump",
+        "impulse-pump"
+      ]
+    },
+    {
+      "id": "slag",
+      "name": "Slag",
+      "category": "fluid",
+      "image": {
+        "row": 2,
+        "col": 1
+      },
+      "producedBy": ["melter", "mechanical-pump", "rotary-pump", "impulse-pump"]
+    },
+    {
+      "id": "oil",
+      "name": "Oil",
+      "category": "fluid",
+      "image": {
+        "row": 2,
+        "col": 2
+      },
+      "producedBy": [
+        "oil-extractor",
+        "mechanical-pump",
+        "rotary-pump",
+        "impulse-pump",
+        "spore-press"
+      ]
+    },
+    {
+      "id": "cryofluid",
+      "name": "Cryofluid",
+      "category": "fluid",
+      "image": {
+        "row": 2,
+        "col": 3
+      },
+      "producedBy": [
+        "cryofluid-mixer",
+        "mechanical-pump",
+        "rotary-pump",
+        "impulse-pump"
+      ]
+    },
+    {
+      "id": "dagger",
+      "name": "Dagger",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 0
+      },
+      "producedBy": ["ground-factory"]
+    },
+    {
+      "id": "mace",
+      "name": "Mace",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 1
+      },
+      "producedBy": ["additive-reconstructor"]
+    },
+    {
+      "id": "fortress",
+      "name": "Fortress",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 2
+      },
+      "producedBy": ["multiplicative-reconstructor"]
+    },
+    {
+      "id": "scepter",
+      "name": "Scepter",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 3
+      },
+      "producedBy": ["exponential-reconstructor"]
+    },
+    {
+      "id": "regin",
+      "name": "Regin",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 4
+      },
+      "producedBy": ["tetrative-reconstructor"]
+    },
+    {
+      "id": "nova",
+      "name": "Nova",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 5
+      },
+      "producedBy": ["ground-factory"]
+    },
+    {
+      "id": "pulsar",
+      "name": "Pulsar",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 6
+      },
+      "producedBy": ["additive-reconstructor"]
+    },
+    {
+      "id": "quasar",
+      "name": "Quasar",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 7
+      },
+      "producedBy": ["multiplicative-reconstructor"]
+    },
+    {
+      "id": "vela",
+      "name": "Vela",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 8
+      },
+      "producedBy": ["exponential-reconstructor"]
+    },
+    {
+      "id": "corvus",
+      "name": "Corvus",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 9
+      },
+      "producedBy": ["tetrative-reconstructor"]
+    },
+    {
+      "id": "crawler",
+      "name": "Crawler",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 10
+      },
+      "producedBy": ["ground-factory"]
+    },
+    {
+      "id": "atrax",
+      "name": "Atrax",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 11
+      },
+      "producedBy": ["additive-reconstructor"]
+    },
+    {
+      "id": "spiroct",
+      "name": "Spiroct",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 12
+      },
+      "producedBy": ["multiplicative-reconstructor"]
+    },
+    {
+      "id": "arkyid",
+      "name": "Arkyid",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 13
+      },
+      "producedBy": ["exponential-reconstructor"]
+    },
+    {
+      "id": "toxopid",
+      "name": "Toxopid",
+      "category": "unit",
+      "image": {
+        "row": 3,
+        "col": 14
+      },
+      "producedBy": ["tetrative-reconstructor"]
+    },
+    {
+      "id": "flare",
+      "name": "Flare",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 0
+      },
+      "producedBy": ["air-factory"]
+    },
+    {
+      "id": "horizon",
+      "name": "Horizon",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 1
+      },
+      "producedBy": ["additive-reconstructor"]
+    },
+    {
+      "id": "zenith",
+      "name": "Zenith",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 2
+      },
+      "producedBy": ["multiplicative-reconstructor"]
+    },
+    {
+      "id": "Antumbra",
+      "name": "Antumbra",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 3
+      },
+      "producedBy": ["exponential-reconstructor"]
+    },
+    {
+      "id": "eclipse",
+      "name": "Eclipse",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 4
+      },
+      "producedBy": ["tetrative-reconstructor"]
+    },
+    {
+      "id": "mono",
+      "name": "Mono",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 5
+      },
+      "producedBy": ["air-factory"]
+    },
+    {
+      "id": "poly",
+      "name": "Poly",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 6
+      },
+      "producedBy": ["additive-reconstructor"]
+    },
+    {
+      "id": "mega",
+      "name": "Mega",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 7
+      },
+      "producedBy": ["multiplicative-reconstructor"]
+    },
+    {
+      "id": "quad",
+      "name": "Quad",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 8
+      },
+      "producedBy": ["exponential-reconstructor"]
+    },
+    {
+      "id": "oct",
+      "name": "Oct",
+      "category": "unit",
+      "image": {
+        "row": 4,
+        "col": 9
+      },
+      "producedBy": ["tetrative-reconstructor"]
+    },
+    {
+      "id": "risso",
+      "name": "Risso",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 0
+      },
+      "producedBy": ["naval-factory"]
+    },
+    {
+      "id": "minke",
+      "name": "Minke",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 1
+      },
+      "producedBy": ["additive-reconstructor"]
+    },
+    {
+      "id": "bryde",
+      "name": "Bryde",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 2
+      },
+      "producedBy": ["multiplicative-reconstructor"]
+    },
+    {
+      "id": "sei",
+      "name": "Sei",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 3
+      },
+      "producedBy": ["exponential-reconstructor"]
+    },
+    {
+      "id": "omura",
+      "name": "Omura",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 4
+      },
+      "producedBy": ["tetrative-reconstructor"]
+    },
+    {
+      "id": "retusa",
+      "name": "Retusa",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 5
+      },
+      "producedBy": ["naval-factory"]
+    },
+    {
+      "id": "oxynoe",
+      "name": "Oxynoe",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 6
+      },
+      "producedBy": ["additive-reconstructor"]
+    },
+    {
+      "id": "cyerce",
+      "name": "Cyerce",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 7
+      },
+      "producedBy": ["multiplicative-reconstructor"]
+    },
+    {
+      "id": "aegires",
+      "name": "Aegires",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 8
+      },
+      "producedBy": ["exponential-reconstructor"]
+    },
+    {
+      "id": "navanax",
+      "name": "Navanax",
+      "category": "unit",
+      "image": {
+        "row": 5,
+        "col": 9
+      },
+      "producedBy": ["tetrative-reconstructor"]
+    }
+  ],
+  "belts": [
+    {
+      "id": "conveyor",
+      "name": "Conveyor",
+      "speed": 4.2,
+      "image": {
+        "row": 14,
+        "col": 0
+      }
+    },
+    {
+      "id": "titanium-conveyor",
+      "name": "Titanium conveyor",
+      "speed": 11,
+      "image": {
+        "row": 14,
+        "col": 1
+      }
+    },
+    {
+      "id": "armored-conveyor",
+      "name": "Armored conveyor",
+      "speed": 11,
+      "image": {
+        "row": 14,
+        "col": 3
+      }
+    },
+    {
+      "id": "plastanium-conveyor",
+      "name": "Plastanium conveyor",
+      "speed": 40,
+      "image": {
+        "row": 14,
+        "col": 2
+      }
+    }
+  ],
+  "buildings": [
+    {
+      "id": "mechanical-drill",
+      "name": "Mechanical drill",
+      "image": {
+        "row": 9,
+        "col": 3
+      },
+      "optionalEnhancements": {
+        "booster": [
+          {
+            "id": "water",
+            "speed": 2.56,
+            "perSec": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "pneumatic-drill",
+      "name": "Pneumatic drill",
+      "image": {
+        "row": 7,
+        "col": 1
+      },
+      "optionalEnhancements": {
+        "booster": [
+          {
+            "id": "water",
+            "speed": 2.56,
+            "perSec": 3.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "laser-drill",
+      "name": "Laser drill",
+      "power": 66,
+      "image": {
+        "row": 8,
+        "col": 11
+      },
+      "optionalEnhancements": {
+        "booster": [
+          {
+            "id": "water",
+            "speed": 2.56,
+            "perSec": 4.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "air-blast-drill",
+      "name": "Airblast drill",
+      "power": 180,
+      "image": {
+        "row": 7,
+        "col": 12
+      },
+      "optionalEnhancements": {
+        "booster": [
+          {
+            "id": "water",
+            "speed": 2.56,
+            "perSec": 6
+          }
+        ]
+      }
+    },
+    {
+      "id": "pyratite-mixer",
+      "name": "Pyratite mixer",
+      "power": 12,
+      "image": {
+        "row": 8,
+        "col": 4
+      }
+    },
+    {
+      "id": "mechanical-pump",
+      "name": "Mechanical pump",
+      "image": {
+        "row": 9,
+        "col": 1
+      }
+    },
+    {
+      "id": "rotary-pump",
+      "name": "Rotary pump",
+      "power": 18,
+      "image": {
+        "row": 8,
+        "col": 2
+      }
+    },
+    {
+      "id": "impulse-pump",
+      "name": "Impulse pump",
+      "power": 78,
+      "image": {
+        "row": 9,
+        "col": 0
+      }
+    },
+    {
+      "id": "oil-extractor",
+      "name": "Oil extractor",
+      "power": 180,
+      "image": {
+        "row": 8,
+        "col": 8
+      },
+      "optionalEnhancements": {
+        "affinities": [
+          {
+            "id": "salt-floor",
+            "efficiency": 0.3
+          },
+          {
+            "id": "sand-floor",
+            "efficiency": 0.7
+          },
+          {
+            "id": "dark-sand-floor",
+            "efficiency": 1.5
+          },
+          {
+            "id": "shale-floor",
+            "efficiency": 1.6
+          }
+        ]
+      }
+    },
+    {
+      "id": "water-extractor",
+      "name": "Water extractor",
+      "power": 90,
+      "image": {
+        "row": 8,
+        "col": 0
+      },
+      "optionalEnhancements": {
+        "affinities": [
+          {
+            "id": "other",
+            "efficiency": 0
+          },
+          {
+            "id": "magma-rock",
+            "efficiency": -0.75
+          },
+          {
+            "id": "hot-rock",
+            "efficiency": -0.5
+          },
+          {
+            "id": "salt-floor",
+            "efficiency": -0.3
+          },
+          {
+            "id": "basalt-floor",
+            "efficiency": -0.25
+          },
+          {
+            "id": "grass-floor",
+            "efficiency": 0.1
+          },
+          {
+            "id": "snow-floor",
+            "efficiency": 0.2
+          },
+          {
+            "id": "ice-snow-floor",
+            "efficiency": 0.3
+          },
+          {
+            "id": "ice-floor",
+            "efficiency": 0.4
+          },
+          {
+            "id": "red-ice-floor",
+            "efficiency": 0.4
+          },
+          {
+            "id": "mud-floor",
+            "efficiency": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "pulverizer",
+      "name": "Pulverizer",
+      "power": 180,
+      "image": {
+        "row": 7,
+        "col": 0
+      }
+    },
+    {
+      "id": "coal-centrifuge",
+      "name": "Coal centrifuge",
+      "power": 42,
+      "image": {
+        "row": 8,
+        "col": 7
+      }
+    },
+    {
+      "id": "silicon-smelter",
+      "name": "Silicon smelter",
+      "power": 30,
+      "image": {
+        "row": 7,
+        "col": 3
+      }
+    },
+    {
+      "id": "silicon-crucible",
+      "name": "Silicon crucible",
+      "power": 240,
+      "image": {
+        "row": 7,
+        "col": 4
+      },
+      "optionalEnhancements": {
+        "affinities": [
+          {
+            "id": "other",
+            "efficiency": 0
+          },
+          {
+            "id": "hot-rock",
+            "efficiency": 0.67
+          },
+          {
+            "id": "magma-rock",
+            "efficiency": 1.01
+          }
+        ]
+      }
+    },
+    {
+      "id": "separator",
+      "name": "Separator",
+      "power": 60,
+      "image": {
+        "row": 7,
+        "col": 7
+      }
+    },
+    {
+      "id": "disassembler",
+      "name": "Disassembler",
+      "power": 180,
+      "image": {
+        "row": 7,
+        "col": 10
+      }
+    },
+    {
+      "id": "graphite-press",
+      "name": "Graphite press",
+      "image": {
+        "row": 7,
+        "col": 2
+      }
+    },
+    {
+      "id": "multi-press",
+      "name": "Multi press",
+      "power": 108,
+      "image": {
+        "row": 7,
+        "col": 5
+      }
+    },
+    {
+      "id": "kiln",
+      "name": "Kiln",
+      "power": 36,
+      "image": {
+        "row": 9,
+        "col": 2
+      }
+    },
+    {
+      "id": "cultivator",
+      "name": "Cultivator",
+      "power": 80,
+      "image": {
+        "row": 8,
+        "col": 10
+      }
+    },
+    {
+      "id": "plastanium-compressor",
+      "name": "Plastanium compressor",
+      "power": 180,
+      "image": {
+        "row": 8,
+        "col": 6
+      }
+    },
+    {
+      "id": "phase-weaver",
+      "name": "Phase weaver",
+      "power": 300,
+      "image": {
+        "row": 8,
+        "col": 3
+      }
+    },
+    {
+      "id": "surge-smelter",
+      "name": "Surge smelter",
+      "power": 240,
+      "image": {
+        "row": 8,
+        "col": 5
+      }
+    },
+    {
+      "id": "blast-mixer",
+      "name": "Blast mixer",
+      "power": 24,
+      "image": {
+        "row": 7,
+        "col": 8
+      }
+    },
+    {
+      "id": "melter",
+      "name": "Melter",
+      "power": 60,
+      "image": {
+        "row": 7,
+        "col": 6
+      }
+    },
+    {
+      "id": "spore-press",
+      "name": "Spore press",
+      "power": 42,
+      "image": {
+        "row": 8,
+        "col": 9
+      }
+    },
+    {
+      "id": "cryofluid-mixer",
+      "name": "Cryofluid mixer",
+      "power": 60,
+      "image": {
+        "row": 8,
+        "col": 1
+      }
+    },
+    {
+      "id": "ground-factory",
+      "name": "Ground factory",
+      "power": 72,
+      "image": {
+        "row": 9,
+        "col": 4
+      }
+    },
+    {
+      "id": "air-factory",
+      "name": "Air factory",
+      "power": 72,
+      "image": {
+        "row": 9,
+        "col": 5
+      }
+    },
+    {
+      "id": "naval-factory",
+      "name": "Naval factory",
+      "power": 72,
+      "image": {
+        "row": 9,
+        "col": 6
+      }
+    },
+    {
+      "id": "additive-reconstructor",
+      "name": "Additive factory",
+      "power": 180,
+      "image": {
+        "row": 9,
+        "col": 7
+      }
+    },
+    {
+      "id": "multiplicative-reconstructor",
+      "name": "Multiplicative factory",
+      "power": 360,
+      "image": {
+        "row": 9,
+        "col": 8
+      }
+    },
+    {
+      "id": "exponential-reconstructor",
+      "name": "Exponential factory",
+      "power": 780,
+      "image": {
+        "row": 9,
+        "col": 9
+      }
+    },
+    {
+      "id": "tetrative-reconstructor",
+      "name": "Tetrative factory",
+      "power": 1500,
+      "image": {
+        "row": 9,
+        "col": 10
+      }
+    }
+  ],
+  "beacons": [
+    {
+      "id": "overdrive-projector",
+      "name": "Overdrive projector",
+      "speed": 0.5,
+      "image": {
+        "row": 7,
+        "col": 9
+      }
+    },
+    {
+      "id": "overdrive-projector-phase-fabric",
+      "name": "Overdrive projector",
+      "speed": 1.25,
+      "image": {
+        "row": 7,
+        "col": 13
+      }
+    },
+    {
+      "id": "overdrive-dome",
+      "name": "Overdrive dome",
+      "speed": 1.5,
+      "image": {
+        "row": 7,
+        "col": 11
+      }
+    }
+  ],
+  "tiles": [
+    {
+      "id": "other",
+      "name": "Other",
+      "image": { "row": 0, "col": 0 }
+    },
+    {
+      "id": "magma-rock",
+      "name": "Magma rock",
+      "image": { "row": 12, "col": 0 }
+    },
+    {
+      "id": "hot-rock",
+      "name": "Hot rock",
+      "image": { "row": 12, "col": 1 }
+    },
+    {
+      "id": "salt-floor",
+      "name": "Salt floor",
+      "image": { "row": 12, "col": 2 }
+    },
+    {
+      "id": "basalt-floor",
+      "name": "Basalt floor",
+      "image": { "row": 12, "col": 3 }
+    },
+    {
+      "id": "grass-floor",
+      "name": "Grass floor",
+      "image": { "row": 12, "col": 4 }
+    },
+    {
+      "id": "snow-floor",
+      "name": "Snow floor",
+      "image": { "row": 12, "col": 5 }
+    },
+    {
+      "id": "ice-snow-floor",
+      "name": "Ice snow floor",
+      "image": { "row": 12, "col": 6 }
+    },
+    {
+      "id": "ice-floor",
+      "name": "Ice floor",
+      "image": { "row": 12, "col": 7 }
+    },
+    {
+      "id": "red-ice-floor",
+      "name": "Red ice floor",
+      "image": { "row": 12, "col": 8 }
+    },
+    {
+      "id": "mud-floor",
+      "name": "Mud floor",
+      "image": { "row": 12, "col": 9 }
+    },
+    {
+      "id": "dark-sand-tainted-water-floor",
+      "name": "Dark sand tainted water floor",
+      "image": { "row": 12, "col": 10 }
+    },
+    {
+      "id": "tainted-water-floor",
+      "name": "Tainted water floor",
+      "image": { "row": 12, "col": 11 }
+    },
+    {
+      "id": "moss-floor",
+      "name": "Moss floor",
+      "image": { "row": 12, "col": 12 }
+    },
+    {
+      "id": "spore-moss-floor",
+      "name": "Spore moss floor",
+      "image": { "row": 12, "col": 13 }
+    },
+    {
+      "id": "sand-floor",
+      "name": "Sand floor",
+      "image": { "row": 13, "col": 0 }
+    },
+    {
+      "id": "dark-sand-floor",
+      "name": "Dark sand floor",
+      "image": { "row": 13, "col": 1 }
+    },
+    {
+      "id": "shale-floor",
+      "name": "Shale floor",
+      "image": { "row": 13, "col": 2 }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "copper",
+      "buildings": [
+        {
+          "id": "mechanical-drill",
+          "output": [{ "id": "copper", "perSec": "24/65" }]
+        },
+        {
+          "id": "pneumatic-drill",
+          "output": [{ "id": "copper", "perSec": "8/15" }]
+        },
+        {
+          "id": "laser-drill",
+          "output": [{ "id": "copper", "perSec": "18/11" }]
+        },
+        {
+          "id": "air-blast-drill",
+          "output": [{ "id": "copper", "perSec": "32/11" }]
+        },
+        {
+          "id": "separator",
+          "input": [{ "id": "slag", "perSec": 4.1 }],
+          "output": [
+            { "id": "copper", "perSec": "5/7" },
+            { "id": "lead", "perSec": "3/7" },
+            { "id": "graphite", "perSec": "2/7" },
+            { "id": "titanium", "perSec": "2/7" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lead",
+      "buildings": [
+        {
+          "id": "mechanical-drill",
+          "output": [{ "id": "lead", "perSec": "24/65" }]
+        },
+        {
+          "id": "pneumatic-drill",
+          "output": [{ "id": "lead", "perSec": "8/15" }]
+        },
+        {
+          "id": "laser-drill",
+          "output": [{ "id": "lead", "perSec": "18/11" }]
+        },
+        {
+          "id": "air-blast-drill",
+          "output": [{ "id": "lead", "perSec": "32/11" }]
+        },
+        {
+          "id": "separator",
+          "output": [
+            { "id": "copper", "perSec": "5/7" },
+            { "id": "lead", "perSec": "3/7" },
+            { "id": "graphite", "perSec": "2/7" },
+            { "id": "titanium", "perSec": "2/7" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scrap",
+      "buildings": [
+        {
+          "id": "mechanical-drill",
+          "output": [{ "id": "scrap", "perSec": 0.4 }]
+        },
+        {
+          "id": "pneumatic-drill",
+          "output": [{ "id": "scrap", "perSec": 0.6 }]
+        },
+        {
+          "id": "laser-drill",
+          "output": [{ "id": "scrap", "perSec": "27/14" }]
+        },
+        {
+          "id": "air-blast-drill",
+          "output": [{ "id": "scrap", "perSec": "24/7" }]
+        }
+      ]
+    },
+    {
+      "id": "sand",
+      "buildings": [
+        {
+          "id": "mechanical-drill",
+          "output": [{ "id": "sand", "perSec": 0.4 }]
+        },
+        {
+          "id": "pneumatic-drill",
+          "output": [{ "id": "sand", "perSec": 0.6 }]
+        },
+        {
+          "id": "laser-drill",
+          "output": [{ "id": "sand", "perSec": "27/14" }]
+        },
+        {
+          "id": "air-blast-drill",
+          "output": [{ "id": "sand", "perSec": "24/7" }]
+        },
+        {
+          "id": "pulverizer",
+          "input": [{ "id": "scrap", "perSec": 1.5 }],
+          "output": [{ "id": "sand", "perSec": 1.5 }]
+        },
+        {
+          "id": "disassembler",
+          "input": [
+            { "id": "scrap", "perSec": 4 },
+            { "id": "slag", "perSec": 7.2 }
+          ],
+          "output": [
+            { "id": "sand", "perSec": 1.6 },
+            { "id": "graphite", "perSec": 0.8 },
+            { "id": "titanium", "perSec": 0.8 },
+            { "id": "thorium", "perSec": 0.8 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "graphite",
+      "buildings": [
+        {
+          "id": "graphite-press",
+          "input": [{ "id": "coal", "perSec": "4/3" }],
+          "output": [{ "id": "graphite", "perSec": "2/3" }]
+        },
+        {
+          "id": "multi-press",
+          "input": [
+            { "id": "coal", "perSec": 6 },
+            { "id": "water", "perSec": 6 }
+          ],
+          "output": [{ "id": "graphite", "perSec": 4 }]
+        }
+      ]
+    },
+    {
+      "id": "metaglass",
+      "buildings": [
+        {
+          "id": "kiln",
+          "input": [
+            { "id": "lead", "perSec": 2 },
+            { "id": "sand", "perSec": 2 }
+          ],
+          "output": [{ "id": "metaglass", "perSec": 2 }]
+        }
+      ]
+    },
+    {
+      "id": "spore-pod",
+      "buildings": [
+        {
+          "id": "cultivator",
+          "input": [{ "id": "water", "perSec": 18 }],
+          "output": [{ "id": "spore-pod", "perSec": 0.6 }]
+        }
+      ]
+    },
+    {
+      "id": "coal",
+      "buildings": [
+        {
+          "id": "mechanical-drill",
+          "output": [{ "id": "coal", "perSec": "12/35" }]
+        },
+        {
+          "id": "pneumatic-drill",
+          "output": [{ "id": "coal", "perSec": 0.48 }]
+        },
+        {
+          "id": "laser-drill",
+          "output": [{ "id": "coal", "perSec": "27/19" }]
+        },
+        {
+          "id": "air-blast-drill",
+          "output": [{ "id": "coal", "perSec": "48/19" }]
+        },
+        {
+          "id": "coal-centrifuge",
+          "input": [{ "id": "oil", "perSec": 6 }],
+          "output": [{ "id": "coal", "perSec": 2 }]
+        }
+      ]
+    },
+    {
+      "id": "titanium",
+      "buildings": [
+        {
+          "id": "pneumatic-drill",
+          "output": [{ "id": "titanium", "perSec": "24/55" }]
+        },
+        {
+          "id": "laser-drill",
+          "output": [{ "id": "titanium", "perSec": "54/43" }]
+        },
+        {
+          "id": "air-blast-drill",
+          "output": [{ "id": "titanium", "perSec": "96/43" }]
+        },
+        {
+          "id": "separator",
+          "input": [{ "id": "slag", "perSec": 4.1 }],
+          "output": [
+            { "id": "copper", "perSec": "5/7" },
+            { "id": "lead", "perSec": "3/7" },
+            { "id": "graphite", "perSec": "2/7" },
+            { "id": "titanium", "perSec": "2/7" }
+          ]
+        },
+        {
+          "id": "disassembler",
+          "input": [
+            { "id": "scrap", "perSec": 4 },
+            { "id": "slag", "perSec": 7.2 }
+          ],
+          "output": [
+            { "id": "sand", "perSec": 1.6 },
+            { "id": "graphite", "perSec": 0.8 },
+            { "id": "titanium", "perSec": 0.8 },
+            { "id": "thorium", "perSec": 0.8 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thorium",
+      "buildings": [
+        {
+          "id": "laser-drill",
+          "output": [{ "id": "thorium", "perSec": "9/8" }]
+        },
+        {
+          "id": "air-blast-drill",
+          "output": [{ "id": "thorium", "perSec": 2 }]
+        },
+        {
+          "id": "disassembler",
+          "input": [
+            { "id": "scrap", "perSec": 4 },
+            { "id": "slag", "perSec": 7.2 }
+          ],
+          "output": [
+            { "id": "sand", "perSec": 1.6 },
+            { "id": "graphite", "perSec": 0.8 },
+            { "id": "titanium", "perSec": 0.8 },
+            { "id": "thorium", "perSec": 0.8 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "silicon",
+      "buildings": [
+        {
+          "id": "silicon-smelter",
+          "input": [
+            { "id": "sand", "perSec": 3 },
+            { "id": "coal", "perSec": 1.5 }
+          ],
+          "output": [{ "id": "silicon", "perSec": 1.5 }]
+        },
+        {
+          "id": "silicon-crucible",
+          "input": [
+            { "id": "sand", "perSec": 4 },
+            { "id": "coal", "perSec": 2.6 },
+            { "id": "pyratite", "perSec": 0.6 }
+          ],
+          "output": [{ "id": "silicon", "perSec": 5.3 }]
+        }
+      ]
+    },
+    {
+      "id": "plastanium",
+      "buildings": [
+        {
+          "id": "plastanium-compressor",
+          "input": [
+            { "id": "titanium", "perSec": 2 },
+            { "id": "oil", "perSec": 15 }
+          ],
+          "output": [{ "id": "plastanium", "perSec": 1 }]
+        }
+      ]
+    },
+    {
+      "id": "phase-fabric",
+      "buildings": [
+        {
+          "id": "phase-weaver",
+          "input": [
+            { "id": "thorium", "perSec": 2 },
+            { "id": "sand", "perSec": 5 }
+          ],
+          "output": [{ "id": "phase-fabric", "perSec": 0.5 }]
+        }
+      ]
+    },
+    {
+      "id": "surge-alloy",
+      "buildings": [
+        {
+          "id": "surge-smelter",
+          "input": [
+            { "id": "copper", "perSec": 2.4 },
+            { "id": "lead", "perSec": 3.2 },
+            { "id": "titanium", "perSec": 1.6 },
+            { "id": "silicon", "perSec": 2.4 }
+          ],
+          "output": [{ "id": "surge-alloy", "perSec": 0.8 }]
+        }
+      ]
+    },
+    {
+      "id": "blast-compound",
+      "buildings": [
+        {
+          "id": "blast-mixer",
+          "input": [
+            { "id": "pyratite", "perSec": 0.75 },
+            { "id": "spore-pod", "perSec": 0.75 }
+          ],
+          "output": [{ "id": "blast-compound", "perSec": 0.75 }]
+        }
+      ]
+    },
+    {
+      "id": "pyratite",
+      "buildings": [
+        {
+          "id": "pyratite-mixer",
+          "input": [
+            { "id": "lead", "perSec": 1.5 },
+            { "id": "sand", "perSec": 1.5 },
+            { "id": "coal", "perSec": 0.75 }
+          ],
+          "output": [{ "id": "pyratite", "perSec": 0.75 }]
+        }
+      ]
+    },
+    {
+      "id": "water",
+      "buildings": [
+        {
+          "id": "mechanical-pump",
+          "output": [{ "id": "water", "perSec": 7 }]
+        },
+        {
+          "id": "rotary-pump",
+          "output": [{ "id": "water", "perSec": 48 }]
+        },
+        {
+          "id": "impulse-pump",
+          "output": [{ "id": "water", "perSec": 118.8 }]
+        },
+        {
+          "id": "water-extractor",
+          "output": [{ "id": "water", "perSec": 6.6 }]
+        }
+      ]
+    },
+    {
+      "id": "slag",
+      "buildings": [
+        {
+          "id": "melter",
+          "input": [{ "id": "scrap", "perSec": 6 }],
+          "output": [{ "id": "slag", "perSec": 12 }]
+        },
+        {
+          "id": "mechanical-pump",
+          "output": [{ "id": "slag", "perSec": 7 }]
+        },
+        {
+          "id": "rotary-pump",
+          "output": [{ "id": "slag", "perSec": 48 }]
+        },
+        {
+          "id": "impulse-pump",
+          "output": [{ "id": "slag", "perSec": 118.8 }]
+        }
+      ]
+    },
+    {
+      "id": "oil",
+      "buildings": [
+        {
+          "id": "oil-extractor",
+          "input": [
+            { "id": "sand", "perSec": 1 },
+            { "id": "water", "perSec": 9 }
+          ],
+          "output": [{ "id": "oil", "perSec": 15 }]
+        },
+        {
+          "id": "mechanical-pump",
+          "output": [{ "id": "oil", "perSec": 7 }]
+        },
+        {
+          "id": "rotary-pump",
+          "output": [{ "id": "oil", "perSec": 48 }]
+        },
+        {
+          "id": "impulse-pump",
+          "output": [{ "id": "oil", "perSec": 118.8 }]
+        },
+        {
+          "id": "spore-press",
+          "input": [{ "id": "spore-pod", "perSec": 3 }],
+          "output": [{ "id": "oil", "perSec": 18 }]
+        }
+      ]
+    },
+    {
+      "id": "cryofluid",
+      "buildings": [
+        {
+          "id": "cryofluid-mixer",
+          "input": [
+            { "id": "titanium", "perSec": 0.5 },
+            { "id": "water", "perSec": 12 }
+          ],
+          "output": [{ "id": "cryofluid", "perSec": 12 }]
+        },
+        {
+          "id": "mechanical-pump",
+          "output": [{ "id": "oil", "perSec": 7 }]
+        },
+        {
+          "id": "rotary-pump",
+          "output": [{ "id": "oil", "perSec": 48 }]
+        },
+        {
+          "id": "impulse-pump",
+          "output": [{ "id": "oil", "perSec": 118.8 }]
+        }
+      ]
+    },
+
+    {
+      "id": "dagger",
+      "buildings": [
+        {
+          "id": "ground-factory",
+          "input": [
+            { "id": "lead", "perSec": "2/3" },
+            { "id": "silicon", "perSec": "2/3" }
+          ],
+          "output": [{ "id": "dagger", "perSec": "1/15" }]
+        }
+      ]
+    },
+    {
+      "id": "mace",
+      "buildings": [
+        {
+          "id": "additive-reconstructor",
+          "input": [
+            { "id": "dagger", "perSec": 0.1 },
+            { "id": "silicon", "perSec": 4 },
+            { "id": "graphite", "perSec": 4 }
+          ],
+          "output": [{ "id": "mace", "perSec": 0.1 }]
+        }
+      ]
+    },
+    {
+      "id": "fortress",
+      "buildings": [
+        {
+          "id": "multiplicative-reconstructor",
+          "input": [
+            { "id": "mace", "perSec": "1/30" },
+            { "id": "silicon", "perSec": "13/3" },
+            { "id": "titanium", "perSec": "8/3" },
+            { "id": "metaglass", "perSec": "4/3" }
+          ],
+          "output": [{ "id": "fortress", "perSec": "1/30" }]
+        }
+      ]
+    },
+    {
+      "id": "scepter",
+      "buildings": [
+        {
+          "id": "exponential-reconstructor",
+          "input": [
+            { "id": "fortress", "perSec": "1/90" },
+            { "id": "silicon", "perSec": "85/9" },
+            { "id": "titanium", "perSec": "25/3" },
+            { "id": "plastanium", "perSec": "65/9" },
+            { "id": "cryofluid", "perSec": 60 }
+          ],
+          "output": [{ "id": "scepter", "perSec": "1/90" }]
+        }
+      ]
+    },
+    {
+      "id": "regin",
+      "buildings": [
+        {
+          "id": "tetrative-reconstructor",
+          "input": [
+            { "id": "scepter", "perSec": "1/240" },
+            { "id": "silicon", "perSec": "25/6" },
+            { "id": "plastanium", "perSec": 2.5 },
+            { "id": "surge-alloy", "perSec": "25/12" },
+            { "id": "phase-fabric", "perSec": "35/24" },
+            { "id": "cryofluid", "perSec": 180 }
+          ],
+          "output": [{ "id": "regin", "perSec": "1/240" }]
+        }
+      ]
+    }
+  ]
+}

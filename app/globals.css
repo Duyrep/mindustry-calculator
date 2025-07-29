@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
 :root {
+  /** Theme primary colors */
+  --clr-primary: #ffc94c;
+
+  /** Theme surface colors */
+  --clr-surface-a0: #ffffff;
+  --clr-surface-a10: #f0f0f0;
+  --clr-surface-a20: #e1e1e1;
+  --clr-surface-a30: #d3d3d3;
+  --clr-surface-a40: #c5c5c5;
+  --clr-surface-a50: #b6b6b6;
+
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  --shadow: #aaaaaa;
 }
 
-@theme inline {
+.dark {
+  /** Theme primary colors */
+  --clr-primary: #ffd37f;
+
+  /** Theme surface colors */
+  --clr-surface-a0: #121212;
+  --clr-surface-a10: #282828;
+  --clr-surface-a20: #3f3f3f;
+  --clr-surface-a30: #575757;
+  --clr-surface-a40: #717171;
+  --clr-surface-a50: #8b8b8b;
+
+  --background: #121212;
+  --foreground: #ffffff;
+  --shadow: #333333;
+}
+
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-primary: var(--clr-primary);
+  --color-primary-a10: var(--clr-primary-a10);
+  --color-primary-a20: var(--clr-primary-a20);
+  --color-primary-a30: var(--clr-primary-a30);
+  --color-primary-a40: var(--clr-primary-a40);
+  --color-primary-a50: var(--clr-primary-a50);
+
+  --color-surface-a0: var(--clr-surface-a0);
+  --color-surface-a10: var(--clr-surface-a10);
+  --color-surface-a20: var(--clr-surface-a20);
+  --color-surface-a30: var(--clr-surface-a30);
+  --color-surface-a40: var(--clr-surface-a40);
+  --color-surface-a50: var(--clr-surface-a50);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: "MindustryIconFont";
+  src: url("/icon.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'MindustryFont';
+  src: url('/font.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  text-shadow: 2px 2px red;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  @apply transition-colors duration-300;
+}
+
+a {
+  @apply outline-none;
+}
+
+input {
+  @apply outline-none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+h1 {
+  font-size: 2.25rem; /* 36px */
+}
+h2 {
+  font-size: 1.875rem; /* 30px */
+}
+h3 {
+  font-size: 1.5rem; /* 24px */
+}
+h4 {
+  font-size: 1.25rem; /* 20px */
+}
+h5 {
+  font-size: 1rem; /* 16px */
+}
+h6 {
+  font-size: 0.875rem; /* 14px */
+}
+
+.scroll-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--clr-surface-a50);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--foreground);
+  border-radius: 3px;
 }
