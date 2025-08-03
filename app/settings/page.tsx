@@ -1,7 +1,10 @@
 "use client";
 
 import { MindustryIcon } from "@/components/icons";
-import Dropdown from "@/components/Dropdown";
+import Dropdown, {
+  DropdownContent,
+  DropdownTrigger,
+} from "@/components/Dropdown";
 import SpriteImage from "@/components/SpriteImage";
 import { SettingsContext } from "@/context/SettingsContext";
 import {
@@ -9,6 +12,7 @@ import {
   getBuilding,
   getBuildings,
   getDefaultSettings,
+  getItem,
   getItems,
 } from "@/utils";
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -164,7 +168,10 @@ export default function Settings() {
                     belts: Object.fromEntries(
                       Object.entries(prev.gameSettings.belts).map(([k]) => [
                         k,
-                        belt.getId(),
+                        getItem(k, prev.mode).getCategory() ===
+                        belt.getTransportType()
+                          ? belt.getId()
+                          : prev.gameSettings.belts[k],
                       ])
                     ),
                   },
@@ -387,50 +394,45 @@ function SettingsDropdown({
   onSelect,
 }: SettingsDropdownProps) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const triggerRef = useRef(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <div className="flex items-center gap-2">
       {label}:
-      <Dropdown
-        openState={[open, setOpen]}
-        trigger={triggerRef.current}
-        anchorEl={
+      <Dropdown onOpen={(isOpen) => setIsDropdownOpen(isOpen)}>
+        <DropdownTrigger>
           <div
-            ref={triggerRef}
             className={`flex items-center gap-1 bg-surface-a20 p-1 rounded-md cursor-pointer select-none border duration-200 hover:border-primary ${
-              open ? "border-primary" : "border-surface-a30"
+              isDropdownOpen ? "border-primary" : "border-surface-a30"
             }`}
-            onClick={() => setOpen((prev) => !prev)}
           >
-            <div className={`duration-200 ${open && "rotate-x-180"}`}>
+            <div className={`duration-200 ${isDropdownOpen && "rotate-x-180"}`}>
               <MindustryIcon>&#xe824;</MindustryIcon>
             </div>
             {t(options[selected])}
           </div>
-        }
-      >
-        <div className="flex flex-col gap-1 p-1">
-          {Object.entries(options).map(([key, value], idx) => (
-            <React.Fragment key={key}>
-              {idx !== 0 && <hr className="border-surface-a30" />}
-              <div
-                className={`p-1 cursor-pointer select-none rounded-md duration-200 ${
-                  selected === key
-                    ? "bg-primary text-background"
-                    : "hover:bg-surface-a20"
-                }`}
-                onClick={() => {
-                  setOpen(false);
-                  onSelect(key);
-                }}
-              >
-                {t(value)}
-              </div>
-            </React.Fragment>
-          ))}
-        </div>
+        </DropdownTrigger>
+        <DropdownContent>
+          <div className="flex flex-col gap-1 p-1">
+            {Object.entries(options).map(([key, value], idx) => (
+              <React.Fragment key={key}>
+                {idx !== 0 && <hr className="border-surface-a30" />}
+                <div
+                  className={`p-1 cursor-pointer select-none rounded-md duration-200 ${
+                    selected === key
+                      ? "bg-primary text-background"
+                      : "hover:bg-surface-a20"
+                  }`}
+                  onClick={() => {
+                    onSelect(key);
+                  }}
+                >
+                  {t(value)}
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </DropdownContent>
       </Dropdown>
     </div>
   );

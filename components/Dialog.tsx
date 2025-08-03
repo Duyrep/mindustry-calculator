@@ -60,7 +60,7 @@ const Dialog = forwardRef<
       contentRef.current.classList.add("opacity-0");
       setTimeout(() => setMount(false), 200);
     }
-  }, [open]);
+  }, [ open]);
 
   useEffect(() => {
     if (mount && contentRef.current) {
