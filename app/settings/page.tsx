@@ -24,7 +24,7 @@ export default function Settings() {
 
   return (
     <main className="p-2">
-      <div className="w-full flex justify-end text-background">
+      <div className="w-full flex justify-end text-background min-w-min">
         <button
           className="mb-2 bg-primary py-1 px-2 rounded-md duration-200 hover:scale-110 active:scale-90"
           onClick={() => setSettings(getDefaultSettings())}

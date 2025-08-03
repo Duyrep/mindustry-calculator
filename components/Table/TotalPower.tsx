@@ -24,7 +24,7 @@ export default function TotalPower({
       >
         <b>{t("Total power")}</b>:&nbsp;
       </td>
-      <td>
+      <td className="text-right">
         {+Object.values(result).reduce(
           (acc, { power }) => acc + (power ?? 0),
           0

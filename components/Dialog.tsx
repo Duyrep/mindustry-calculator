@@ -60,7 +60,7 @@ const Dialog = forwardRef<
       contentRef.current.classList.add("opacity-0");
       setTimeout(() => setMount(false), 200);
     }
-  }, [ open]);
+  }, [open]);
 
   useEffect(() => {
     if (mount && contentRef.current) {
@@ -77,9 +77,9 @@ const Dialog = forwardRef<
 
   return (
     <>
-      <div onClick={() => setOpen((prevOpen) => !prevOpen)}>
+      <span onClick={() => setOpen((prevOpen) => !prevOpen)}>
         {triggerComponent}
-      </div>
+      </span>
       {mount && (
         <div
           ref={contentRef}

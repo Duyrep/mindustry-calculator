@@ -33,74 +33,86 @@ export default function Table({ result }: { result: CalculationResult }) {
         columnSettings={columnSettings}
         setColumnSettings={setColumnSettings}
       />
-      <table className="my-2">
-        <thead>
-          <tr className="border-b border-surface-a30">
-            <HeadItem>
-              {t("Items")}/{t(settings.displayRate)[0]}
-            </HeadItem>
-            <HeadItem>{t("Buildings")}</HeadItem>
-            {columnSettings.belts && <HeadItem>{t("Belts")}</HeadItem>}
-            {(columnSettings.affinities || columnSettings.boosts) && (
+      <div className="overflow-auto">
+        <table className="my-2">
+          <thead>
+            <tr className="border-b border-surface-a30">
               <HeadItem>
-                <div className="flex flex-col text-sm">
-                  <span>{t("Affinities")}</span>
-                  <span>{t("Boosts")}</span>
-                </div>
+                {t("Items")}/{t(settings.displayRate)[0]}
               </HeadItem>
-            )}
-            {columnSettings.beacons && <HeadItem>{t("Beacons")}</HeadItem>}
-            {columnSettings.power && <HeadItem>{t("Power")}</HeadItem>}
-            {columnSettings.links && <th></th>}
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(result).map(
-            ([
-              product,
-              { productsPerSec, building, numOfBuildings, power },
-            ]) => (
-              <tr key={product} className="border-b border-surface-a30">
-                <ItemCol
-                  product={getItem(product, settings.mode)}
-                  productsPerSec={productsPerSec}
-                />
-                <BuildingCol
-                  product={getItem(product, settings.mode)}
-                  building={getBuilding(building, settings.mode)}
-                  numOfBuildings={numOfBuildings}
-                />
-                {columnSettings.belts && (
-                  <BeltCol
+              <HeadItem>{t("Buildings")}</HeadItem>
+              {columnSettings.belts && <HeadItem>{t("Belts")}</HeadItem>}
+              {(columnSettings.affinities || columnSettings.boosts) && (
+                <HeadItem>
+                  <div
+                    className={`flex flex-col ${
+                      columnSettings.affinities &&
+                      columnSettings.boosts &&
+                      "text-sm whitespace-nowrap"
+                    }`}
+                  >
+                    {columnSettings.affinities && (
+                      <span>{t("Affinities")}</span>
+                    )}
+                    {columnSettings.boosts && <span>{t("Boosts")}</span>}
+                  </div>
+                </HeadItem>
+              )}
+              {columnSettings.beacons && <HeadItem>{t("Beacons")}</HeadItem>}
+              {columnSettings.power && <HeadItem>{t("Power")}</HeadItem>}
+              {columnSettings.links && <th></th>}
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(result).map(
+              ([
+                product,
+                { productsPerSec, building, numOfBuildings, power },
+              ]) => (
+                <tr key={product} className="border-b border-surface-a30">
+                  <ItemCol
                     product={getItem(product, settings.mode)}
                     productsPerSec={productsPerSec}
                   />
-                )}
-                <td>
-                  {columnSettings.affinities && (
-                    <Affinities
+                  <BuildingCol
+                    product={getItem(product, settings.mode)}
+                    building={getBuilding(building, settings.mode)}
+                    numOfBuildings={numOfBuildings}
+                  />
+                  {columnSettings.belts && (
+                    <BeltCol
                       product={getItem(product, settings.mode)}
-                      building={getBuilding(building, settings.mode)}
+                      productsPerSec={productsPerSec}
                     />
                   )}
-                  {columnSettings.boosts && (
-                    <Boosts
-                      product={getItem(product, settings.mode)}
-                      building={getBuilding(building, settings.mode)}
-                    />
+                  {(columnSettings.affinities || columnSettings.boosts) && (
+                    <td>
+                      {columnSettings.affinities && (
+                        <Affinities
+                          product={getItem(product, settings.mode)}
+                          building={getBuilding(building, settings.mode)}
+                        />
+                      )}
+                      {columnSettings.boosts && (
+                        <Boosts
+                          product={getItem(product, settings.mode)}
+                          building={getBuilding(building, settings.mode)}
+                        />
+                      )}
+                    </td>
                   )}
-                </td>
-                {columnSettings.beacons && (
-                  <BeaconsCol product={getItem(product, settings.mode)} />
-                )}
-                {columnSettings.power && <PowerCol power={power} />}
-                {columnSettings.links && <LinksCol />}
-              </tr>
-            )
-          )}
-          <TotalPower columnSettings={columnSettings} result={result} />
-        </tbody>
-      </table>
+                  {columnSettings.beacons && (
+                    <BeaconsCol product={getItem(product, settings.mode)} />
+                  )}
+                  {columnSettings.power && <PowerCol power={power} />}
+                  {columnSettings.links && <LinksCol />}
+                </tr>
+              )
+            )}
+            <TotalPower columnSettings={columnSettings} result={result} />
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

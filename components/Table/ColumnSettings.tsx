@@ -49,7 +49,7 @@ export default function ColumnSettings({
                     &#xe800;
                   </MindustryIcon>
                 </div>
-                {t(key[0].toUpperCase() + key.slice(1))}
+                <span className="whitespace-nowrap">{t(key[0].toUpperCase() + key.slice(1))}</span>
               </div>
             ))}
           </div>
