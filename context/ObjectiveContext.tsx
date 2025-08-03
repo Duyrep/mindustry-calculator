@@ -11,12 +11,12 @@ export const ObjectiveContext = createContext(
   }
 );
 
-export function ObjectiveContextProvider({
+export default function ObjectiveContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [objective, setObjective] = useState("silicon");
+  const [objective, setObjective] = useState("surge-alloy");
   const [productsPerSec, setProductsPerSec] = useState(calculateItemsPerSecond(objective, 1, getDefaultSettings()));
   
   return (

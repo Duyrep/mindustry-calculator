@@ -1,15 +1,17 @@
 "use client";
 
-import { MindustryIcon } from "@/components/common/icons";
+import { MindustryIcon } from "@/components/icons";
 import Dialog from "@/components/Dialog";
-import Dropdown from "@/components/Dropdown";
-import Objectives from "@/components/Objectives";
-import SpriteImage from "@/components/SpriteImage";
-import { ObjectiveContext } from "@/contexts/ObjectiveContext";
-import { SettingsContext } from "@/contexts/SettingsContext";
+import Dropdown, {
+  DropdownContent,
+  DropdownTrigger,
+} from "@/components/Dropdown";
+import { Objectives, SpriteImage } from "@/components";
+import Table from "@/components/Table";
+import { ObjectiveContext } from "@/context/ObjectiveContext";
+import { SettingsContext } from "@/context/SettingsContext";
 import Building from "@/models/Building";
 import Item from "@/models/Item";
-import { Settings } from "@/types";
 import {
   getBeacon,
   getBeacons,
@@ -25,6 +27,7 @@ import { calculateBuildings } from "@/utils/calculate";
 import Link from "next/link";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { Settings, CalculationResult } from "@/types";
 
 type ColumnSettingsType = {
   belts: boolean;
@@ -42,12 +45,12 @@ export default function Home() {
   const [objective] = useContext(ObjectiveContext).objectiveState;
   const [productsPerSec] = useContext(ObjectiveContext).productsPerSecState;
   const [columnSettings, setColumnSettings] = useState<ColumnSettingsType>({
-    belts: true,
-    affinities: true,
-    boosts: true,
-    beacons: true,
-    power: true,
-    links: true,
+    belts: false,
+    affinities: false,
+    boosts: false,
+    beacons: false,
+    power: false,
+    links: false,
   });
   const [result, setResult] = useState(
     calculate(objective, productsPerSec, settings, ignoredItems)
@@ -64,7 +67,8 @@ export default function Home() {
   return (
     <main className="flex flex-col gap-2 p-2">
       <Objectives />
-      <div className="bg-surface-a10 rounded-md p-2">
+      <Table result={result}/>
+      {/* <div className="bg-surface-a10 rounded-md p-2">
         <ColumnSettings
           columnSettingsState={[columnSettings, setColumnSettings]}
         />
@@ -178,7 +182,7 @@ export default function Home() {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
@@ -295,95 +299,88 @@ function BuildingCol({
 }) {
   const { t } = useTranslation();
   const [settings, setSettings] = useContext(SettingsContext).settingsState;
-  const [open, setOpen] = useState(false);
-  const triggerRef = useRef(null);
-  const anchorEl = (
-    <div
-      ref={triggerRef}
-      className={`relative group border-surface-a30 rounded-md duration-200 border ${
-        product.getProducedBy().length > 1
-          ? "cursor-pointer hover:border-primary"
-          : "border-transparent"
-      }`}
-      onClick={() => setOpen((prev) => !prev)}
-    >
-      {product.getProducedBy().length > 1 && (
-        <div
-          className={`absolute text-lg opacity-0 duration-200 bg-surface-a30 w-full h-full flex justify-center items-center ${
-            !open && "group-hover:opacity-40"
-          }`}
-        >
-          <MindustryIcon>&#xe824;</MindustryIcon>
-        </div>
-      )}
-      <div className="p-1">
-        <SpriteImage
-          row={building.getImage().row}
-          col={building.getImage().col}
-        />
-      </div>
-    </div>
-  );
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isMultiProduced = product.getProducedBy().length > 1;
 
   return (
     <td className="pl-2">
       <div className="flex gap-1 items-center py-2 text-xs">
-        {product.getProducedBy().length > 1 ? (
-          <Dropdown
-            trigger={triggerRef.current}
-            openState={[open, setOpen]}
-            anchorEl={anchorEl}
-          >
-            <div className="overflow-auto max-h-56">
-              <div className="flex flex-col gap-1 p-1 text-xs font-[MindustryFont]">
-                {product.getProducedBy().map((buildingId, idx) => {
-                  const building1 = getBuilding(buildingId, settings.mode);
-                  return (
-                    <React.Fragment key={buildingId}>
-                      {idx !== 0 && <hr className="border-surface-a30" />}
-                      <div
-                        className={`flex items-center gap-1 cursor-pointer p-1 rounded-md duration-200 ${
-                          buildingId === building.getId()
-                            ? "bg-primary text-background"
-                            : "bg-transparent hover:bg-surface-a20"
-                        }`}
-                        onClick={() => {
-                          setOpen(false);
-                          setSettings((prev) =>
-                            prev.gameSettings.items[product.getId()] ===
-                            building1.getId()
-                              ? prev
-                              : {
-                                  ...prev,
-                                  gameSettings: {
-                                    ...prev.gameSettings,
-                                    items: {
-                                      ...prev.gameSettings.items,
-                                      [product.getId()]: building1.getId(),
-                                    },
-                                  },
-                                }
-                          );
-                        }}
-                      >
-                        <SpriteImage
-                          row={building1.getImage().row}
-                          col={building1.getImage().col}
-                          size={28}
-                        />
-                        <span className="whitespace-nowrap">
-                          {t(building1.getName())}
-                        </span>
-                      </div>
-                    </React.Fragment>
-                  );
-                })}
+        <Dropdown onOpen={(isOpen) => setIsDropdownOpen(isOpen)}>
+          <DropdownTrigger>
+            <div
+              className={`relative group border-surface-a30 rounded-md duration-200 border ${
+                isMultiProduced
+                  ? "cursor-pointer hover:border-primary"
+                  : "border-transparent"
+              }`}
+            >
+              {isMultiProduced && (
+                <div
+                  className={`absolute text-lg opacity-0 duration-200 bg-surface-a30 w-full h-full flex justify-center items-center ${
+                    !isDropdownOpen && "group-hover:opacity-40"
+                  }`}
+                >
+                  <MindustryIcon>&#xe824;</MindustryIcon>
+                </div>
+              )}
+              <div className="p-1">
+                <SpriteImage
+                  row={building.getImage().row}
+                  col={building.getImage().col}
+                />
               </div>
             </div>
-          </Dropdown>
-        ) : (
-          anchorEl
-        )}
+          </DropdownTrigger>
+          <DropdownContent>
+            {product.getProducedBy().length > 1 && (
+              <div className="overflow-auto max-h-56">
+                <div className="flex flex-col gap-1 p-1 text-xs font-[MindustryFont]">
+                  {product.getProducedBy().map((buildingId, idx) => {
+                    const building1 = getBuilding(buildingId, settings.mode);
+                    return (
+                      <React.Fragment key={buildingId}>
+                        {idx !== 0 && <hr className="border-surface-a30" />}
+                        <div
+                          className={`flex items-center gap-1 cursor-pointer p-1 rounded-md duration-200 ${
+                            buildingId === building.getId()
+                              ? "bg-primary text-background"
+                              : "bg-transparent hover:bg-surface-a20"
+                          }`}
+                          onClick={() => {
+                            setSettings((prev) =>
+                              prev.gameSettings.items[product.getId()] ===
+                              building1.getId()
+                                ? prev
+                                : {
+                                    ...prev,
+                                    gameSettings: {
+                                      ...prev.gameSettings,
+                                      items: {
+                                        ...prev.gameSettings.items,
+                                        [product.getId()]: building1.getId(),
+                                      },
+                                    },
+                                  }
+                            );
+                          }}
+                        >
+                          <SpriteImage
+                            row={building1.getImage().row}
+                            col={building1.getImage().col}
+                            size={28}
+                          />
+                          <span className="whitespace-nowrap">
+                            {t(building1.getName())}
+                          </span>
+                        </div>
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </DropdownContent>
+        </Dropdown>
         <span title={numOfBuildings + ""}>
           x{numOfBuildings > 0.1 ? +numOfBuildings.toFixed(1) : "<0.1"}
         </span>
@@ -920,23 +917,15 @@ function TableHeadItem({
   );
 }
 
-type ProductionOverview = Record<
-  string,
-  {
-    productsPerSec: number;
-    building: string;
-    numOfBuildings: number;
-    power?: number;
-  }
->;
+
 
 function calculate(
   objective: string,
   productsPerSec: number,
   settings: Settings,
   ignoredItems: string[],
-  result: ProductionOverview = {}
-): ProductionOverview {
+  result: CalculationResult = {}
+): CalculationResult {
   const item = getItem(objective, settings.mode);
   if (!item) return result;
   const recipe = getRecipe(objective, settings.mode);

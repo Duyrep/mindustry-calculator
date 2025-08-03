@@ -1,9 +1,9 @@
 "use client";
 
-import { MindustryIcon } from "@/components/common/icons";
+import { MindustryIcon } from "@/components/icons";
 import Dropdown from "@/components/Dropdown";
 import SpriteImage from "@/components/SpriteImage";
-import { SettingsContext } from "@/contexts/SettingsContext";
+import { SettingsContext } from "@/context/SettingsContext";
 import {
   getBelts,
   getBuilding,

@@ -20,6 +20,7 @@ export type beltData = {
   name: string;
   speed: number;
   image: { row: number; col: number };
+  transportType: string; 
 };
 
 export type buildingData = {

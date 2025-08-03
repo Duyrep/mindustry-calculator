@@ -33,7 +33,7 @@ import {
 import SpriteImage from "@/components/SpriteImage";
 import { useTranslation } from "react-i18next";
 import { getBuilding, getItem } from "@/utils";
-import { SettingsContext } from "@/contexts/SettingsContext";
+import { SettingsContext } from "@/context/SettingsContext";
 import {
   getSmartEdge,
   pathfindingAStarDiagonal,

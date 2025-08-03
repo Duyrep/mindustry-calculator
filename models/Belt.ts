@@ -5,12 +5,14 @@ export default class Belt {
   private name: string;
   private speed: number;
   private image: { row: number; col: number };
+  private transportType: string;
 
   constructor(init: beltData) {
     this.id = init.id;
     this.name = init.name;
     this.speed = init.speed;
     this.image = init.image;
+    this.transportType = init.transportType;
   }
 
   public getId() {
@@ -23,6 +25,10 @@ export default class Belt {
 
   public getSpeed() {
     return this.speed;
+  }
+
+  public getTransportType() {
+    return this.transportType;
   }
 
   public getImage() {

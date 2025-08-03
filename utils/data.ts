@@ -31,13 +31,7 @@ export function getItems(mode: string) {
 
 export function getItemByName(name: string, mode: string) {
   const d = getData(mode)?.items.find((v) => v.name === name);
-  return new Item({
-    id: d?.id ?? "ohno",
-    name: d?.name ?? "Oh no",
-    category: d?.category ?? "ohno",
-    image: d?.image ?? { row: 0, col: 0 },
-    producedBy: d?.producedBy ?? [],
-  });
+  return getItem(d?.id ?? "", mode)
 }
 
 export function getItemIDsByCategory(mode: string) {
@@ -65,6 +59,7 @@ export function getBelt(id: string, mode: string) {
     name: d?.name ?? "Oh no",
     speed: d?.speed ?? NaN,
     image: d?.image ?? { row: 0, col: 0 },
+    transportType: d?.transportType ?? "ohno"
   });
 }
 

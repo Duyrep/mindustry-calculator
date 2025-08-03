@@ -14,6 +14,9 @@
         "laser-drill",
         "air-blast-drill",
         "separator"
+      ],
+      "transports": [
+        "conveyor"
       ]
     },
     {
@@ -611,7 +614,8 @@
       "image": {
         "row": 14,
         "col": 0
-      }
+      },
+      "transportType": "item"
     },
     {
       "id": "titanium-conveyor",
@@ -620,7 +624,8 @@
       "image": {
         "row": 14,
         "col": 1
-      }
+      },
+      "transportType": "item"
     },
     {
       "id": "armored-conveyor",
@@ -629,7 +634,8 @@
       "image": {
         "row": 14,
         "col": 3
-      }
+      },
+      "transportType": "item"
     },
     {
       "id": "plastanium-conveyor",
@@ -638,7 +644,38 @@
       "image": {
         "row": 14,
         "col": 2
-      }
+      },
+      "transportType": "item"
+    },
+    {
+      "id": "conduit",
+      "name": "Conduit",
+      "speed": 400,
+      "image": {
+        "row": 14,
+        "col": 6
+      },
+      "transportType": "fluid"
+    },
+    {
+      "id": "pulse-conduit",
+      "name": "Pulse conduit",
+      "speed": 883,
+      "image": {
+        "row": 14,
+        "col": 7
+      },
+      "transportType": "fluid"
+    },
+    {
+      "id": "planted-conduit",
+      "name": "Planted conduit",
+      "speed": 640,
+      "image": {
+        "row": 14,
+        "col": 8
+      },
+      "transportType": "fluid"
     }
   ],
   "buildings": [
@@ -758,16 +795,16 @@
       "optionalEnhancements": {
         "affinities": [
           {
+            "id": "dark-sand-floor",
+            "efficiency": 1.5
+          },
+          {
             "id": "salt-floor",
             "efficiency": 0.3
           },
           {
             "id": "sand-floor",
             "efficiency": 0.7
-          },
-          {
-            "id": "dark-sand-floor",
-            "efficiency": 1.5
           },
           {
             "id": "shale-floor",

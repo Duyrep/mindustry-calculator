@@ -1,10 +1,10 @@
 "use client";
 
-import { SettingsContext } from "@/contexts/SettingsContext";
+import { SettingsContext } from "@/context/SettingsContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
-import { MoonIcon, SunIcon } from "./common/icons";
+import { MoonIcon, SunIcon } from "./icons";
 
 export default function Header() {
   const [settings, setSettings] = useContext(SettingsContext).settingsState;

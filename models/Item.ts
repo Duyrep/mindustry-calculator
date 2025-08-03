@@ -8,11 +8,11 @@ export default class Item {
   private image: { row: number; col: number };
 
   constructor(init: itemData) {
-    this.id = init.id
-    this.name = init.name
-    this.category = init.category
-    this.producedBy = init.producedBy
-    this.image = init.image
+    this.id = init.id;
+    this.name = init.name;
+    this.category = init.category;
+    this.producedBy = init.producedBy;
+    this.image = init.image;
   }
 
   public getId() {

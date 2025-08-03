@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
-import Header from "@/components/Header";
-import SettingsContextProvider from "@/contexts/SettingsContext";
-import { ObjectiveContextProvider } from "@/contexts/ObjectiveContext";
+import { NavBar, Header } from "@/components/";
+import { ObjectiveContextProvider, SettingsContextProvider } from "@/context";
 
 export const metadata: Metadata = {
   title: "Mindustry Calculator",

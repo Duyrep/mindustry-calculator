@@ -1,27 +1,47 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
+export const DropdownTrigger = ({ children }: { children?: React.ReactNode }) =>
+  children;
+export const DropdownContent = ({ children }: { children?: React.ReactNode }) =>
+  children;
 
 export default function Dropdown({
-  openState,
-  trigger,
   children,
-  anchorEl,
+  onOpen,
 }: {
-  openState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   children: React.ReactNode;
-  anchorEl?: React.ReactNode;
-  trigger?: HTMLElement | null;
+  onOpen?: (isOpen: boolean) => void;
 }) {
-  const [open, setOpen] = openState;
-  const [origin, setOrigin] = useState<"top" | "bottom">(
-    "top"
-  );
-  const container = useRef<HTMLDivElement>(null);
-  const divRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [mount, setMount] = useState(false);
+  const [origin, setOrigin] = useState<"top" | "bottom">("top");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLDivElement>(null);
+
+  const { triggerComponent, contentComponent } = useMemo(() => {
+    let trigger: ReactElement | undefined;
+    let content: ReactElement | undefined;
+
+    React.Children.forEach(children, (child) => {
+      if (React.isValidElement(child)) {
+        if (child.type === DropdownTrigger) trigger = child;
+        if (child.type === DropdownContent) content = child;
+      }
+    });
+
+    return { triggerComponent: trigger, contentComponent: content };
+  }, [children]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       const target = event.target as Node;
-      if (!divRef.current?.contains(target) && !trigger?.contains(target)) {
+      if (!dropdownRef.current?.contains(target)) {
         setOpen(false);
       }
     };
@@ -30,14 +50,14 @@ export default function Dropdown({
       const target = event.target;
       if (
         target instanceof Node &&
-        divRef.current &&
-        !divRef.current.contains(target)
+        content.current &&
+        !content.current.contains(target)
       ) {
         setOpen(false);
       }
     };
 
-    const closeDropdown = () => setOpen(false)
+    const closeDropdown = () => setOpen(false);
 
     document.addEventListener("click", handleClick);
     document.addEventListener("scroll", handleScroll, true);
@@ -48,12 +68,27 @@ export default function Dropdown({
       document.removeEventListener("scroll", handleScroll, true);
       window.removeEventListener("resize", closeDropdown, true);
     };
-  }, [setOpen, trigger]);
+  }, [setOpen]);
+
+  if (!triggerComponent) {
+    throw new Error("DropdownTrigger component is missing");
+  }
+  if (!contentComponent) {
+    throw new Error("DropdownContent component is missing");
+  }
 
   useEffect(() => {
-    if (!open || !divRef.current || !container.current) return;
-    const rect = container.current.getBoundingClientRect();
-    const dropdown = divRef.current;
+    if (onOpen) onOpen(open);
+
+    if (open) {
+      setMount(true);
+    } else if (content.current) {
+      setTimeout(() => setMount(false), 200);
+    }
+
+    if (!open || !content.current || !dropdownRef.current) return;
+    const rect = dropdownRef.current.getBoundingClientRect();
+    const dropdown = content.current;
     const style = dropdown.style;
 
     const dropdownHeight = dropdown.offsetHeight;
@@ -78,22 +113,35 @@ export default function Dropdown({
 
     style.top = `${top}px`;
     style.left = `${left}px`;
-  }, [open]);
+  }, [open, onOpen]);
+
+  useEffect(() => {
+    if (mount && content.current) {
+      content.current.classList.remove("opacity-0", "scale-y-70");
+    } else {
+    }
+  }, [mount])
 
   return (
-    <div ref={container}>
-      <div>{anchorEl}</div>
-      <div
-        ref={divRef}
-        className={`z-10 fixed overflow-hidden ${
-          !open && "scale-y-70 opacity-0 pointer-events-none select-none"
-        }`}
-        style={{ transformOrigin: origin, transition: "opacity .2s ease, scale .2s ease" }}
-      >
-        <div className="border border-surface-a30 bg-surface-a10 rounded-md">
-          {children}
-        </div>
+    <div ref={dropdownRef}>
+      <div onClick={() => setOpen((prevOpen) => !prevOpen)}>
+        {triggerComponent}
       </div>
+      {mount && (
+        <div
+          ref={content}
+          onClick={() => setOpen(false)}
+          className={`z-10 fixed overflow-hidden opacity-0 scale-y-70 ${open && "opacity-0 scale-y-70"}`}
+          style={{
+            transformOrigin: origin,
+            transition: "opacity .2s ease, scale .2s ease",
+          }}
+        >
+          <div className="border border-surface-a30 bg-surface-a10 rounded-md">
+            {contentComponent}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

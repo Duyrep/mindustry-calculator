@@ -3,6 +3,7 @@
 import SpriteImage from "@/components/SpriteImage";
 import {
   getBeacons,
+  getBelts,
   getBuilding,
   getBuildings,
   getData,
@@ -45,6 +46,7 @@ export default function Data() {
                 <th className="border p-1">Id</th>
                 <th className="border p-1">{t("Sprite")}</th>
                 <th className="border p-1">{t("Name")}</th>
+                <th className="border p-1">{t("Category")}</th>
                 <th className="border p-1">{t("Producer")}</th>
               </tr>
             </thead>
@@ -70,6 +72,9 @@ export default function Data() {
                   <td className="border p-1 whitespace-nowrap">
                     {t(item.getName())}
                   </td>
+                  <td className="border p-1 whitespace-nowrap">
+                    {t(item.getCategory())}
+                  </td>
                   <td className="border p-1">
                     <div className="flex flex-col gap-1">
                       {item.getProducedBy().map((buildingId) => (
@@ -87,6 +92,45 @@ export default function Data() {
                       ))}
                     </div>
                   </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <h3>{t("Transportation")}</h3>
+          <table>
+            <thead>
+              <tr>
+                <th className="border p-1">Id</th>
+                <th className="border p-1">{t("Sprite")}</th>
+                <th className="border p-1">{t("Name")}</th>
+                <th className="border p-1">{t("Speed")}</th>
+                <th className="border p-1">{t("Transport type")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {getBelts(mode).map((belt) => (
+                <tr key={belt.getId()}>
+                  <td className="border p-1">{belt.getId()}</td>
+                  <td className="border p-1">
+                    <div className="flex whitespace-nowrap">
+                      <SpriteImage
+                        row={belt.getImage().row}
+                        col={belt.getImage().col}
+                        size={24}
+                      />
+                      &nbsp;
+                      <span>
+                        {Object.entries(belt.getImage()).map(
+                          ([k, v]) => `${k}:${v} `
+                        )}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="border p-1 whitespace-nowrap">
+                    {t(belt.getName())}
+                  </td>
+                  <td className="border p-1 whitespace-nowrap">{belt.getSpeed()} {t(belt.getTransportType()+"s")}/{t("second")[0]}</td>
+                  <td className="border p-1 whitespace-nowrap">{belt.getTransportType()}</td>
                 </tr>
               ))}
             </tbody>
@@ -178,6 +222,7 @@ export default function Data() {
                 <th className="border p-1">Id</th>
                 <th className="border p-1">{t("Sprite")}</th>
                 <th className="border p-1">{t("Name")}</th>
+                <th className="border p-1">{t("Speed")}</th>
               </tr>
             </thead>
             <tbody>
@@ -201,6 +246,9 @@ export default function Data() {
                   </td>
                   <td className="border p-1 whitespace-nowrap">
                     {t(beacon.getName())}
+                  </td>
+                  <td className="border p-1 whitespace-nowrap">
+                    {beacon.getSpeed()} ({beacon.getSpeed() * 100}%)
                   </td>
                 </tr>
               ))}
@@ -290,8 +338,9 @@ export default function Data() {
                                                 ?.buildings.find(
                                                   (v) => v.id === buildingId
                                                 )
-                                                ?.input?.find((v) => v.id === id)
-                                                ?.perSec
+                                                ?.input?.find(
+                                                  (v) => v.id === id
+                                                )?.perSec
                                             }
                                             ) /{t("second")[0]}
                                           </div>

@@ -8,12 +8,12 @@ import {
 } from "@/utils";
 import SpriteImage from "./SpriteImage";
 import { useContext, useEffect, useRef, useState } from "react";
-import { ObjectiveContext } from "@/contexts/ObjectiveContext";
+import { ObjectiveContext } from "@/context/ObjectiveContext";
 import Item from "@/models/Item";
-import { SettingsContext } from "@/contexts/SettingsContext";
+import { SettingsContext } from "@/context/SettingsContext";
 import { useTranslation } from "react-i18next";
-import Dialog from "./Dialog";
-import { MindustryIcon } from "./common/icons";
+import Dialog, { DialogContent, DialogHandle, DialogTrigger } from "./Dialog";
+import { MindustryIcon } from "./icons";
 import { calculateBuildings, calculateItemsPerSecond } from "@/utils/calculate";
 
 export default function Objectives() {
@@ -131,7 +131,6 @@ export default function Objectives() {
 function ObjectiveItem() {
   const { t } = useTranslation();
   const [settings] = useContext(SettingsContext).settingsState;
-  const [open, setOpen] = useState(false);
   const [objective, setObjective] = useContext(ObjectiveContext).objectiveState;
   const [item, setItem] = useState<Item>(getItem(objective, settings.mode));
   const [searchResult, setSearchResult] = useState<string[]>(
@@ -139,6 +138,7 @@ function ObjectiveItem() {
   );
   const searchInput = useRef<HTMLInputElement>(null);
   const bgItem = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<DialogHandle>(null);
   const itemIDsByCategory = getItemIDsByCategory(settings.mode);
   const itemNames = getItemNames(settings.mode);
 
@@ -148,142 +148,147 @@ function ObjectiveItem() {
 
   return (
     <>
-      <div
-        className="flex items-center select-none gap-1 border border-surface-a30 rounded-md p-1 max-w cursor-pointer hover:border-primary duration-200"
-        onClick={() => setOpen((prev) => !prev)}
-      >
-        <SpriteImage
-          row={item.getImage().row}
-          col={item.getImage().col}
-          title={item.getId()}
-        />
-        <span className="whitespace-nowrap">{t(item.getName())}</span>
-      </div>
       <Dialog
-        openState={[open, setOpen]}
+        ref={dialogRef}
         className="w-full max-w-[40rem] max-sm:h-screen"
-        onClose={() => {
+        onOpen={() => {
           setSearchResult(itemNames);
           if (searchInput.current) searchInput.current.value = "";
         }}
       >
-        <div className="max-sm:h-screen flex flex-col overflow-hidden">
-          <div
-            ref={bgItem}
-            className="fixed bg-surface-a20 rounded-md transition-all"
-          ></div>
-          <div className="flex gap-2 px-2">
-            <MindustryIcon className="text-2xl">&#xe88a;</MindustryIcon>
-            <input
-              ref={searchInput}
-              type="text"
-              onChange={(event) => {
-                setSearchResult(
-                  searchItems(
-                    removeDiacritics((event.target as HTMLInputElement).value),
-                    itemNames
-                  )
-                );
-              }}
-              className="border border-surface-a30 rounded-md w-full py-1 px-2"
-              placeholder={t("Search by name")}
+        <DialogTrigger>
+          <div className="flex items-center select-none gap-1 border border-surface-a30 rounded-md p-1 max-w cursor-pointer hover:border-primary duration-200">
+            <SpriteImage
+              row={item.getImage().row}
+              col={item.getImage().col}
+              title={item.getId()}
             />
+            <span className="whitespace-nowrap">{t(item.getName())}</span>
           </div>
-          <hr className="mb-2 mt-1 border-surface-a50" />
-          <div className="h-min overflow-y-auto">
+        </DialogTrigger>
+        <DialogContent>
+          <div className="max-sm:h-screen flex flex-col overflow-hidden">
             <div
-              className={`flex items-center justify-center font-bold transition-all duration-100 overflow-hidden ${
-                searchResult.map((name) => {
-                  const item = getItemByName(name, settings.mode);
-                  return item.getCategory();
-                }).length === 0
-                  ? "h-10"
-                  : "h-0"
-              }`}
-            >
-              {t("No results")}
+              ref={bgItem}
+              className="fixed bg-surface-a20 rounded-md transition-all"
+            ></div>
+            <div className="flex gap-2 px-2">
+              <MindustryIcon className="text-2xl">&#xe88a;</MindustryIcon>
+              <input
+                ref={searchInput}
+                type="text"
+                onChange={(event) => {
+                  setSearchResult(
+                    searchItems(
+                      removeDiacritics(
+                        (event.target as HTMLInputElement).value
+                      ),
+                      itemNames
+                    )
+                  );
+                }}
+                className="border border-surface-a30 rounded-md w-full py-1 px-2"
+                placeholder={t("Search by name")}
+              />
             </div>
-            <div className="pl-1 pr-2">
-              {Object.entries(itemIDsByCategory).map(
-                ([category, itemIds], idx) => (
-                  <div key={idx}>
-                    <div
-                      className={`overflow-hidden transition-all duration-100 ${
-                        searchResult
-                          .map((name) => {
-                            const item = getItemByName(name, settings.mode);
-                            return item.getCategory();
-                          })
-                          .includes(category)
-                          ? "h-7"
-                          : "h-0"
-                      }`}
-                    >
-                      <b>{category[0].toUpperCase() + category.slice(1)}</b>
-                      <hr className="mb-2 border-t-2 border-surface-a50" />
-                    </div>
-                    <div className="flex flex-wrap">
-                      {itemIds.map((id) => {
-                        const item = getItem(id, settings.mode);
-                        return (
-                          <div
-                            key={id}
-                            onMouseEnter={(event) => {
-                              if (!bgItem.current) return;
-                              const rect = (
-                                event.currentTarget as HTMLDivElement
-                              ).getBoundingClientRect();
-                              const style = bgItem.current.style;
-                              style.opacity = "1";
-                              style.top = rect.top + "px";
-                              style.left = rect.left + "px";
-                              style.width = rect.width + "px";
-                              style.height = rect.height + "px";
-                            }}
-                            onMouseLeave={() => {
-                              if (!bgItem.current) return;
-                              bgItem.current.style.opacity = "0";
-                            }}
-                            onClick={() => {
-                              setOpen(false);
-                              setObjective((prev) => (prev === id ? prev : id));
-                            }}
-                            className={`relative overflow-hidden transition-all duration-300 z-10 ${
-                              searchResult.includes(item.getName()) ||
-                              searchResult.includes(t(item.getName()))
-                                ? "max-w-40 max-h-40 m-0.5 delay-100"
-                                : "max-w-0 max-h-0 delay-75"
-                            }`}
-                          >
+            <hr className="mb-2 mt-1 border-surface-a50" />
+            <div className="h-min overflow-y-auto">
+              <div
+                className={`flex items-center justify-center font-bold transition-all duration-100 overflow-hidden ${
+                  searchResult.map((name) => {
+                    const item = getItemByName(name, settings.mode);
+                    return item.getCategory();
+                  }).length === 0
+                    ? "h-10"
+                    : "h-0"
+                }`}
+              >
+                {t("No results")}
+              </div>
+              <div className="pl-1 pr-2">
+                {Object.entries(itemIDsByCategory).map(
+                  ([category, itemIds], idx) => (
+                    <div key={idx}>
+                      <div
+                        className={`overflow-hidden transition-all duration-100 ${
+                          searchResult
+                            .map((name) => {
+                              const item = getItemByName(name, settings.mode);
+                              return item.getCategory();
+                            })
+                            .includes(category)
+                            ? "h-7"
+                            : "h-0"
+                        }`}
+                      >
+                        <b>{category[0].toUpperCase() + category.slice(1)}</b>
+                        <hr className="mb-2 border-t-2 border-surface-a50" />
+                      </div>
+                      <div className="flex flex-wrap">
+                        {itemIds.map((id) => {
+                          const item = getItem(id, settings.mode);
+                          return (
                             <div
-                              className={`flex p-1 items-center select-none cursor-pointer transition-all rounded-md ${
-                                objective === item.getId() &&
-                                "bg-primary text-background"
-                              } ${
+                              key={id}
+                              onMouseEnter={(event) => {
+                                if (!bgItem.current) return;
+                                const rect = (
+                                  event.currentTarget as HTMLDivElement
+                                ).getBoundingClientRect();
+                                const style = bgItem.current.style;
+                                style.opacity = "1";
+                                style.top = rect.top + "px";
+                                style.left = rect.left + "px";
+                                style.width = rect.width + "px";
+                                style.height = rect.height + "px";
+                              }}
+                              onMouseLeave={() => {
+                                if (!bgItem.current) return;
+                                bgItem.current.style.opacity = "0";
+                              }}
+                              onClick={() => {
+                                dialogRef.current?.closeDialog()
+                                setObjective((prev) =>
+                                  prev === id ? prev : id
+                                );
+                              }}
+                              className={`relative overflow-hidden transition-all duration-300 z-10 ${
                                 searchResult.includes(item.getName()) ||
                                 searchResult.includes(t(item.getName()))
-                                  ? "scale-100 delay-300"
-                                  : "scale-0"
+                                  ? "max-w-40 max-h-40 m-0.5 delay-100"
+                                  : "max-w-0 max-h-0 delay-75"
                               }`}
                             >
-                              <SpriteImage
-                                row={item.getImage().row}
-                                col={item.getImage().col}
-                              />
-                              <span className="whitespace-nowrap">
-                                {t(item.getName())}
-                              </span>
+                              <div
+                                className={`flex p-1 items-center select-none cursor-pointer transition-all rounded-md ${
+                                  objective === item.getId() &&
+                                  "bg-primary text-background"
+                                } ${
+                                  searchResult.includes(item.getName()) ||
+                                  searchResult.includes(t(item.getName()))
+                                    ? "scale-100 delay-300"
+                                    : "scale-0"
+                                }`}
+                              >
+                                <SpriteImage
+                                  row={item.getImage().row}
+                                  col={item.getImage().col}
+                                />
+                                <span className="whitespace-nowrap">
+                                  {t(item.getName())}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )
-              )}
+                  )
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </DialogContent>
       </Dialog>
     </>
   );

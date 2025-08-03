@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { useContext, useEffect, useRef, useState } from "react";
 import { getBuilding, getItem } from "@/utils";
-import { SettingsContext } from "@/contexts/SettingsContext";
+import { SettingsContext } from "@/context/SettingsContext";
 import SpriteImage from "@/components/SpriteImage";
 import {
   BoxlineEdgeType,

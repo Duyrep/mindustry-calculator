@@ -1,4 +1,4 @@
-import { MindustryIcon } from "@/components/common/icons";
+import { MindustryIcon } from "@/components/icons";
 import Link from "next/link";
 
 export default function About() {
