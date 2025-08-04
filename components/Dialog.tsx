@@ -83,7 +83,7 @@ const Dialog = forwardRef<
       {mount && (
         <div
           ref={contentRef}
-          className={`fixed z-10 top-0 left-0 w-screen h-screen overflow-hidden transition-all duration-200 sm:p-14 backdrop-blur-xs flex justify-center items-center opacity-0 ${
+          className={`fixed z-10 top-0 left-0 bottom-0 right-0 overflow-hidden transition-all duration-200 sm:p-14 backdrop-blur-xs flex justify-center items-center opacity-0 ${
             !open && "opacity-0"
           }`}
           onClick={(event) => {

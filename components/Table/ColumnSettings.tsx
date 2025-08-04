@@ -17,7 +17,7 @@ export default function ColumnSettings({
     <div>
       <Dialog className="w-min">
         <DialogTrigger>
-          <button className="border border-surface-a30 p-1 rounded-md duration-200 hover:border-primary">
+          <button className="bg-surface-a20 p-1 rounded-md duration-200 hover:bg-surface-a30">
             <MindustryIcon className="text-xl">&#xe88c;</MindustryIcon>&nbsp;
             {t("Column settings")}
           </button>

@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { NavBar, Header } from "@/components/";
-import { ObjectiveContextProvider, SettingsContextProvider } from "@/context";
+import {
+  ObjectiveContextProvider,
+  SettingsContextProvider,
+  URLHandlerContextProvider,
+} from "@/context";
 
 export const metadata: Metadata = {
   title: "Mindustry Calculator",
@@ -23,11 +27,13 @@ export default function RootLayout({
       <body>
         <SettingsContextProvider>
           <ObjectiveContextProvider>
-            <div className="fixed w-full z-10">
-              <Header />
-              <NavBar />
-            </div>
-            <div className="pt-22">{children}</div>
+            <URLHandlerContextProvider>
+              <div className="fixed w-full z-10">
+                <Header />
+                <NavBar />
+              </div>
+              <div className="pt-22">{children}</div>
+            </URLHandlerContextProvider>
           </ObjectiveContextProvider>
         </SettingsContextProvider>
       </body>

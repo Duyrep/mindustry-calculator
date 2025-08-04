@@ -8,7 +8,10 @@ import { createContext, useEffect, useState } from "react";
 export const SettingsContext = createContext(
   {} as {
     settingsState: [Settings, React.Dispatch<React.SetStateAction<Settings>>];
-    ignoredItemsState: [string[], React.Dispatch<React.SetStateAction<string[]>>]
+    ignoredItemsState: [
+      string[],
+      React.Dispatch<React.SetStateAction<string[]>>
+    ];
   }
 );
 
@@ -17,7 +20,7 @@ export default function SettingsContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [ignoredItems, setIgnoredItems] = useState<string[]>([])
+  const [ignoredItems, setIgnoredItems] = useState<string[]>([]);
   const [settings, setSettings] = useState<Settings>(getDefaultSettings());
 
   useEffect(() => {
@@ -25,8 +28,8 @@ export default function SettingsContextProvider({
   }, [settings.lang]);
 
   useEffect(() => {
-    console.log(settings)
-  }, [settings])
+    console.log(settings);
+  }, [settings]);
 
   useEffect(() => {
     if (settings.theme === "dark") {
@@ -38,11 +41,25 @@ export default function SettingsContextProvider({
     }
   }, [settings.theme]);
 
+  useEffect(() => {
+    setSettings((prev) => ({
+      ...prev,
+      gameSettings: {
+        ...prev.gameSettings,
+        items: {
+          ...prev.gameSettings.items,
+          coal: "coal-centrifuge",
+          silicon: "silicon-crucible",
+        },
+      },
+    }));
+  }, []);
+
   return (
     <SettingsContext
       value={{
         settingsState: [settings, setSettings],
-        ignoredItemsState: [ignoredItems, setIgnoredItems]
+        ignoredItemsState: [ignoredItems, setIgnoredItems],
       }}
     >
       {children}

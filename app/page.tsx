@@ -6,25 +6,22 @@ import { ObjectiveContext } from "@/context/ObjectiveContext";
 import { SettingsContext } from "@/context/SettingsContext";
 import { getBuildingForItem, getItem, getRecipe } from "@/utils";
 import { calculateBuildings } from "@/utils/calculate";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import type { Settings, CalculationResult } from "@/types";
 
 export default function Home() {
   const [settings] = useContext(SettingsContext).settingsState;
   const [ignoredItems] = useContext(SettingsContext).ignoredItemsState;
+  const [mode] = useContext(ObjectiveContext).modeState;
   const [objective] = useContext(ObjectiveContext).objectiveState;
   const [productsPerSec] = useContext(ObjectiveContext).productsPerSecState;
   const [result, setResult] = useState(
     calculate(objective, productsPerSec, settings, ignoredItems)
   );
 
-  const calculatedResult = useMemo(() => {
-    return calculate(objective, productsPerSec, settings, ignoredItems);
-  }, [objective, productsPerSec, settings, ignoredItems]);
-
   useEffect(() => {
-    setResult(calculatedResult);
-  }, [calculatedResult]);
+    setResult(calculate(objective, productsPerSec, settings, ignoredItems));
+  }, [objective, productsPerSec, settings, ignoredItems, mode]);
 
   return (
     <main className="flex flex-col gap-2 p-2">

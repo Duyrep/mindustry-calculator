@@ -7,7 +7,7 @@ import {
   getItemNames,
 } from "@/utils";
 import SpriteImage from "./SpriteImage";
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ObjectiveContext } from "@/context/ObjectiveContext";
 import Item from "@/models/Item";
 import { SettingsContext } from "@/context/SettingsContext";
@@ -15,113 +15,131 @@ import { useTranslation } from "react-i18next";
 import Dialog, { DialogContent, DialogHandle, DialogTrigger } from "./Dialog";
 import { MindustryIcon } from "./icons";
 import { calculateBuildings, calculateItemsPerSecond } from "@/utils/calculate";
+import Dropdown, { DropdownContent, DropdownTrigger } from "./Dropdown";
 
 export default function Objectives() {
   const { t } = useTranslation();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [productsPerSec, setProductsPerSec] =
     useContext(ObjectiveContext).productsPerSecState;
   const [settings] = useContext(SettingsContext).settingsState;
+  const [mode, setMode] = useContext(ObjectiveContext).modeState;
   const [objective] = useContext(ObjectiveContext).objectiveState;
-  const [mode, setMode] = useState<"item" | "building">("building");
-  const buildingRef = useRef<HTMLInputElement>(null);
-  const itemRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const itemCurrent = itemRef.current;
-    const buildingCurrent = buildingRef.current;
-    if (!itemCurrent || !buildingCurrent) return;
+    if (!inputRef.current) return;
     if (mode === "building") {
-      const productsPerSec = +calculateItemsPerSecond(
+      inputRef.current.value =
+        +calculateBuildings(objective, productsPerSec, settings).toFixed(3) +
+        "";
+    } else if (mode === "item") {
+      const buildings = +inputRef.current.value;
+      inputRef.current.value =
+        +calculateItemsPerSecond(objective, buildings, settings).toFixed(3) +
+        "";
+    }
+  }, [mode]);
+
+  useEffect(() => {
+    if (!inputRef.current) return;
+    if (mode === "building") {
+      const value = +inputRef.current.value;
+      const productsPerSec = calculateItemsPerSecond(
         objective,
-        Number(buildingCurrent.value),
+        value,
         settings
       );
-      itemCurrent.value = +productsPerSec.toFixed(3) + "";
-      buildingCurrent.value =
+      setProductsPerSec(productsPerSec);
+      inputRef.current.value =
         +calculateBuildings(objective, productsPerSec, settings).toFixed(3) +
         "";
-      setProductsPerSec(productsPerSec);
     } else if (mode === "item") {
-      itemCurrent.value = +productsPerSec.toFixed(3) + "";
-      buildingCurrent.value =
-        +calculateBuildings(objective, productsPerSec, settings).toFixed(3) +
-        "";
-      setProductsPerSec(productsPerSec);
+      const value = inputRef.current.value;
+      setProductsPerSec(+value);
+      inputRef.current.value = value
     }
-  }, [productsPerSec, objective, settings, mode, setProductsPerSec]);
+  }, [objective]);
+
+  const inputHandle = (target: HTMLInputElement) => {
+    if (target.value.length === 0 || +target.value < 0) {
+      target.value = "1";
+    }
+    if (mode === "building") {
+      const productsPerSec = calculateItemsPerSecond(
+        objective,
+        Number(target.value),
+        settings
+      );
+      setProductsPerSec((prev) =>
+        prev === productsPerSec ? prev : productsPerSec
+      );
+    } else if (mode === "item") {
+      const value = Number(target.value);
+      setMode("item");
+      setProductsPerSec((prev) => (prev === value ? prev : value));
+    }
+  };
 
   return (
     <div className="flex flex-wrap gap-2 bg-surface-a10 p-2 rounded-md">
       <ObjectiveItem />
       <div className="flex flex-wrap gap-2 items-center">
         <div className="flex gap-1 items-center">
-          <label
-            htmlFor="building-amount"
-            className={`whitespace-nowrap ${
-              mode === "building" && "font-bold"
-            }`}
-          >
-            {t("Buildings")}:
-          </label>
-          <input
-            ref={buildingRef}
-            id="building-amount"
-            type="number"
-            className="border border-surface-a30 w-24 rounded-md px-2 py-1 text-sm duration-200 focus:border-primary"
-            autoComplete="off"
-            defaultValue="1"
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                setMode("building");
-                const productsPerSec = calculateItemsPerSecond(
-                  objective,
-                  Number((event.target as HTMLInputElement).value),
-                  settings
-                );
-                setProductsPerSec((prev) =>
-                  prev === productsPerSec ? prev : productsPerSec
-                );
+          <div className="flex gap-1 flex-wrap items-center">
+            <Dropdown onOpen={(isOpen) => setIsDropdownOpen(isOpen)}>
+              <DropdownTrigger>
+                <div className="flex select-none gap-1 font-bold cursor-pointer px-2 py-1 bg-surface-a20 rounded-md duration-200 hover:bg-surface-a30">
+                  <div
+                    className={`duration-200 ${
+                      isDropdownOpen && "rotate-x-180"
+                    }`}
+                  >
+                    <MindustryIcon>&#xe824;</MindustryIcon>
+                  </div>
+                  <span>
+                    {mode === "building"
+                      ? t("Buildings")
+                      : `${t("Items")}/${t(settings.displayRate)[0]}`}
+                  </span>
+                </div>
+              </DropdownTrigger>
+              <DropdownContent>
+                {Object.entries({
+                  item: `${t("Items")}/${t(settings.displayRate)[0]}`,
+                  building: "Buildings",
+                }).map(([k, v], idx) => (
+                  <React.Fragment key={k}>
+                    {idx !== 0 && <hr className="border-surface-a30 mx-2" />}
+                    <div
+                      className={`m-1 p-1 rounded-md cursor-pointer select-none duration-200 ${
+                        mode === k
+                          ? "bg-primary text-background"
+                          : "hover:bg-surface-a20"
+                      }`}
+                      onClick={() => setMode((prev) => (prev === k ? prev : k))}
+                    >
+                      {v}
+                    </div>
+                  </React.Fragment>
+                ))}
+              </DropdownContent>
+            </Dropdown>
+            <b>:</b>
+            <input
+              ref={inputRef}
+              type="number"
+              className="border border-surface-a30 w-24 h-min rounded-md px-2 py-1 text-sm duration-200 focus:border-primary"
+              autoComplete="off"
+              defaultValue="1"
+              min={0}
+              onKeyDown={(event) =>
+                event.key === "Enter" &&
+                inputHandle(event.target as HTMLInputElement)
               }
-            }}
-            onBlur={(event) => {
-              setMode("building");
-              const productsPerSec = calculateItemsPerSecond(
-                objective,
-                Number((event.target as HTMLInputElement).value),
-                settings
-              );
-              setProductsPerSec((prev) =>
-                prev === productsPerSec ? prev : productsPerSec
-              );
-            }}
-          />
-        </div>
-        <div className="flex gap-1 items-center">
-          <label
-            htmlFor="item-amount"
-            className={`whitespace-nowrap ${mode === "item" && "font-bold"}`}
-          >
-            {t("Items")}/{t(settings.displayRate)[0]}:
-          </label>
-          <input
-            ref={itemRef}
-            id="item-amount"
-            type="number"
-            className="border border-surface-a30 w-24 rounded-md px-2 py-1 text-sm duration-200 focus:border-primary"
-            autoComplete="off"
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                const value = Number((event.target as HTMLInputElement).value);
-                setMode("item");
-                setProductsPerSec((prev) => (prev === value ? prev : value));
-              }
-            }}
-            onBlur={(event) => {
-              const value = Number((event.target as HTMLInputElement).value);
-              setMode("item");
-              setProductsPerSec((prev) => (prev === value ? prev : value));
-            }}
-          />
+              onBlur={(event) => inputHandle(event.target)}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -157,7 +175,7 @@ function ObjectiveItem() {
         }}
       >
         <DialogTrigger>
-          <div className="flex items-center select-none gap-1 border border-surface-a30 rounded-md p-1 max-w cursor-pointer hover:border-primary duration-200">
+          <div className="flex items-center select-none gap-1 rounded-md p-1 max-w cursor-pointer bg-surface-a20 hover:bg-surface-a30 duration-200">
             <SpriteImage
               row={item.getImage().row}
               col={item.getImage().col}
@@ -247,7 +265,7 @@ function ObjectiveItem() {
                                 bgItem.current.style.opacity = "0";
                               }}
                               onClick={() => {
-                                dialogRef.current?.closeDialog()
+                                dialogRef.current?.closeDialog();
                                 setObjective((prev) =>
                                   prev === id ? prev : id
                                 );

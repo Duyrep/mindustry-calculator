@@ -15,9 +15,7 @@
         "air-blast-drill",
         "separator"
       ],
-      "transports": [
-        "conveyor"
-      ]
+      "transports": ["conveyor"]
     },
     {
       "id": "lead",
@@ -436,7 +434,7 @@
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
-      "id": "Antumbra",
+      "id": "antumbra",
       "name": "Antumbra",
       "category": "unit",
       "image": {
@@ -1739,6 +1737,454 @@
             { "id": "cryofluid", "perSec": 180 }
           ],
           "output": [{ "id": "regin", "perSec": "1/240" }]
+        }
+      ]
+    },
+    {
+      "id": "nova",
+      "buildings": [
+        {
+          "id": "ground-factory",
+          "input": [
+            { "id": "lead", "perSec": 0.5 },
+            { "id": "titanium", "perSec": 0.5 },
+            { "id": "silicon", "perSec": 0.75 }
+          ],
+          "output": [{ "id": "nova", "perSec": "1/40" }]
+        }
+      ]
+    },
+    {
+      "id": "pulsar",
+      "buildings": [
+        {
+          "id": "additive-reconstructor",
+          "input": [
+            { "id": "nova", "perSec": 0.1 },
+            { "id": "silicon", "perSec": 4 },
+            { "id": "graphite", "perSec": 4 }
+          ],
+          "output": [{ "id": "pulsar", "perSec": 0.1 }]
+        }
+      ]
+    },
+    {
+      "id": "quasar",
+      "buildings": [
+        {
+          "id": "multiplicative-reconstructor",
+          "input": [
+            { "id": "pulsar", "perSec": "1/30" },
+            { "id": "silicon", "perSec": "13/3" },
+            { "id": "titanium", "perSec": "8/3" },
+            { "id": "metaglass", "perSec": "4/3" }
+          ],
+          "output": [{ "id": "quasar", "perSec": "1/30" }]
+        }
+      ]
+    },
+    {
+      "id": "vela",
+      "buildings": [
+        {
+          "id": "exponential-reconstructor",
+          "input": [
+            { "id": "quasar", "perSec": "1/90" },
+            { "id": "silicon", "perSec": "85/9" },
+            { "id": "titanium", "perSec": "25/3" },
+            { "id": "plastanium", "perSec": "65/9" },
+            { "id": "cryofluid", "perSec": 60 }
+          ],
+          "output": [{ "id": "vela", "perSec": "1/90" }]
+        }
+      ]
+    },
+    {
+      "id": "corvus",
+      "buildings": [
+        {
+          "id": "tetrative-reconstructor",
+          "input": [
+            { "id": "vela", "perSec": "1/240" },
+            { "id": "silicon", "perSec": "25/6" },
+            { "id": "plastanium", "perSec": 2.5 },
+            { "id": "surge-alloy", "perSec": "25/12" },
+            { "id": "phase-fabric", "perSec": "35/24" },
+            { "id": "cryofluid", "perSec": 180 }
+          ],
+          "output": [{ "id": "corvus", "perSec": "1/240" }]
+        }
+      ]
+    },
+    {
+      "id": "crawler",
+      "buildings": [
+        {
+          "id": "ground-factory",
+          "input": [
+            { "id": "coal", "perSec": 1 },
+            { "id": "silicon", "perSec": 0.8 }
+          ],
+          "output": [{ "id": "crawler", "perSec": "1/15" }]
+        }
+      ]
+    },
+    {
+      "id": "atrax",
+      "buildings": [
+        {
+          "id": "additive-reconstructor",
+          "input": [
+            { "id": "crawler", "perSec": 0.1 },
+            { "id": "silicon", "perSec": 4 },
+            { "id": "graphite", "perSec": 4 }
+          ],
+          "output": [{ "id": "atrax", "perSec": 0.1 }]
+        }
+      ]
+    },
+    {
+      "id": "spiroct",
+      "buildings": [
+        {
+          "id": "multiplicative-reconstructor",
+          "input": [
+            { "id": "atrax", "perSec": "1/30" },
+            { "id": "silicon", "perSec": "13/3" },
+            { "id": "titanium", "perSec": "8/3" },
+            { "id": "metaglass", "perSec": "4/3" }
+          ],
+          "output": [{ "id": "spiroct", "perSec": "1/30" }]
+        }
+      ]
+    },
+    {
+      "id": "arkyid",
+      "buildings": [
+        {
+          "id": "exponential-reconstructor",
+          "input": [
+            { "id": "spiroct", "perSec": "1/90" },
+            { "id": "silicon", "perSec": "85/9" },
+            { "id": "titanium", "perSec": "25/3" },
+            { "id": "plastanium", "perSec": "65/9" },
+            { "id": "cryofluid", "perSec": 60 }
+          ],
+          "output": [{ "id": "arkyid", "perSec": "1/90" }]
+        }
+      ]
+    },
+    {
+      "id": "toxopid",
+      "buildings": [
+        {
+          "id": "tetrative-reconstructor",
+          "input": [
+            { "id": "arkyid", "perSec": "1/240" },
+            { "id": "silicon", "perSec": "25/6" },
+            { "id": "plastanium", "perSec": 2.5 },
+            { "id": "surge-alloy", "perSec": "25/12" },
+            { "id": "phase-fabric", "perSec": "35/24" },
+            { "id": "cryofluid", "perSec": 180 }
+          ],
+          "output": [{ "id": "toxopid", "perSec": "1/240" }]
+        }
+      ]
+    },
+    {
+      "id": "flare",
+      "buildings": [
+        {
+          "id": "air-factory",
+          "input": [{ "id": "silicon", "perSec": 1 }],
+          "output": [{ "id": "flare", "perSec": "1/15" }]
+        }
+      ]
+    },
+    {
+      "id": "horizon",
+      "buildings": [
+        {
+          "id": "additive-reconstructor",
+          "input": [
+            { "id": "flare", "perSec": 0.1 },
+            { "id": "silicon", "perSec": 4 },
+            { "id": "graphite", "perSec": 4 }
+          ],
+          "output": [{ "id": "horizon", "perSec": 0.1 }]
+        }
+      ]
+    },
+    {
+      "id": "zenith",
+      "buildings": [
+        {
+          "id": "multiplicative-reconstructor",
+          "input": [
+            { "id": "horizon", "perSec": "1/30" },
+            { "id": "silicon", "perSec": "13/3" },
+            { "id": "titanium", "perSec": "8/3" },
+            { "id": "metaglass", "perSec": "4/3" }
+          ],
+          "output": [{ "id": "zenith", "perSec": "1/30" }]
+        }
+      ]
+    },
+    {
+      "id": "antumbra",
+      "buildings": [
+        {
+          "id": "exponential-reconstructor",
+          "input": [
+            { "id": "zenith", "perSec": "1/90" },
+            { "id": "silicon", "perSec": "85/9" },
+            { "id": "titanium", "perSec": "25/3" },
+            { "id": "plastanium", "perSec": "65/9" },
+            { "id": "cryofluid", "perSec": 60 }
+          ],
+          "output": [{ "id": "antumbra", "perSec": "1/90" }]
+        }
+      ]
+    },
+    {
+      "id": "eclipse",
+      "buildings": [
+        {
+          "id": "tetrative-reconstructor",
+          "input": [
+            { "id": "antumbra", "perSec": "1/240" },
+            { "id": "silicon", "perSec": "25/6" },
+            { "id": "plastanium", "perSec": 2.5 },
+            { "id": "surge-alloy", "perSec": "25/12" },
+            { "id": "phase-fabric", "perSec": "35/24" },
+            { "id": "cryofluid", "perSec": 180 }
+          ],
+          "output": [{ "id": "eclipse", "perSec": "1/240" }]
+        }
+      ]
+    },
+    {
+      "id": "mono",
+      "buildings": [
+        {
+          "id": "air-factory",
+          "input": [
+            { "id": "lead", "perSec": "3/7" },
+            { "id": "silicon", "perSec": "6/7" }
+          ],
+          "output": [{ "id": "mono", "perSec": "1/35" }]
+        }
+      ]
+    },
+    {
+      "id": "poly",
+      "buildings": [
+        {
+          "id": "additive-reconstructor",
+          "input": [
+            { "id": "mono", "perSec": 0.1 },
+            { "id": "silicon", "perSec": 4 },
+            { "id": "graphite", "perSec": 4 }
+          ],
+          "output": [{ "id": "poly", "perSec": 0.1 }]
+        }
+      ]
+    },
+    {
+      "id": "mega",
+      "buildings": [
+        {
+          "id": "multiplicative-reconstructor",
+          "input": [
+            { "id": "poly", "perSec": "1/30" },
+            { "id": "silicon", "perSec": "13/3" },
+            { "id": "titanium", "perSec": "8/3" },
+            { "id": "metaglass", "perSec": "4/3" }
+          ],
+          "output": [{ "id": "mega", "perSec": "1/30" }]
+        }
+      ]
+    },
+    {
+      "id": "quad",
+      "buildings": [
+        {
+          "id": "exponential-reconstructor",
+          "input": [
+            { "id": "mega", "perSec": "1/90" },
+            { "id": "silicon", "perSec": "85/9" },
+            { "id": "titanium", "perSec": "25/3" },
+            { "id": "plastanium", "perSec": "65/9" },
+            { "id": "cryofluid", "perSec": 60 }
+          ],
+          "output": [{ "id": "quad", "perSec": "1/90" }]
+        }
+      ]
+    },
+    {
+      "id": "oct",
+      "buildings": [
+        {
+          "id": "tetrative-reconstructor",
+          "input": [
+            { "id": "quad", "perSec": "1/240" },
+            { "id": "silicon", "perSec": "25/6" },
+            { "id": "plastanium", "perSec": 2.5 },
+            { "id": "surge-alloy", "perSec": "25/12" },
+            { "id": "phase-fabric", "perSec": "35/24" },
+            { "id": "cryofluid", "perSec": 180 }
+          ],
+          "output": [{ "id": "oct", "perSec": "1/240" }]
+        }
+      ]
+    },
+    {
+      "id": "risso",
+      "buildings": [
+        {
+          "id": "naval-factory",
+          "input": [
+            { "id": "metaglass", "perSec": "7/9" },
+            { "id": "silicon", "perSec": "4/9" }
+          ],
+          "output": [{ "id": "risso", "perSec": "1/45" }]
+        }
+      ]
+    },
+    {
+      "id": "minke",
+      "buildings": [
+        {
+          "id": "additive-reconstructor",
+          "input": [
+            { "id": "risso", "perSec": 0.1 },
+            { "id": "silicon", "perSec": 4 },
+            { "id": "graphite", "perSec": 4 }
+          ],
+          "output": [{ "id": "minke", "perSec": 0.1 }]
+        }
+      ]
+    },
+    {
+      "id": "bryde",
+      "buildings": [
+        {
+          "id": "multiplicative-reconstructor",
+          "input": [
+            { "id": "minke", "perSec": "1/30" },
+            { "id": "silicon", "perSec": "13/3" },
+            { "id": "titanium", "perSec": "8/3" },
+            { "id": "metaglass", "perSec": "4/3" }
+          ],
+          "output": [{ "id": "bryde", "perSec": "1/30" }]
+        }
+      ]
+    },
+    {
+      "id": "sei",
+      "buildings": [
+        {
+          "id": "exponential-reconstructor",
+          "input": [
+            { "id": "bryde", "perSec": "1/90" },
+            { "id": "silicon", "perSec": "85/9" },
+            { "id": "titanium", "perSec": "25/3" },
+            { "id": "plastanium", "perSec": "65/9" },
+            { "id": "cryofluid", "perSec": 60 }
+          ],
+          "output": [{ "id": "sei", "perSec": "1/90" }]
+        }
+      ]
+    },
+    {
+      "id": "omura",
+      "buildings": [
+        {
+          "id": "tetrative-reconstructor",
+          "input": [
+            { "id": "sei", "perSec": "1/240" },
+            { "id": "silicon", "perSec": "25/6" },
+            { "id": "plastanium", "perSec": 2.5 },
+            { "id": "surge-alloy", "perSec": "25/12" },
+            { "id": "phase-fabric", "perSec": "35/24" },
+            { "id": "cryofluid", "perSec": 180 }
+          ],
+          "output": [{ "id": "omura", "perSec": "1/240" }]
+        }
+      ]
+    },
+    {
+      "id": "retusa",
+      "buildings": [
+        {
+          "id": "naval-factory",
+          "input": [
+            { "id": "titanium", "perSec": "4/7" },
+            { "id": "silicon", "perSec": "3/7" }
+          ],
+          "output": [{ "id": "retusa", "perSec": "1/35" }]
+        }
+      ]
+    },
+    {
+      "id": "oxynoe",
+      "buildings": [
+        {
+          "id": "additive-reconstructor",
+          "input": [
+            { "id": "retusa", "perSec": 0.1 },
+            { "id": "silicon", "perSec": 4 },
+            { "id": "graphite", "perSec": 4 }
+          ],
+          "output": [{ "id": "oxynoe", "perSec": 0.1 }]
+        }
+      ]
+    },
+    {
+      "id": "cyerce",
+      "buildings": [
+        {
+          "id": "multiplicative-reconstructor",
+          "input": [
+            { "id": "oxynoe", "perSec": "1/30" },
+            { "id": "silicon", "perSec": "13/3" },
+            { "id": "titanium", "perSec": "8/3" },
+            { "id": "metaglass", "perSec": "4/3" }
+          ],
+          "output": [{ "id": "cyerce", "perSec": "1/30" }]
+        }
+      ]
+    },
+    {
+      "id": "aegires",
+      "buildings": [
+        {
+          "id": "exponential-reconstructor",
+          "input": [
+            { "id": "cyerce", "perSec": "1/90" },
+            { "id": "silicon", "perSec": "85/9" },
+            { "id": "titanium", "perSec": "25/3" },
+            { "id": "plastanium", "perSec": "65/9" },
+            { "id": "cryofluid", "perSec": 60 }
+          ],
+          "output": [{ "id": "aegires", "perSec": "1/90" }]
+        }
+      ]
+    },
+    {
+      "id": "navanax",
+      "buildings": [
+        {
+          "id": "tetrative-reconstructor",
+          "input": [
+            { "id": "aegires", "perSec": "1/240" },
+            { "id": "silicon", "perSec": "25/6" },
+            { "id": "plastanium", "perSec": 2.5 },
+            { "id": "surge-alloy", "perSec": "25/12" },
+            { "id": "phase-fabric", "perSec": "35/24" },
+            { "id": "cryofluid", "perSec": 180 }
+          ],
+          "output": [{ "id": "navanax", "perSec": "1/240" }]
         }
       ]
     }

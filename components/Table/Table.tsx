@@ -105,7 +105,7 @@ export default function Table({ result }: { result: CalculationResult }) {
                     <BeaconsCol product={getItem(product, settings.mode)} />
                   )}
                   {columnSettings.power && <PowerCol power={power} />}
-                  {columnSettings.links && <LinksCol />}
+                  {columnSettings.links && <LinksCol product={getItem(product, settings.mode)} productsPerSec={productsPerSec}/>}
                 </tr>
               )
             )}
