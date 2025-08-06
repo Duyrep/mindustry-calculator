@@ -10,7 +10,7 @@ export default function Header() {
   const [settings, setSettings] = useContext(SettingsContext).settingsState;
 
   return (
-    <header className={`flex justify-between py-2 px-4 ${settings.theme === "dark" ? "bg-surface-a30" : "bg-primary"}`}>
+    <header className={`flex justify-between h-12 px-4 duration-200 ${settings.theme === "dark" ? "bg-surface-a30" : "bg-primary"}`}>
       <Link href="/" className="flex gap-2 items-center w-max">
         <Image src="/favicon.ico" width={28} height={28} alt={"Icon"} />
         <div className="whitespace-nowrap overflow-auto scroll-hidden">

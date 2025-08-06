@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <main className="p-2">
+    <>
       <Link
         href="https://github.com/Duyrep/mindustry-calculator"
         className="flex w-min items-center gap-1"
@@ -18,6 +18,6 @@ export default function About() {
         <MindustryIcon className="text-3xl">&#xe80d;</MindustryIcon>
         <p className="text-primary">Discord</p>
       </Link>
-    </main>
+    </>
   );
 }

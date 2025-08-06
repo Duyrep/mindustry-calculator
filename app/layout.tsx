@@ -32,7 +32,7 @@ export default function RootLayout({
                 <Header />
                 <NavBar />
               </div>
-              <div className="pt-22">{children}</div>
+              <main className="pt-24 p-2">{children}</main>
             </URLHandlerContextProvider>
           </ObjectiveContextProvider>
         </SettingsContextProvider>

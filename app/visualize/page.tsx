@@ -1,10 +1,9 @@
 "use client";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import BoxlineFixed from "./boxline/BoxlineFixed";
 import BoxlineFlow from "./boxline/BoxlineFlow";
-import { Settings } from "@/types";
+import { Settings, VisualizeSettingsType } from "@/types";
 import { ObjectiveContext } from "@/context/ObjectiveContext";
 import { SettingsContext } from "@/context/SettingsContext";
 import { getBuildingForItem, getItem, getRecipe } from "@/utils";
@@ -12,14 +11,19 @@ import Objectives from "@/components/Objectives";
 import { calculateBuildings } from "@/utils/calculate";
 import { VisualizeEdgeData, VisualizeNodeData } from "./boxline/graphLayout";
 import { ReactFlowProvider } from "@xyflow/react";
+import VisualizeSettings from "@/components/VisualizeSettings";
+import { usePathname } from "next/navigation";
 
 export default function Visualize() {
-  const { t } = useTranslation();
   const [objective] = useContext(ObjectiveContext).objectiveState;
   const [productsPerSec] = useContext(ObjectiveContext).productsPerSecState;
   const [settings] = useContext(SettingsContext).settingsState;
-  const [mode, setMode] = useState<"fixed" | "flow">("flow");
-  const [direction, setDirection] = useState<"TB" | "LR">("LR");
+  const [visualizeSettings, setVisualizeSettings] =
+    useState<VisualizeSettingsType>({
+      type: "boxline",
+      mode: "flow",
+      direction: "LR",
+    });
   const [result, setResult] = useState<{
     result: VisualizeResult;
     specialNodeLabels: string[];
@@ -35,6 +39,7 @@ export default function Visualize() {
     }[]
   >([]);
   const graphContainer = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     console.log(result);
@@ -72,11 +77,11 @@ export default function Visualize() {
 
   useEffect(() => {
     setResult(calculate(objective, productsPerSec, settings));
-  }, [objective, productsPerSec, settings, direction]);
+  }, [objective, productsPerSec, settings, visualizeSettings.direction]);
 
   useEffect(() => {
     const resizeHandle = () => {
-      if (!graphContainer.current) return;
+      if (!graphContainer.current || pathname !== "/visualize") return;
       const style = graphContainer.current.style;
       if (window.innerWidth > window.innerHeight) {
         graphContainer.current.style.width =
@@ -86,94 +91,53 @@ export default function Visualize() {
       }
     };
 
+    resizeHandle();
+
     window.addEventListener("resize", resizeHandle, true);
 
     return () => window.removeEventListener("resize", resizeHandle, true);
   }, []);
 
   return (
-    <main className="flex flex-col gap-2 p-2">
-      <Objectives />
-      <div className="flex flex-col flex-wrap bg-surface-a10 rounded-md p-2 gap-2">
-        <div className="flex flex-wrap items-center gap-2">
-          {t("Mode")}:
-          <button
-            className={`py-1 px-3 rounded-md duration-200 ${
-              mode === "flow"
-                ? "bg-primary text-background"
-                : "hover:bg-surface-a30 bg-surface-a20"
-            }`}
-            onClick={() => setMode((prev) => (prev === "flow" ? prev : "flow"))}
-          >
-            {t("Flow")}
-          </button>
-          <button
-            className={`py-1 px-3 rounded-md duration-200 ${
-              mode === "fixed"
-                ? "bg-primary text-background"
-                : "hover:bg-surface-a30 bg-surface-a20"
-            }`}
-            onClick={() =>
-              setMode((prev) => (prev === "fixed" ? prev : "fixed"))
-            }
-          >
-            {t("Fixed")}
-          </button>
+    <>
+      {pathname === "/visualize" && (
+        <div className="mb-2">
+          <Objectives />
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {t("Direction")}:
-          <button
-            className={`py-1 px-3 rounded-md duration-200 ${
-              direction === "LR"
-                ? "bg-primary text-background"
-                : "hover:bg-surface-a30 bg-surface-a20"
-            }`}
-            onClick={() =>
-              setDirection((prev) => (prev === "LR" ? prev : "LR"))
-            }
-          >
-            {t("Left to right")}
-          </button>
-          <button
-            className={`py-1 px-3 rounded-md duration-200 ${
-              direction === "TB"
-                ? "bg-primary text-background"
-                : "hover:bg-surface-a30 bg-surface-a20"
-            }`}
-            onClick={() =>
-              setDirection((prev) => (prev === "TB" ? prev : "TB"))
-            }
-          >
-            {t("Top to bottom")}
-          </button>
+      )}
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col flex-wrap bg-surface-a10 rounded-md p-2 gap-2">
+          <VisualizeSettings
+            settingsState={[visualizeSettings, setVisualizeSettings]}
+          />
         </div>
-      </div>
-      <div className="flex justify-center">
-        <div ref={graphContainer} className="w-full">
-          {mode === "fixed" ? (
-            <div className="w-full aspect-video border border-surface-a30 rounded-md relative">
-              <BoxlineFixed
-                nodes={nodes}
-                edges={edges}
-                direction={direction}
-                specialNodeLabels={result.specialNodeLabels}
-              />
-            </div>
-          ) : (
-            <div className="w-full aspect-video border border-surface-a30 rounded-md">
-              <ReactFlowProvider>
-                <BoxlineFlow
+        <div className="flex justify-center">
+          <div ref={graphContainer} className="w-full">
+            {visualizeSettings.mode === "fixed" ? (
+              <div className="w-full aspect-video border border-surface-a30 rounded-md relative">
+                <BoxlineFixed
                   nodes={nodes}
                   edges={edges}
-                  direction={direction}
+                  direction={visualizeSettings.direction}
                   specialNodeLabels={result.specialNodeLabels}
                 />
-              </ReactFlowProvider>
-            </div>
-          )}
+              </div>
+            ) : (
+              <div className="w-full aspect-video border border-surface-a30 rounded-md">
+                <ReactFlowProvider>
+                  <BoxlineFlow
+                    nodes={nodes}
+                    edges={edges}
+                    direction={visualizeSettings.direction}
+                    specialNodeLabels={result.specialNodeLabels}
+                  />
+                </ReactFlowProvider>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </main>
+    </>
   );
 }
 

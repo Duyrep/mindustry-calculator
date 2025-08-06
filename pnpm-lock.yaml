@@ -35,6 +35,9 @@ importers:
       react-i18next:
         specifier: ^15.6.0
         version: 15.6.0(i18next@25.3.1(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
+      react-resizable-panels:
+        specifier: ^3.0.4
+        version: 3.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -1855,6 +1858,12 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-resizable-panels@3.0.4:
+    resolution: {integrity: sha512-8Y4KNgV94XhUvI2LeByyPIjoUJb71M/0hyhtzkHaqpVHs+ZQs8b627HmzyhmVYi3C9YP6R+XD1KmG7hHjEZXFQ==}
+    peerDependencies:
+      react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
 
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
@@ -4088,6 +4097,11 @@ snapshots:
       typescript: 5.8.3
 
   react-is@16.13.1: {}
+
+  react-resizable-panels@3.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react@19.1.0: {}
 

@@ -168,7 +168,7 @@ function ObjectiveItem() {
     <>
       <Dialog
         ref={dialogRef}
-        className="w-full max-w-[40rem] max-sm:h-screen"
+        className="w-full max-w-[40rem] max-sm:h-svh"
         onOpen={() => {
           setSearchResult(itemNames);
           if (searchInput.current) searchInput.current.value = "";

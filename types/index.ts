@@ -1,5 +1,5 @@
-export * from "./settings"
-export * from "./calculate"
+export * from "./settings";
+export * from "./calculate";
 
 export type ColumnSettingsType = {
   belts: boolean;
@@ -8,4 +8,10 @@ export type ColumnSettingsType = {
   beacons: boolean;
   power: boolean;
   links: boolean;
+};
+
+export type VisualizeSettingsType = {
+  type: "boxline" | "sankey"
+  mode: "flow" | "fixed";
+  direction: "LR" | "TB";
 };
