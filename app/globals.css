@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fff;
+  --foreground: #000;
+
+  --primary: #cc9900;
+
+  --surface-a0: #ffffff;
+  --surface-a10: #f0f0f0;
+  --surface-a20: #e1e1e1;
+  --surface-a30: #d3d3d3;
+  --surface-a40: #c5c5c5;
+  --surface-a50: #b6b6b6;
+
+  --success: #22946e;
+  --warning: #a87a2a;
+  --danger: #9c2121;
+  --info: #21498a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+
+  --color-surface-a0: var(--surface-a0);
+  --color-surface-a10: var(--surface-a10);
+  --color-surface-a20: var(--surface-a20);
+  --color-surface-a30: var(--surface-a30);
+  --color-surface-a40: var(--surface-a40);
+  --color-surface-a50: var(--surface-a50);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  --animate-fade-in: fadeIn 200ms ease-out;
+  --animate-fade-out: fadeOut 200ms ease-in;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000;
+    --foreground: #fff;
+
+    --surface-a0: #121212;
+    --surface-a10: #282828;
+    --surface-a20: #3f3f3f;
+    --surface-a30: #575757;
+    --surface-a40: #717171;
+    --surface-a50: #8b8b8b;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 2.25rem; /* 36px */
+}
+h2 {
+  font-size: 1.875rem; /* 30px */
+}
+h3 {
+  font-size: 1.5rem; /* 24px */
+}
+h4 {
+  font-size: 1.25rem; /* 20px */
+}
+h5 {
+  font-size: 1rem; /* 16px */
+}
+h6 {
+  font-size: 0.875rem; /* 14px */
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--clr-surface-a50);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--foreground);
+  border-radius: 3px;
+}
