@@ -1,0 +1,9 @@
+User-agent: *
+
+Allow: /
+Allow: /about
+Allow: /data
+Allow: /visualize
+Allow: /settings
+
+Sitemap: https://mindustry-calculator.vercel.app/sitemap.xml

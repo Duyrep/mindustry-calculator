@@ -12,10 +12,16 @@ import { ObjectiveContext } from "@/context/ObjectiveContext";
 import Item from "@/models/Item";
 import { SettingsContext } from "@/context/SettingsContext";
 import { useTranslation } from "react-i18next";
-import Dialog, { DialogContent, DialogHandle, DialogTrigger } from "./Dialog";
+import {
+  DialogRoot,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from "./ui/Dialog";
 import { MindustryIcon } from "./icons";
 import { calculateBuildings, calculateItemsPerSecond } from "@/utils/calculate";
 import Dropdown, { DropdownContent, DropdownTrigger } from "./Dropdown";
+import Button from "./ui/Button";
 
 export default function Objectives() {
   const { t } = useTranslation();
@@ -57,7 +63,7 @@ export default function Objectives() {
     } else if (mode === "item") {
       const value = inputRef.current.value;
       setProductsPerSec(+value);
-      inputRef.current.value = value
+      inputRef.current.value = value;
     }
   }, [objective]);
 
@@ -156,7 +162,6 @@ function ObjectiveItem() {
   );
   const searchInput = useRef<HTMLInputElement>(null);
   const bgItem = useRef<HTMLDivElement>(null);
-  const dialogRef = useRef<DialogHandle>(null);
   const itemIDsByCategory = getItemIDsByCategory(settings.mode);
   const itemNames = getItemNames(settings.mode);
 
@@ -166,14 +171,7 @@ function ObjectiveItem() {
 
   return (
     <>
-      <Dialog
-        ref={dialogRef}
-        className="w-full max-w-[40rem] max-sm:h-svh"
-        onOpen={() => {
-          setSearchResult(itemNames);
-          if (searchInput.current) searchInput.current.value = "";
-        }}
-      >
+      <DialogRoot>
         <DialogTrigger>
           <div className="flex items-center select-none gap-1 rounded-md p-1 max-w cursor-pointer bg-surface-a20 hover:bg-surface-a30 duration-200">
             <SpriteImage
@@ -265,7 +263,6 @@ function ObjectiveItem() {
                                 bgItem.current.style.opacity = "0";
                               }}
                               onClick={() => {
-                                dialogRef.current?.closeDialog();
                                 setObjective((prev) =>
                                   prev === id ? prev : id
                                 );
@@ -306,8 +303,12 @@ function ObjectiveItem() {
               </div>
             </div>
           </div>
+
+          <DialogClose>
+            <Button>Close</Button>
+          </DialogClose>
         </DialogContent>
-      </Dialog>
+      </DialogRoot>
     </>
   );
 }
