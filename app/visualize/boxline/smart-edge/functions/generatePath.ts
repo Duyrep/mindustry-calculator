@@ -1,10 +1,4 @@
 // FIXME: The "pathfinding" module doe not have proper typings.
-/* eslint-disable
-	@typescript-eslint/no-unsafe-call,
-	@typescript-eslint/no-unsafe-member-access,
-	@typescript-eslint/no-unsafe-assignment,
-	@typescript-eslint/ban-ts-comment,
-*/
 import {
 	AStarFinder,
 	JumpPointFinder,
@@ -72,7 +66,7 @@ export const pathfindingJumpPointNoDiagonal: PathFindingFunction = (
 ) => {
 	try {
 		// FIXME: The "pathfinding" module doe not have proper typings.
-		// @ts-ignore
+		// @ts-expect-error: Logic phức tạp từ thư viện ngoài chưa có type chuẩn
 		const finder = new JumpPointFinder({
 			diagonalMovement: DiagonalMovement.Never
 		})

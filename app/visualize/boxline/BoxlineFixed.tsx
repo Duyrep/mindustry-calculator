@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as d3 from "d3";
 import { useContext, useEffect, useRef, useState } from "react";
 import { getBuilding, getItem } from "@/utils";
