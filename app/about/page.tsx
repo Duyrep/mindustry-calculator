@@ -12,7 +12,7 @@ export default function About() {
         <p className="text-primary">Github</p>
       </Link>
       <Link
-        href="https://discord.gg/5jntZRQ928"
+        href="https://discord.gg/h8azEfwpe7"
         className="flex w-min items-center gap-1"
       >
         <MindustryIcon className="text-3xl">&#xe80d;</MindustryIcon>
