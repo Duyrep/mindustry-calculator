@@ -134,7 +134,7 @@ h6 {
   border-radius: 3px;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
 	from {
 		opacity: 0;
 	}
@@ -143,7 +143,7 @@ h6 {
 	}
 }
 
-@keyframes fadeOut {
+@keyframes fade-out {
 	from {
 		opacity: 1;
 	}

@@ -400,7 +400,7 @@ export default function Data() {
       ))}
       <h2>Sprite sheet</h2>
       <Image
-        src="/spritesheet.png"
+        src="/spritesheet.webp"
         alt="spritesheet"
         width={32 * 15}
         height={32 * 15}

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import {
-  DialogRoot,
+  Dialog,
   DialogContent,
   DialogTrigger,
   DialogTitle,
@@ -21,7 +21,7 @@ export default function ColumnSettings({
   const { t } = useTranslation();
 
   return (
-    <DialogRoot>
+    <Dialog>
       <DialogTrigger>
         <button className="bg-surface-a20 p-1 rounded-md duration-200 hover:bg-surface-a30">
           <MindustryIcon className="text-xl">&#xe88c;</MindustryIcon>&nbsp;
@@ -66,6 +66,6 @@ export default function ColumnSettings({
           <Button>Close</Button>
         </DialogClose>
       </DialogContent>
-    </DialogRoot>
+    </Dialog>
   );
 }

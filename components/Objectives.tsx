@@ -14,10 +14,11 @@ import Item from "@/models/Item";
 import { SettingsContext } from "@/context/SettingsContext";
 import { useTranslation } from "react-i18next";
 import {
-  DialogRoot,
+  Dialog,
   DialogContent,
   DialogTrigger,
   DialogClose,
+  DialogTitle,
 } from "./ui/Dialog";
 import { MindustryIcon } from "./icons";
 import { calculateBuildings, calculateItemsPerSecond } from "@/utils/calculate";
@@ -55,7 +56,7 @@ export default function Objectives() {
       const productsPerSec = calculateItemsPerSecond(
         objective,
         value,
-        settings
+        settings,
       );
       setProductsPerSec(productsPerSec);
       inputRef.current.value =
@@ -76,10 +77,10 @@ export default function Objectives() {
       const productsPerSec = calculateItemsPerSecond(
         objective,
         Number(target.value),
-        settings
+        settings,
       );
       setProductsPerSec((prev) =>
-        prev === productsPerSec ? prev : productsPerSec
+        prev === productsPerSec ? prev : productsPerSec,
       );
     } else if (mode === "item") {
       const value = Number(target.value);
@@ -159,7 +160,7 @@ function ObjectiveItem() {
   const [objective, setObjective] = useContext(ObjectiveContext).objectiveState;
   const [item, setItem] = useState<Item>(getItem(objective, settings.mode));
   const [searchResult, setSearchResult] = useState<string[]>(
-    getItemNames(settings.mode)
+    getItemNames(settings.mode),
   );
   const searchInput = useRef<HTMLInputElement>(null);
   const bgItem = useRef<HTMLDivElement>(null);
@@ -172,7 +173,7 @@ function ObjectiveItem() {
 
   return (
     <>
-      <DialogRoot>
+      <Dialog>
         <DialogTrigger>
           <div className="flex items-center select-none gap-1 rounded-md p-1 max-w cursor-pointer bg-surface-a20 hover:bg-surface-a30 duration-200">
             <SpriteImage
@@ -183,12 +184,8 @@ function ObjectiveItem() {
             <span className="whitespace-nowrap">{t(item.getName())}</span>
           </div>
         </DialogTrigger>
-        <DialogContent>
-          <div className="max-sm:h-screen flex flex-col overflow-hidden">
-            <div
-              ref={bgItem}
-              className="fixed bg-surface-a20 rounded-md transition-all"
-            ></div>
+        <DialogContent className="flex flex-col max-sm:h-screen max-sm:w-screen sm:w-xl">
+          <DialogTitle className="text-base">
             <div className="flex gap-2 px-2">
               <MindustryIcon className="text-2xl">&#xe88a;</MindustryIcon>
               <input
@@ -198,125 +195,123 @@ function ObjectiveItem() {
                   setSearchResult(
                     searchItems(
                       removeDiacritics(
-                        (event.target as HTMLInputElement).value
+                        (event.target as HTMLInputElement).value,
                       ),
-                      itemNames
-                    )
+                      itemNames,
+                    ),
                   );
                 }}
                 className="border border-surface-a30 rounded-md w-full py-1 px-2"
                 placeholder={t("Search by name")}
               />
             </div>
-            <hr className="mb-2 mt-1 border-surface-a50" />
-            <div className="h-min overflow-y-auto">
-              <div
-                className={`flex items-center justify-center font-bold transition-all duration-100 overflow-hidden ${
-                  searchResult.map((name) => {
-                    const item = getItemByName(name, settings.mode);
-                    return item.getCategory();
-                  }).length === 0
-                    ? "h-10"
-                    : "h-0"
-                }`}
-              >
-                {t("No results")}
-              </div>
-              <div className="pl-1 pr-2">
-                {Object.entries(itemIDsByCategory).map(
-                  ([category, itemIds], idx) => (
-                    <div key={idx}>
-                      <div
-                        className={`overflow-hidden transition-all duration-100 ${
-                          searchResult
-                            .map((name) => {
-                              const item = getItemByName(name, settings.mode);
-                              return item.getCategory();
-                            })
-                            .includes(category)
-                            ? "h-7"
-                            : "h-0"
-                        }`}
-                      >
-                        <b>{category[0].toUpperCase() + category.slice(1)}</b>
-                        <hr className="mb-2 border-t-2 border-surface-a50" />
-                      </div>
-                      <div className="flex flex-wrap">
-                        {itemIds.map((id) => {
-                          const item = getItem(id, settings.mode);
-                          return (
+          </DialogTitle>
+          <div
+            ref={bgItem}
+            className="fixed bg-surface-a20 rounded-md transition-all"
+          ></div>
+          <div className="h-full overflow-y-auto">
+            <div
+              className={`flex items-center justify-center font-bold transition-all duration-100 overflow-hidden ${
+                searchResult.map((name) => {
+                  const item = getItemByName(name, settings.mode);
+                  return item.getCategory();
+                }).length === 0
+                  ? "h-10"
+                  : "h-0"
+              }`}
+            >
+              {t("No results")}
+            </div>
+            <div className="pl-1 pr-2">
+              {Object.entries(itemIDsByCategory).map(
+                ([category, itemIds], idx) => (
+                  <div key={idx}>
+                    <div
+                      className={`overflow-hidden transition-all duration-100 ${
+                        searchResult
+                          .map((name) => {
+                            const item = getItemByName(name, settings.mode);
+                            return item.getCategory();
+                          })
+                          .includes(category)
+                          ? "h-7"
+                          : "h-0"
+                      }`}
+                    >
+                      <b>{category[0].toUpperCase() + category.slice(1)}</b>
+                      <hr className="mb-2 border-t-2 border-surface-a50" />
+                    </div>
+                    <div className="flex flex-wrap">
+                      {itemIds.map((id) => {
+                        const item = getItem(id, settings.mode);
+                        return (
+                          <div
+                            key={id}
+                            onMouseEnter={(event) => {
+                              if (!bgItem.current) return;
+                              const rect = (
+                                event.currentTarget as HTMLDivElement
+                              ).getBoundingClientRect();
+                              const style = bgItem.current.style;
+                              style.opacity = "1";
+                              style.top = rect.top + "px";
+                              style.left = rect.left + "px";
+                              style.width = rect.width + "px";
+                              style.height = rect.height + "px";
+                            }}
+                            onMouseLeave={() => {
+                              if (!bgItem.current) return;
+                              bgItem.current.style.opacity = "0";
+                            }}
+                            onClick={() => {
+                              setObjective((prev) => (prev === id ? prev : id));
+                            }}
+                            className={`relative overflow-hidden transition-all duration-300 z-10 ${
+                              searchResult.includes(item.getName()) ||
+                              searchResult.includes(t(item.getName()))
+                                ? "max-w-40 max-h-40 m-0.5 delay-100"
+                                : "max-w-0 max-h-0 delay-75"
+                            }`}
+                          >
                             <div
-                              key={id}
-                              onMouseEnter={(event) => {
-                                if (!bgItem.current) return;
-                                const rect = (
-                                  event.currentTarget as HTMLDivElement
-                                ).getBoundingClientRect();
-                                const style = bgItem.current.style;
-                                style.opacity = "1";
-                                style.top = rect.top + "px";
-                                style.left = rect.left + "px";
-                                style.width = rect.width + "px";
-                                style.height = rect.height + "px";
-                              }}
-                              onMouseLeave={() => {
-                                if (!bgItem.current) return;
-                                bgItem.current.style.opacity = "0";
-                              }}
-                              onClick={() => {
-                                setObjective((prev) =>
-                                  prev === id ? prev : id
-                                );
-                              }}
-                              className={`relative overflow-hidden transition-all duration-300 z-10 ${
+                              className={`flex p-1 items-center select-none cursor-pointer transition-all rounded-md ${
+                                objective === item.getId() &&
+                                "bg-primary text-background"
+                              } ${
                                 searchResult.includes(item.getName()) ||
                                 searchResult.includes(t(item.getName()))
-                                  ? "max-w-40 max-h-40 m-0.5 delay-100"
-                                  : "max-w-0 max-h-0 delay-75"
+                                  ? "scale-100 delay-300"
+                                  : "scale-0"
                               }`}
                             >
-                              <div
-                                className={`flex p-1 items-center select-none cursor-pointer transition-all rounded-md ${
-                                  objective === item.getId() &&
-                                  "bg-primary text-background"
-                                } ${
-                                  searchResult.includes(item.getName()) ||
-                                  searchResult.includes(t(item.getName()))
-                                    ? "scale-100 delay-300"
-                                    : "scale-0"
-                                }`}
-                              >
-                                <SpriteImage
-                                  row={item.getImage().row}
-                                  col={item.getImage().col}
-                                />
-                                <span className="whitespace-nowrap">
-                                  {t(item.getName())}
-                                </span>
-                              </div>
+                              <SpriteImage
+                                row={item.getImage().row}
+                                col={item.getImage().col}
+                              />
+                              <span className="whitespace-nowrap">
+                                {t(item.getName())}
+                              </span>
                             </div>
-                          );
-                        })}
-                      </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                  )
-                )}
-              </div>
+                  </div>
+                ),
+              )}
             </div>
           </div>
-
-          <DialogClose>
-            <Button>Close</Button>
-          </DialogClose>
+          <DialogClose className="px-6 py-4"/>
         </DialogContent>
-      </DialogRoot>
+      </Dialog>
     </>
   );
 }
 
 function searchItems(query: string, items: string[]) {
   return items.filter((item) =>
-    removeDiacritics(item).toLowerCase().includes(query.toLowerCase())
+    removeDiacritics(item).toLowerCase().includes(query.toLowerCase()),
   );
 }
 

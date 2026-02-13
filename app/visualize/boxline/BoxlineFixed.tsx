@@ -550,7 +550,7 @@ function SpriteSheetImage({
       className={className}
       onClick={onClick}
     >
-      <image href="/spritesheet.png" width={32 * 15} height={32 * 15} />
+      <image href="/spritesheet.webp" width={32 * 15} height={32 * 15} />
     </svg>
   );
 }
