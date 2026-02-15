@@ -1,7 +1,6 @@
-import { useGameData } from "@/context/GameData";
+import { useGameDataStore } from "@/store";
 
 export default function getAllItems() {
-  const { getGameData } = useGameData();
-
-  return getGameData().items
+  const { getGameData } = useGameDataStore.getState();
+  return getGameData()?.items ?? []
 }

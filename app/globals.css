@@ -20,6 +20,8 @@
 }
 
 @theme inline {
+  --dark-mode: class;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -40,7 +42,8 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  @keyframes fadeIn {
+  /* face in & face out */
+  @keyframes fade-in {
     from {
       opacity: 0;
     }
@@ -48,7 +51,7 @@
       opacity: 1;
     }
   }
-  @keyframes fadeOut {
+  @keyframes fade-out {
     from {
       opacity: 1;
     }
@@ -57,8 +60,54 @@
     }
   }
 
-  --animate-fade-in: fadeIn 200ms ease-out;
-  --animate-fade-out: fadeOut 200ms ease-in;
+  --animate-fade-in: fade-in 200ms ease-out;
+  --animate-fade-out: fade-out 200ms ease-in;
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-left {
+    from {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes slide-right {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  --animate-slide-down: slide-down 0.2s ease-out;
+  --animate-slide-up: slide-up 0.2s ease-out;
+  --animate-slide-left: slide-left 0.2s ease-out;
+  --animate-slide-right: slide-right 0.2s ease-out;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,10 +124,16 @@
   }
 }
 
+html {
+  overflow: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+
+  height: 100dvh;
 }
 
 h1 {

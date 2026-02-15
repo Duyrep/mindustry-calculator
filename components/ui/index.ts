@@ -10,6 +10,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./Dialog";
+import {
+  Dropdown,
+  DropdownArrow,
+  DropdownContent,
+  DropdownItem,
+  DropdownPortal,
+  DropdownSeparator,
+  DropdownTrigger,
+} from "./Dropdown";
+import {
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipPortal,
+  TooltipTrigger,
+} from "./Tooltip";
 import Input from "./Input";
 import SpriteImage from "./SpriteImage";
 
@@ -24,6 +40,18 @@ export {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
+  Dropdown,
+  DropdownArrow,
+  DropdownContent,
+  DropdownItem,
+  DropdownPortal,
+  DropdownSeparator,
+  DropdownTrigger,
   Input,
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipPortal,
+  TooltipTrigger,
   SpriteImage,
 };

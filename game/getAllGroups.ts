@@ -1,12 +1,12 @@
-import { useGameData } from "@/context/GameData";
+import { useGameDataStore } from "@/store";
 
 export default function getAllGroupsOfItems() {
-  const { getGameData } = useGameData();
+  const { getGameData } = useGameDataStore.getState();
 
-  return getGameData().items.reduce<string[]>((acc, item) => {
+  return getGameData()?.items.reduce<string[]>((acc, item) => {
     if (!acc.includes(item.group)) {
       acc.push(item.group);
     }
     return acc;
-  }, []);
+  }, []) ?? [];
 }

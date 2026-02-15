@@ -1,3 +1,4 @@
+import { useGameDataStore } from "@/store";
 import Image from "next/image";
 
 export default function SpriteImage({
@@ -11,6 +12,8 @@ export default function SpriteImage({
   size?: number;
   title?: string;
 }) {
+  const image = useGameDataStore(state => state.getGameData()?.image)
+
   return (
     <div style={{ width: size, height: size }}>
       <Image
@@ -21,7 +24,7 @@ export default function SpriteImage({
         height={size}
         style={{
           userSelect: "none",
-          background: `url('/spritesheet.png') ${-col * size}px ${
+          background: `url('${image}') ${-col * size}px ${
             -row * size
           }px ${size ? `/ ${size * 15}px ${size * 15}px` : ""}`,
         }}

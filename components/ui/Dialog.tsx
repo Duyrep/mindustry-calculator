@@ -2,7 +2,6 @@ import * as RadixDialog from "@radix-ui/react-dialog";
 import { twMerge } from "tailwind-merge";
 import { Button } from "@/components/ui";
 
-// 1. Root, Trigger, Portal bạn đã làm
 export function Dialog(props: RadixDialog.DialogProps) {
   return <RadixDialog.Root {...props} />;
 }
@@ -21,7 +20,7 @@ export function DialogOverlay({
 }: RadixDialog.DialogOverlayProps) {
   return (
     <RadixDialog.Overlay
-      className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-xs duration-200 ${className}`}
+      className={`fixed inset-0 z-40 bg-black/50 backdrop-blur-xs duration-200 ${className}`}
       {...props}
     />
   );
@@ -34,14 +33,17 @@ export function DialogContent({
 }: RadixDialog.DialogContentProps) {
   return (
     <DialogPortal>
-      <DialogOverlay className="data-[state=open]:animate-[fadeIn_200ms] data-[state=closed]:animate-[fadeOut_200ms]" />
+      <DialogOverlay className="data-[state=open]:animate-[fade-in_100ms] data-[state=closed]:animate-[fade-out_100ms]" />
       <RadixDialog.Content
         {...props}
         className="
-          fixed p-10 top-0 right-0 w-screen h-screen z-50 flex items-center justify-center duration-200
-          data-[state=open]:animate-[fadeIn_200ms] data-[state=closed]:animate-[fadeOut_200ms]
+          fixed p-10 top-0 right-0 w-screen h-dvh z-40 flex items-center justify-center duration-200
+          data-[state=open]:animate-[fade-in_100ms] data-[state=closed]:animate-[fade-out_100ms]
         "
         style={{ pointerEvents: "none" }}
+        onOpenAutoFocus={(event) => {
+          event.preventDefault();
+        }}
       >
         <div
           className={twMerge(

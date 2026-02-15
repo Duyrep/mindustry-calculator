@@ -1,3 +1,3 @@
-import { INITIAL_TARGETS } from "./inital";
+import { INITIAL_TARGETS, INITIAL_SETTINGS } from "./initial";
 
-export { INITIAL_TARGETS };
+export { INITIAL_TARGETS, INITIAL_SETTINGS};

@@ -1,30 +1,24 @@
 {
+  "image": "/spritesheet.webp",
   "items": [
     {
       "id": "copper",
       "name": "Copper",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 1
-      },
+      "image": { "row": 0, "col": 1 },
       "producedBy": [
         "mechanical-drill",
         "pneumatic-drill",
         "laser-drill",
         "air-blast-drill",
         "separator"
-      ],
-      "transports": ["conveyor"]
+      ]
     },
     {
       "id": "lead",
       "name": "Lead",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 2
-      },
+      "image": { "row": 0, "col": 2 },
       "producedBy": [
         "mechanical-drill",
         "pneumatic-drill",
@@ -37,10 +31,7 @@
       "id": "scrap",
       "name": "Scrap",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 3
-      },
+      "image": { "row": 0, "col": 3 },
       "producedBy": [
         "mechanical-drill",
         "pneumatic-drill",
@@ -52,10 +43,7 @@
       "id": "sand",
       "name": "Sand",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 4
-      },
+      "image": { "row": 0, "col": 4 },
       "producedBy": [
         "mechanical-drill",
         "pneumatic-drill",
@@ -69,40 +57,28 @@
       "id": "graphite",
       "name": "Graphite",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 5
-      },
+      "image": { "row": 0, "col": 5 },
       "producedBy": ["graphite-press", "multi-press"]
     },
     {
       "id": "metaglass",
       "name": "Metaglass",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 6
-      },
+      "image": { "row": 0, "col": 6 },
       "producedBy": ["kiln"]
     },
     {
       "id": "spore-pod",
       "name": "Spore pod",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 7
-      },
+      "image": { "row": 0, "col": 7 },
       "producedBy": ["cultivator"]
     },
     {
       "id": "coal",
       "name": "Coal",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 8
-      },
+      "image": { "row": 0, "col": 8 },
       "producedBy": [
         "mechanical-drill",
         "pneumatic-drill",
@@ -115,10 +91,7 @@
       "id": "titanium",
       "name": "Titanium",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 9
-      },
+      "image": { "row": 0, "col": 9 },
       "producedBy": [
         "pneumatic-drill",
         "laser-drill",
@@ -131,80 +104,56 @@
       "id": "thorium",
       "name": "Thorium",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 10
-      },
+      "image": { "row": 0, "col": 10 },
       "producedBy": ["laser-drill", "air-blast-drill", "disassembler"]
     },
     {
       "id": "silicon",
       "name": "Silicon",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 11
-      },
+      "image": { "row": 0, "col": 11 },
       "producedBy": ["silicon-smelter", "silicon-crucible"]
     },
     {
       "id": "plastanium",
       "name": "Plastanium",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 12
-      },
+      "image": { "row": 0, "col": 12 },
       "producedBy": ["plastanium-compressor"]
     },
     {
       "id": "phase-fabric",
       "name": "Phase fabric",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 13
-      },
+      "image": { "row": 0, "col": 13 },
       "producedBy": ["phase-weaver"]
     },
     {
       "id": "surge-alloy",
       "name": "Surge alloy",
       "group": "item",
-      "image": {
-        "row": 0,
-        "col": 14
-      },
+      "image": { "row": 0, "col": 14 },
       "producedBy": ["surge-smelter"]
     },
     {
       "id": "blast-compound",
       "name": "Blast compound",
       "group": "item",
-      "image": {
-        "row": 1,
-        "col": 0
-      },
+      "image": { "row": 1, "col": 0 },
       "producedBy": ["blast-mixer"]
     },
     {
       "id": "pyratite",
       "name": "Pyratite",
       "group": "item",
-      "image": {
-        "row": 1,
-        "col": 1
-      },
+      "image": { "row": 1, "col": 1 },
       "producedBy": ["pyratite-mixer"]
     },
     {
       "id": "water",
       "name": "Water",
       "group": "fluid",
-      "image": {
-        "row": 2,
-        "col": 0
-      },
+      "image": { "row": 2, "col": 0 },
       "producedBy": [
         "water-extractor",
         "mechanical-pump",
@@ -216,20 +165,14 @@
       "id": "slag",
       "name": "Slag",
       "group": "fluid",
-      "image": {
-        "row": 2,
-        "col": 1
-      },
+      "image": { "row": 2, "col": 1 },
       "producedBy": ["melter", "mechanical-pump", "rotary-pump", "impulse-pump"]
     },
     {
       "id": "oil",
       "name": "Oil",
       "group": "fluid",
-      "image": {
-        "row": 2,
-        "col": 2
-      },
+      "image": { "row": 2, "col": 2 },
       "producedBy": [
         "oil-extractor",
         "mechanical-pump",
@@ -242,10 +185,7 @@
       "id": "cryofluid",
       "name": "Cryofluid",
       "group": "fluid",
-      "image": {
-        "row": 2,
-        "col": 3
-      },
+      "image": { "row": 2, "col": 3 },
       "producedBy": [
         "cryofluid-mixer",
         "mechanical-pump",
@@ -257,350 +197,245 @@
       "id": "dagger",
       "name": "Dagger",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 0
-      },
+      "image": { "row": 3, "col": 0 },
       "producedBy": ["ground-factory"]
     },
     {
       "id": "mace",
       "name": "Mace",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 1
-      },
+      "image": { "row": 3, "col": 1 },
       "producedBy": ["additive-reconstructor"]
     },
     {
       "id": "fortress",
       "name": "Fortress",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 2
-      },
+      "image": { "row": 3, "col": 2 },
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
       "id": "scepter",
       "name": "Scepter",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 3
-      },
+      "image": { "row": 3, "col": 3 },
       "producedBy": ["exponential-reconstructor"]
     },
     {
       "id": "regin",
       "name": "Regin",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 4
-      },
+      "image": { "row": 3, "col": 4 },
       "producedBy": ["tetrative-reconstructor"]
     },
     {
       "id": "nova",
       "name": "Nova",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 5
-      },
+      "image": { "row": 3, "col": 5 },
       "producedBy": ["ground-factory"]
     },
     {
       "id": "pulsar",
       "name": "Pulsar",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 6
-      },
+      "image": { "row": 3, "col": 6 },
       "producedBy": ["additive-reconstructor"]
     },
     {
       "id": "quasar",
       "name": "Quasar",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 7
-      },
+      "image": { "row": 3, "col": 7 },
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
       "id": "vela",
       "name": "Vela",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 8
-      },
+      "image": { "row": 3, "col": 8 },
       "producedBy": ["exponential-reconstructor"]
     },
     {
       "id": "corvus",
       "name": "Corvus",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 9
-      },
+      "image": { "row": 3, "col": 9 },
       "producedBy": ["tetrative-reconstructor"]
     },
     {
       "id": "crawler",
       "name": "Crawler",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 10
-      },
+      "image": { "row": 3, "col": 10 },
       "producedBy": ["ground-factory"]
     },
     {
       "id": "atrax",
       "name": "Atrax",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 11
-      },
+      "image": { "row": 3, "col": 11 },
       "producedBy": ["additive-reconstructor"]
     },
     {
       "id": "spiroct",
       "name": "Spiroct",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 12
-      },
+      "image": { "row": 3, "col": 12 },
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
       "id": "arkyid",
       "name": "Arkyid",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 13
-      },
+      "image": { "row": 3, "col": 13 },
       "producedBy": ["exponential-reconstructor"]
     },
     {
       "id": "toxopid",
       "name": "Toxopid",
       "group": "unit",
-      "image": {
-        "row": 3,
-        "col": 14
-      },
+      "image": { "row": 3, "col": 14 },
       "producedBy": ["tetrative-reconstructor"]
     },
     {
       "id": "flare",
       "name": "Flare",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 0
-      },
+      "image": { "row": 4, "col": 0 },
       "producedBy": ["air-factory"]
     },
     {
       "id": "horizon",
       "name": "Horizon",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 1
-      },
+      "image": { "row": 4, "col": 1 },
       "producedBy": ["additive-reconstructor"]
     },
     {
       "id": "zenith",
       "name": "Zenith",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 2
-      },
+      "image": { "row": 4, "col": 2 },
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
       "id": "antumbra",
       "name": "Antumbra",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 3
-      },
+      "image": { "row": 4, "col": 3 },
       "producedBy": ["exponential-reconstructor"]
     },
     {
       "id": "eclipse",
       "name": "Eclipse",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 4
-      },
+      "image": { "row": 4, "col": 4 },
       "producedBy": ["tetrative-reconstructor"]
     },
     {
       "id": "mono",
       "name": "Mono",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 5
-      },
+      "image": { "row": 4, "col": 5 },
       "producedBy": ["air-factory"]
     },
     {
       "id": "poly",
       "name": "Poly",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 6
-      },
+      "image": { "row": 4, "col": 6 },
       "producedBy": ["additive-reconstructor"]
     },
     {
       "id": "mega",
       "name": "Mega",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 7
-      },
+      "image": { "row": 4, "col": 7 },
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
       "id": "quad",
       "name": "Quad",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 8
-      },
+      "image": { "row": 4, "col": 8 },
       "producedBy": ["exponential-reconstructor"]
     },
     {
       "id": "oct",
       "name": "Oct",
       "group": "unit",
-      "image": {
-        "row": 4,
-        "col": 9
-      },
+      "image": { "row": 4, "col": 9 },
       "producedBy": ["tetrative-reconstructor"]
     },
     {
       "id": "risso",
       "name": "Risso",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 0
-      },
+      "image": { "row": 5, "col": 0 },
       "producedBy": ["naval-factory"]
     },
     {
       "id": "minke",
       "name": "Minke",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 1
-      },
+      "image": { "row": 5, "col": 1 },
       "producedBy": ["additive-reconstructor"]
     },
     {
       "id": "bryde",
       "name": "Bryde",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 2
-      },
+      "image": { "row": 5, "col": 2 },
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
       "id": "sei",
       "name": "Sei",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 3
-      },
+      "image": { "row": 5, "col": 3 },
       "producedBy": ["exponential-reconstructor"]
     },
     {
       "id": "omura",
       "name": "Omura",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 4
-      },
+      "image": { "row": 5, "col": 4 },
       "producedBy": ["tetrative-reconstructor"]
     },
     {
       "id": "retusa",
       "name": "Retusa",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 5
-      },
+      "image": { "row": 5, "col": 5 },
       "producedBy": ["naval-factory"]
     },
     {
       "id": "oxynoe",
       "name": "Oxynoe",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 6
-      },
+      "image": { "row": 5, "col": 6 },
       "producedBy": ["additive-reconstructor"]
     },
     {
       "id": "cyerce",
       "name": "Cyerce",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 7
-      },
+      "image": { "row": 5, "col": 7 },
       "producedBy": ["multiplicative-reconstructor"]
     },
     {
       "id": "aegires",
       "name": "Aegires",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 8
-      },
+      "image": { "row": 5, "col": 8 },
       "producedBy": ["exponential-reconstructor"]
     },
     {
       "id": "navanax",
       "name": "Navanax",
       "group": "unit",
-      "image": {
-        "row": 5,
-        "col": 9
-      },
+      "image": { "row": 5, "col": 9 },
       "producedBy": ["tetrative-reconstructor"]
     }
   ],
@@ -609,70 +444,49 @@
       "id": "conveyor",
       "name": "Conveyor",
       "speed": 4.2,
-      "image": {
-        "row": 14,
-        "col": 0
-      },
+      "image": { "row": 14, "col": 0 },
       "transportType": "item"
     },
     {
       "id": "titanium-conveyor",
       "name": "Titanium conveyor",
       "speed": 11,
-      "image": {
-        "row": 14,
-        "col": 1
-      },
+      "image": { "row": 14, "col": 1 },
       "transportType": "item"
     },
     {
       "id": "armored-conveyor",
       "name": "Armored conveyor",
       "speed": 11,
-      "image": {
-        "row": 14,
-        "col": 3
-      },
+      "image": { "row": 14, "col": 3 },
       "transportType": "item"
     },
     {
       "id": "plastanium-conveyor",
       "name": "Plastanium conveyor",
       "speed": 40,
-      "image": {
-        "row": 14,
-        "col": 2
-      },
+      "image": { "row": 14, "col": 2 },
       "transportType": "item"
     },
     {
       "id": "conduit",
       "name": "Conduit",
       "speed": 400,
-      "image": {
-        "row": 14,
-        "col": 6
-      },
+      "image": { "row": 14, "col": 6 },
       "transportType": "fluid"
     },
     {
       "id": "pulse-conduit",
       "name": "Pulse conduit",
       "speed": 883,
-      "image": {
-        "row": 14,
-        "col": 7
-      },
+      "image": { "row": 14, "col": 7 },
       "transportType": "fluid"
     },
     {
       "id": "planted-conduit",
       "name": "Planted conduit",
       "speed": 640,
-      "image": {
-        "row": 14,
-        "col": 8
-      },
+      "image": { "row": 14, "col": 8 },
       "transportType": "fluid"
     }
   ],
@@ -680,134 +494,71 @@
     {
       "id": "mechanical-drill",
       "name": "Mechanical drill",
-      "image": {
-        "row": 9,
-        "col": 3
-      },
+      "image": { "row": 9, "col": 3 },
       "optionalEnhancements": {
-        "booster": [
-          {
-            "id": "water",
-            "speed": 2.56,
-            "perSec": 3
-          }
-        ]
+        "booster": [{ "id": "water", "speed": 2.56, "perSec": 3 }]
       }
     },
     {
       "id": "pneumatic-drill",
       "name": "Pneumatic drill",
-      "image": {
-        "row": 7,
-        "col": 1
-      },
+      "image": { "row": 7, "col": 1 },
       "optionalEnhancements": {
-        "booster": [
-          {
-            "id": "water",
-            "speed": 2.56,
-            "perSec": 3.6
-          }
-        ]
+        "booster": [{ "id": "water", "speed": 2.56, "perSec": 3.6 }]
       }
     },
     {
       "id": "laser-drill",
       "name": "Laser drill",
       "power": 66,
-      "image": {
-        "row": 8,
-        "col": 11
-      },
+      "image": { "row": 8, "col": 11 },
       "optionalEnhancements": {
-        "booster": [
-          {
-            "id": "water",
-            "speed": 2.56,
-            "perSec": 4.8
-          }
-        ]
+        "booster": [{ "id": "water", "speed": 2.56, "perSec": 4.8 }]
       }
     },
     {
       "id": "air-blast-drill",
       "name": "Airblast drill",
       "power": 180,
-      "image": {
-        "row": 7,
-        "col": 12
-      },
+      "image": { "row": 7, "col": 12 },
       "optionalEnhancements": {
-        "booster": [
-          {
-            "id": "water",
-            "speed": 2.56,
-            "perSec": 6
-          }
-        ]
+        "booster": [{ "id": "water", "speed": 2.56, "perSec": 6 }]
       }
     },
     {
       "id": "pyratite-mixer",
       "name": "Pyratite mixer",
       "power": 12,
-      "image": {
-        "row": 8,
-        "col": 4
-      }
+      "image": { "row": 8, "col": 4 }
     },
     {
       "id": "mechanical-pump",
       "name": "Mechanical pump",
-      "image": {
-        "row": 9,
-        "col": 1
-      }
+      "image": { "row": 9, "col": 1 }
     },
     {
       "id": "rotary-pump",
       "name": "Rotary pump",
       "power": 18,
-      "image": {
-        "row": 8,
-        "col": 2
-      }
+      "image": { "row": 8, "col": 2 }
     },
     {
       "id": "impulse-pump",
       "name": "Impulse pump",
       "power": 78,
-      "image": {
-        "row": 9,
-        "col": 0
-      }
+      "image": { "row": 9, "col": 0 }
     },
     {
       "id": "oil-extractor",
       "name": "Oil extractor",
       "power": 180,
-      "image": {
-        "row": 8,
-        "col": 8
-      },
+      "image": { "row": 8, "col": 8 },
       "optionalEnhancements": {
         "affinities": [
-          {
-            "id": "dark-sand-floor",
-            "efficiency": 1.5
-          },
-          {
-            "id": "salt-floor",
-            "efficiency": 0.3
-          },
-          {
-            "id": "sand-floor",
-            "efficiency": 0.7
-          },
-          {
-            "id": "shale-floor",
-            "efficiency": 1.6
-          }
+          { "id": "dark-sand-floor", "efficiency": 1.5 },
+          { "id": "salt-floor", "efficiency": 0.3 },
+          { "id": "sand-floor", "efficiency": 0.7 },
+          { "id": "shale-floor", "efficiency": 1.6 }
         ]
       }
     },
@@ -815,56 +566,20 @@
       "id": "water-extractor",
       "name": "Water extractor",
       "power": 90,
-      "image": {
-        "row": 8,
-        "col": 0
-      },
+      "image": { "row": 8, "col": 0 },
       "optionalEnhancements": {
         "affinities": [
-          {
-            "id": "other",
-            "efficiency": 0
-          },
-          {
-            "id": "magma-rock",
-            "efficiency": -0.75
-          },
-          {
-            "id": "hot-rock",
-            "efficiency": -0.5
-          },
-          {
-            "id": "salt-floor",
-            "efficiency": -0.3
-          },
-          {
-            "id": "basalt-floor",
-            "efficiency": -0.25
-          },
-          {
-            "id": "grass-floor",
-            "efficiency": 0.1
-          },
-          {
-            "id": "snow-floor",
-            "efficiency": 0.2
-          },
-          {
-            "id": "ice-snow-floor",
-            "efficiency": 0.3
-          },
-          {
-            "id": "ice-floor",
-            "efficiency": 0.4
-          },
-          {
-            "id": "red-ice-floor",
-            "efficiency": 0.4
-          },
-          {
-            "id": "mud-floor",
-            "efficiency": 1
-          }
+          { "id": "other", "efficiency": 0 },
+          { "id": "magma-rock", "efficiency": -0.75 },
+          { "id": "hot-rock", "efficiency": -0.5 },
+          { "id": "salt-floor", "efficiency": -0.3 },
+          { "id": "basalt-floor", "efficiency": -0.25 },
+          { "id": "grass-floor", "efficiency": 0.1 },
+          { "id": "snow-floor", "efficiency": 0.2 },
+          { "id": "ice-snow-floor", "efficiency": 0.3 },
+          { "id": "ice-floor", "efficiency": 0.4 },
+          { "id": "red-ice-floor", "efficiency": 0.4 },
+          { "id": "mud-floor", "efficiency": 1 }
         ]
       }
     },
@@ -872,51 +587,30 @@
       "id": "pulverizer",
       "name": "Pulverizer",
       "power": 180,
-      "image": {
-        "row": 7,
-        "col": 0
-      }
+      "image": { "row": 7, "col": 0 }
     },
     {
       "id": "coal-centrifuge",
       "name": "Coal centrifuge",
       "power": 42,
-      "image": {
-        "row": 8,
-        "col": 7
-      }
+      "image": { "row": 8, "col": 7 }
     },
     {
       "id": "silicon-smelter",
       "name": "Silicon smelter",
       "power": 30,
-      "image": {
-        "row": 7,
-        "col": 3
-      }
+      "image": { "row": 7, "col": 3 }
     },
     {
       "id": "silicon-crucible",
       "name": "Silicon crucible",
       "power": 240,
-      "image": {
-        "row": 7,
-        "col": 4
-      },
+      "image": { "row": 7, "col": 4 },
       "optionalEnhancements": {
         "affinities": [
-          {
-            "id": "other",
-            "efficiency": 0
-          },
-          {
-            "id": "hot-rock",
-            "efficiency": 0.67
-          },
-          {
-            "id": "magma-rock",
-            "efficiency": 1.01
-          }
+          { "id": "other", "efficiency": 0 },
+          { "id": "hot-rock", "efficiency": 0.67 },
+          { "id": "magma-rock", "efficiency": 1.01 }
         ]
       }
     },
@@ -924,180 +618,120 @@
       "id": "separator",
       "name": "Separator",
       "power": 60,
-      "image": {
-        "row": 7,
-        "col": 7
-      }
+      "image": { "row": 7, "col": 7 }
     },
     {
       "id": "disassembler",
       "name": "Disassembler",
       "power": 180,
-      "image": {
-        "row": 7,
-        "col": 10
-      }
+      "image": { "row": 7, "col": 10 }
     },
     {
       "id": "graphite-press",
       "name": "Graphite press",
-      "image": {
-        "row": 7,
-        "col": 2
-      }
+      "image": { "row": 7, "col": 2 }
     },
     {
       "id": "multi-press",
       "name": "Multi press",
       "power": 108,
-      "image": {
-        "row": 7,
-        "col": 5
-      }
+      "image": { "row": 7, "col": 5 }
     },
     {
       "id": "kiln",
       "name": "Kiln",
       "power": 36,
-      "image": {
-        "row": 9,
-        "col": 2
-      }
+      "image": { "row": 9, "col": 2 }
     },
     {
       "id": "cultivator",
       "name": "Cultivator",
       "power": 80,
-      "image": {
-        "row": 8,
-        "col": 10
-      }
+      "image": { "row": 8, "col": 10 }
     },
     {
       "id": "plastanium-compressor",
       "name": "Plastanium compressor",
       "power": 180,
-      "image": {
-        "row": 8,
-        "col": 6
-      }
+      "image": { "row": 8, "col": 6 }
     },
     {
       "id": "phase-weaver",
       "name": "Phase weaver",
       "power": 300,
-      "image": {
-        "row": 8,
-        "col": 3
-      }
+      "image": { "row": 8, "col": 3 }
     },
     {
       "id": "surge-smelter",
       "name": "Surge smelter",
       "power": 240,
-      "image": {
-        "row": 8,
-        "col": 5
-      }
+      "image": { "row": 8, "col": 5 }
     },
     {
       "id": "blast-mixer",
       "name": "Blast mixer",
       "power": 24,
-      "image": {
-        "row": 7,
-        "col": 8
-      }
+      "image": { "row": 7, "col": 8 }
     },
     {
       "id": "melter",
       "name": "Melter",
       "power": 60,
-      "image": {
-        "row": 7,
-        "col": 6
-      }
+      "image": { "row": 7, "col": 6 }
     },
     {
       "id": "spore-press",
       "name": "Spore press",
       "power": 42,
-      "image": {
-        "row": 8,
-        "col": 9
-      }
+      "image": { "row": 8, "col": 9 }
     },
     {
       "id": "cryofluid-mixer",
       "name": "Cryofluid mixer",
       "power": 60,
-      "image": {
-        "row": 8,
-        "col": 1
-      }
+      "image": { "row": 8, "col": 1 }
     },
     {
       "id": "ground-factory",
       "name": "Ground factory",
       "power": 72,
-      "image": {
-        "row": 9,
-        "col": 4
-      }
+      "image": { "row": 9, "col": 4 }
     },
     {
       "id": "air-factory",
       "name": "Air factory",
       "power": 72,
-      "image": {
-        "row": 9,
-        "col": 5
-      }
+      "image": { "row": 9, "col": 5 }
     },
     {
       "id": "naval-factory",
       "name": "Naval factory",
       "power": 72,
-      "image": {
-        "row": 9,
-        "col": 6
-      }
+      "image": { "row": 9, "col": 6 }
     },
     {
       "id": "additive-reconstructor",
       "name": "Additive factory",
       "power": 180,
-      "image": {
-        "row": 9,
-        "col": 7
-      }
+      "image": { "row": 9, "col": 7 }
     },
     {
       "id": "multiplicative-reconstructor",
       "name": "Multiplicative factory",
       "power": 360,
-      "image": {
-        "row": 9,
-        "col": 8
-      }
+      "image": { "row": 9, "col": 8 }
     },
     {
       "id": "exponential-reconstructor",
       "name": "Exponential factory",
       "power": 780,
-      "image": {
-        "row": 9,
-        "col": 9
-      }
+      "image": { "row": 9, "col": 9 }
     },
     {
       "id": "tetrative-reconstructor",
       "name": "Tetrative factory",
       "power": 1500,
-      "image": {
-        "row": 9,
-        "col": 10
-      }
+      "image": { "row": 9, "col": 10 }
     }
   ],
   "beacons": [
@@ -1105,46 +739,29 @@
       "id": "overdrive-projector",
       "name": "Overdrive projector",
       "speed": 0.5,
-      "image": {
-        "row": 7,
-        "col": 9
-      }
+      "image": { "row": 7, "col": 9 }
     },
     {
       "id": "overdrive-projector-phase-fabric",
       "name": "Overdrive projector",
       "speed": 1.25,
-      "image": {
-        "row": 7,
-        "col": 13
-      }
+      "image": { "row": 7, "col": 13 }
     },
     {
       "id": "overdrive-dome",
       "name": "Overdrive dome",
       "speed": 1.5,
-      "image": {
-        "row": 7,
-        "col": 11
-      }
+      "image": { "row": 7, "col": 11 }
     }
   ],
   "tiles": [
-    {
-      "id": "other",
-      "name": "Other",
-      "image": { "row": 0, "col": 0 }
-    },
+    { "id": "other", "name": "Other", "image": { "row": 0, "col": 0 } },
     {
       "id": "magma-rock",
       "name": "Magma rock",
       "image": { "row": 12, "col": 0 }
     },
-    {
-      "id": "hot-rock",
-      "name": "Hot rock",
-      "image": { "row": 12, "col": 1 }
-    },
+    { "id": "hot-rock", "name": "Hot rock", "image": { "row": 12, "col": 1 } },
     {
       "id": "salt-floor",
       "name": "Salt floor",
@@ -1245,10 +862,10 @@
           "id": "separator",
           "input": [{ "id": "slag", "perSec": 4.1 }],
           "output": [
-            { "id": "copper", "perSec": "5/7" },
-            { "id": "lead", "perSec": "3/7" },
-            { "id": "graphite", "perSec": "2/7" },
-            { "id": "titanium", "perSec": "2/7" }
+            { "id": "copper", "perSec": "5/7", "rate": 41.6 },
+            { "id": "lead", "perSec": "3/7", "rate": 25 },
+            { "id": "graphite", "perSec": "2/7", "rate": 16.6 },
+            { "id": "titanium", "perSec": "2/7", "rate": 16.6 }
           ]
         }
       ]
@@ -1274,11 +891,12 @@
         },
         {
           "id": "separator",
+          "input": [{ "id": "slag", "perSec": 4.1 }],
           "output": [
-            { "id": "copper", "perSec": "5/7" },
-            { "id": "lead", "perSec": "3/7" },
-            { "id": "graphite", "perSec": "2/7" },
-            { "id": "titanium", "perSec": "2/7" }
+            { "id": "copper", "perSec": "5/7", "rate": 41.6 },
+            { "id": "lead", "perSec": "3/7", "rate": 25 },
+            { "id": "graphite", "perSec": "2/7", "rate": 16.6 },
+            { "id": "titanium", "perSec": "2/7", "rate": 16.6 }
           ]
         }
       ]
@@ -1335,10 +953,10 @@
             { "id": "slag", "perSec": 7.2 }
           ],
           "output": [
-            { "id": "sand", "perSec": 1.6 },
-            { "id": "graphite", "perSec": 0.8 },
-            { "id": "titanium", "perSec": 0.8 },
-            { "id": "thorium", "perSec": 0.8 }
+            { "id": "sand", "perSec": 1.6, "rate": 40 },
+            { "id": "graphite", "perSec": 0.8, "rate": 20 },
+            { "id": "titanium", "perSec": 0.8, "rate": 20 },
+            { "id": "thorium", "perSec": 0.8, "rate": 20 }
           ]
         }
       ]
@@ -1429,10 +1047,10 @@
           "id": "separator",
           "input": [{ "id": "slag", "perSec": 4.1 }],
           "output": [
-            { "id": "copper", "perSec": "5/7" },
-            { "id": "lead", "perSec": "3/7" },
-            { "id": "graphite", "perSec": "2/7" },
-            { "id": "titanium", "perSec": "2/7" }
+            { "id": "copper", "perSec": "5/7", "rate": 41.6 },
+            { "id": "lead", "perSec": "3/7", "rate": 25 },
+            { "id": "graphite", "perSec": "2/7", "rate": 16.6 },
+            { "id": "titanium", "perSec": "2/7", "rate": 16.6 }
           ]
         },
         {
@@ -1442,10 +1060,10 @@
             { "id": "slag", "perSec": 7.2 }
           ],
           "output": [
-            { "id": "sand", "perSec": 1.6 },
-            { "id": "graphite", "perSec": 0.8 },
-            { "id": "titanium", "perSec": 0.8 },
-            { "id": "thorium", "perSec": 0.8 }
+            { "id": "sand", "perSec": 1.6, "rate": 40 },
+            { "id": "graphite", "perSec": 0.8, "rate": 20 },
+            { "id": "titanium", "perSec": 0.8, "rate": 20 },
+            { "id": "thorium", "perSec": 0.8, "rate": 20 }
           ]
         }
       ]
@@ -1468,10 +1086,10 @@
             { "id": "slag", "perSec": 7.2 }
           ],
           "output": [
-            { "id": "sand", "perSec": 1.6 },
-            { "id": "graphite", "perSec": 0.8 },
-            { "id": "titanium", "perSec": 0.8 },
-            { "id": "thorium", "perSec": 0.8 }
+            { "id": "sand", "perSec": 1.6, "rate": 40 },
+            { "id": "graphite", "perSec": 0.8, "rate": 20 },
+            { "id": "titanium", "perSec": 0.8, "rate": 20 },
+            { "id": "thorium", "perSec": 0.8, "rate": 20 }
           ]
         }
       ]
@@ -1569,14 +1187,8 @@
     {
       "id": "water",
       "buildings": [
-        {
-          "id": "mechanical-pump",
-          "output": [{ "id": "water", "perSec": 7 }]
-        },
-        {
-          "id": "rotary-pump",
-          "output": [{ "id": "water", "perSec": 48 }]
-        },
+        { "id": "mechanical-pump", "output": [{ "id": "water", "perSec": 7 }] },
+        { "id": "rotary-pump", "output": [{ "id": "water", "perSec": 48 }] },
         {
           "id": "impulse-pump",
           "output": [{ "id": "water", "perSec": 118.8 }]
@@ -1595,18 +1207,9 @@
           "input": [{ "id": "scrap", "perSec": 6 }],
           "output": [{ "id": "slag", "perSec": 12 }]
         },
-        {
-          "id": "mechanical-pump",
-          "output": [{ "id": "slag", "perSec": 7 }]
-        },
-        {
-          "id": "rotary-pump",
-          "output": [{ "id": "slag", "perSec": 48 }]
-        },
-        {
-          "id": "impulse-pump",
-          "output": [{ "id": "slag", "perSec": 118.8 }]
-        }
+        { "id": "mechanical-pump", "output": [{ "id": "slag", "perSec": 7 }] },
+        { "id": "rotary-pump", "output": [{ "id": "slag", "perSec": 48 }] },
+        { "id": "impulse-pump", "output": [{ "id": "slag", "perSec": 118.8 }] }
       ]
     },
     {
@@ -1620,18 +1223,9 @@
           ],
           "output": [{ "id": "oil", "perSec": 15 }]
         },
-        {
-          "id": "mechanical-pump",
-          "output": [{ "id": "oil", "perSec": 7 }]
-        },
-        {
-          "id": "rotary-pump",
-          "output": [{ "id": "oil", "perSec": 48 }]
-        },
-        {
-          "id": "impulse-pump",
-          "output": [{ "id": "oil", "perSec": 118.8 }]
-        },
+        { "id": "mechanical-pump", "output": [{ "id": "oil", "perSec": 7 }] },
+        { "id": "rotary-pump", "output": [{ "id": "oil", "perSec": 48 }] },
+        { "id": "impulse-pump", "output": [{ "id": "oil", "perSec": 118.8 }] },
         {
           "id": "spore-press",
           "input": [{ "id": "spore-pod", "perSec": 3 }],
@@ -1650,21 +1244,11 @@
           ],
           "output": [{ "id": "cryofluid", "perSec": 12 }]
         },
-        {
-          "id": "mechanical-pump",
-          "output": [{ "id": "oil", "perSec": 7 }]
-        },
-        {
-          "id": "rotary-pump",
-          "output": [{ "id": "oil", "perSec": 48 }]
-        },
-        {
-          "id": "impulse-pump",
-          "output": [{ "id": "oil", "perSec": 118.8 }]
-        }
+        { "id": "mechanical-pump", "output": [{ "id": "oil", "perSec": 7 }] },
+        { "id": "rotary-pump", "output": [{ "id": "oil", "perSec": 48 }] },
+        { "id": "impulse-pump", "output": [{ "id": "oil", "perSec": 118.8 }] }
       ]
     },
-
     {
       "id": "dagger",
       "buildings": [

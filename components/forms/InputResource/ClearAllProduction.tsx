@@ -1,16 +1,16 @@
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui";
+} from "@/components/ui/Dialog";
 import { useProductionStore } from "@/store";
+import { Button } from "@/components/ui";
 
-export function ConfirmClearAllDialog() {
+export function ClearAllProduction() {
   const removeAllTargets = useProductionStore((state) => state.removeAllTargets)
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 

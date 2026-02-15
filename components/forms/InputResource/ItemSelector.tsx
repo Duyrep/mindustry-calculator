@@ -4,34 +4,32 @@ import { ItemSelectorDialogContent } from "./ItemSelectorDialogContent";
 import { Dialog, DialogTrigger, SpriteImage } from "@/components/ui";
 import { getItemById } from "@/game";
 import { useProductionStore } from "@/store";
+import { useTarget } from "@/store/Production";
 
-export function ItemSelector({ id }: { id: string }) {
+export function ItemSelector({ targetId }: { targetId: string }) {
   const changeTarget = useProductionStore((state) => state.changeTarget);
-  const getTarget = useProductionStore((state) => state.getTarget);
   const [showAddDialog, setShowAddDialog] = useState(false);
-  const item = getItemById(getTarget(id)?.itemId ?? "");
+  const item = getItemById(useTarget(targetId)?.itemId ?? "");
 
   return (
     <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-      <DialogTrigger asChild>
-        <div
-          className={twMerge(
-            "m-1 p-1 border border-surface-a50 rounded-md flex flex-wrap content-center justify-center duration-200 outline-primary aspect-square",
-            "hover:outline-1 hover:border hover:border-primary hover:cursor-pointer",
-          )}
-        >
-          <SpriteImage
-            row={item?.image.row ?? 0}
-            col={item?.image.col ?? 0}
-            title={item?.name}
-          />
-        </div>
+      <DialogTrigger
+        className={twMerge(
+          "m-1 p-1 border border-surface-a50 rounded-md flex flex-wrap content-center justify-center duration-200 outline-primary aspect-square",
+          "hover:outline-1 hover:border hover:border-primary hover:cursor-pointer",
+        )}
+      >
+        <SpriteImage
+          row={item.getImage().row}
+          col={item.getImage().col}
+          title={item.getName()}
+        />
       </DialogTrigger>
 
       <ItemSelectorDialogContent
-        itemId={item?.id}
+        itemId={item.getId()}
         onSelect={(itemId) => {
-          changeTarget(id, itemId);
+          changeTarget(targetId, itemId);
           setShowAddDialog(false);
         }}
       />
