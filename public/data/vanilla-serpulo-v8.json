@@ -1274,6 +1274,7 @@
         },
         {
           "id": "separator",
+          "input": [{ "id": "slag", "perSec": 4.1 }],
           "output": [
             { "id": "copper", "perSec": "5/7" },
             { "id": "lead", "perSec": "3/7" },
